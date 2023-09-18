@@ -1,5 +1,10 @@
 grammar Cfscript;
 
+@header {
+    package Cfscript.parser;
+    import Cfscript.nodes.*;
+}
+
 // Parser Rules
 prog: stat+ EOF;
 
@@ -16,7 +21,7 @@ assignment returns [CfscriptAssignmentNode result]
     ;
 
 printStmt returns [CfscriptPrintNode result]
-    : 'print' expr ';'
+    : 'print(' expr ');'
     {
         $result = new CfscriptPrintNode($expr.result);
     }

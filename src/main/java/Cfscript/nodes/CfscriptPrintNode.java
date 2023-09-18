@@ -12,6 +12,7 @@ public final class CfscriptPrintNode extends CfscriptExpressionNode {
 
     @Override
     public Object execute(VirtualFrame frame) {
+        System.out.println("Print Called");
         System.out.println(valueNode.execute(frame));
         return null;
     }

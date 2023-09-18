@@ -1,7 +1,7 @@
 package Cfscript.nodes;
 
 import com.oracle.truffle.api.frame.VirtualFrame;
-
+import com.oracle.truffle.api.frame.*;
 // Variable Reference Node
 public final class CfscriptVarRefNode extends CfscriptExpressionNode {
     private final String variableName;
@@ -12,6 +12,10 @@ public final class CfscriptVarRefNode extends CfscriptExpressionNode {
 
     @Override
     public Object execute(VirtualFrame frame) {
-        return frame.getValue(frame.getFrameDescriptor().findOrAddAuxiliarySlot(variableName));
+        var slot = frame.getFrameDescriptor().findFrameSlot(variableName);
+        if (slot == null) {
+            slot = frame.getFrameDescriptor().addFrameSlot(variableName);
+        }
+        return slot;
     }
 }
