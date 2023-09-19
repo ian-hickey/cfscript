@@ -1,4 +1,4 @@
-// Generated from Cfscript.g4 by ANTLR 4.9.1
+// Generated from Cfscript.g4 by ANTLR 4.12.0
 
     package Cfscript.parser;
     import Cfscript.nodes.*;

@@ -12,10 +12,7 @@ public final class CfscriptVarRefNode extends CfscriptExpressionNode {
 
     @Override
     public Object execute(VirtualFrame frame) {
-        var slot = frame.getFrameDescriptor().findFrameSlot(variableName);
-        if (slot == null) {
-            slot = frame.getFrameDescriptor().addFrameSlot(variableName);
-        }
+        var slot = frame.getFrameDescriptor().findOrAddAuxiliarySlot(variableName);
         return slot;
     }
 }

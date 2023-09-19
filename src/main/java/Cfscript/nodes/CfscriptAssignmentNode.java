@@ -19,10 +19,7 @@ public final class CfscriptAssignmentNode extends CfscriptExpressionNode {
         Object value = valueNode.execute(frame);
         // Set the variable in the frame
 
-        var slot = frame.getFrameDescriptor().findFrameSlot(variableName);
-        if (slot == null) {
-            slot = frame.getFrameDescriptor().addFrameSlot(variableName);
-        }
+        var slot = frame.getFrameDescriptor().findOrAddAuxiliarySlot(variableName);
         frame.setObject(slot, value);
         return value;
     }

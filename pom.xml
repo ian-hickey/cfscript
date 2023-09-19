@@ -19,18 +19,18 @@
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr4</artifactId>
-            <version>4.9.1</version>
+            <version>4.12.0</version>
         </dependency>
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr4-runtime</artifactId>
-            <version>4.9.1</version>
+            <version>4.12.0</version>
         </dependency>
         <!-- Truffle dependencies -->
         <dependency>
             <groupId>org.graalvm.truffle</groupId>
             <artifactId>truffle-api</artifactId>
-            <version>21.0.0</version>
+            <version>22.3.1</version>
         </dependency>
     </dependencies>
 
@@ -39,10 +39,10 @@
             <plugin>
                 <groupId>org.antlr</groupId>
                 <artifactId>antlr4-maven-plugin</artifactId>
-                <version>4.9.1</version>
+                <version>4.12.0</version>
                 <configuration>
-                    <outputDirectory>src/main/java/Cfscript/parser</outputDirectory>
                     <sourceDirectory>src/main/resources</sourceDirectory>
+                    <outputDirectory>src/main/java/Cfscript/parser</outputDirectory>
                 </configuration>
                 <executions>
                     <execution>

@@ -1,4 +1,4 @@
-// Generated from Cfscript.g4 by ANTLR 4.9.1
+// Generated from Cfscript.g4 by ANTLR 4.12.0
 
     package Cfscript.parser;
     import Cfscript.nodes.*;
@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
-@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
+@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
 public class CfscriptParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.9.1", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.12.0", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -93,6 +93,7 @@ public class CfscriptParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ProgContext extends ParserRuleContext {
 		public TerminalNode EOF() { return getToken(CfscriptParser.EOF, 0); }
 		public List<StatContext> stat() {
@@ -151,6 +152,7 @@ public class CfscriptParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class StatContext extends ParserRuleContext {
 		public AssignmentContext assignment() {
 			return getRuleContext(AssignmentContext.class,0);
@@ -208,6 +210,7 @@ public class CfscriptParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AssignmentContext extends ParserRuleContext {
 		public CfscriptAssignmentNode result;
 		public Token ID;
@@ -260,6 +263,7 @@ public class CfscriptParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class PrintStmtContext extends ParserRuleContext {
 		public CfscriptPrintNode result;
 		public ExprContext expr;
@@ -308,6 +312,7 @@ public class CfscriptParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ExprContext extends ParserRuleContext {
 		public CfscriptExpressionNode result;
 		public Token ID;
@@ -371,17 +376,31 @@ public class CfscriptParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\t)\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\3\2\6\2\16\n\2\r\2\16\2\17\3\2\3\2\3\3\3\3"+
-		"\5\3\26\n\3\3\4\3\4\3\4\3\4\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3\6\3\6\3\6\3"+
-		"\6\5\6\'\n\6\3\6\2\2\7\2\4\6\b\n\2\2\2&\2\r\3\2\2\2\4\25\3\2\2\2\6\27"+
-		"\3\2\2\2\b\35\3\2\2\2\n&\3\2\2\2\f\16\5\4\3\2\r\f\3\2\2\2\16\17\3\2\2"+
-		"\2\17\r\3\2\2\2\17\20\3\2\2\2\20\21\3\2\2\2\21\22\7\2\2\3\22\3\3\2\2\2"+
-		"\23\26\5\6\4\2\24\26\5\b\5\2\25\23\3\2\2\2\25\24\3\2\2\2\26\5\3\2\2\2"+
-		"\27\30\7\7\2\2\30\31\7\3\2\2\31\32\5\n\6\2\32\33\7\4\2\2\33\34\b\4\1\2"+
-		"\34\7\3\2\2\2\35\36\7\5\2\2\36\37\5\n\6\2\37 \7\6\2\2 !\b\5\1\2!\t\3\2"+
-		"\2\2\"#\7\7\2\2#\'\b\6\1\2$%\7\b\2\2%\'\b\6\1\2&\"\3\2\2\2&$\3\2\2\2\'"+
-		"\13\3\2\2\2\5\17\25&";
+		"\u0004\u0001\u0007\'\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0001"+
+		"\u0000\u0004\u0000\f\b\u0000\u000b\u0000\f\u0000\r\u0001\u0000\u0001\u0000"+
+		"\u0001\u0001\u0001\u0001\u0003\u0001\u0014\b\u0001\u0001\u0002\u0001\u0002"+
+		"\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0003\u0001\u0003"+
+		"\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0004\u0001\u0004\u0001\u0004"+
+		"\u0001\u0004\u0003\u0004%\b\u0004\u0001\u0004\u0000\u0000\u0005\u0000"+
+		"\u0002\u0004\u0006\b\u0000\u0000$\u0000\u000b\u0001\u0000\u0000\u0000"+
+		"\u0002\u0013\u0001\u0000\u0000\u0000\u0004\u0015\u0001\u0000\u0000\u0000"+
+		"\u0006\u001b\u0001\u0000\u0000\u0000\b$\u0001\u0000\u0000\u0000\n\f\u0003"+
+		"\u0002\u0001\u0000\u000b\n\u0001\u0000\u0000\u0000\f\r\u0001\u0000\u0000"+
+		"\u0000\r\u000b\u0001\u0000\u0000\u0000\r\u000e\u0001\u0000\u0000\u0000"+
+		"\u000e\u000f\u0001\u0000\u0000\u0000\u000f\u0010\u0005\u0000\u0000\u0001"+
+		"\u0010\u0001\u0001\u0000\u0000\u0000\u0011\u0014\u0003\u0004\u0002\u0000"+
+		"\u0012\u0014\u0003\u0006\u0003\u0000\u0013\u0011\u0001\u0000\u0000\u0000"+
+		"\u0013\u0012\u0001\u0000\u0000\u0000\u0014\u0003\u0001\u0000\u0000\u0000"+
+		"\u0015\u0016\u0005\u0005\u0000\u0000\u0016\u0017\u0005\u0001\u0000\u0000"+
+		"\u0017\u0018\u0003\b\u0004\u0000\u0018\u0019\u0005\u0002\u0000\u0000\u0019"+
+		"\u001a\u0006\u0002\uffff\uffff\u0000\u001a\u0005\u0001\u0000\u0000\u0000"+
+		"\u001b\u001c\u0005\u0003\u0000\u0000\u001c\u001d\u0003\b\u0004\u0000\u001d"+
+		"\u001e\u0005\u0004\u0000\u0000\u001e\u001f\u0006\u0003\uffff\uffff\u0000"+
+		"\u001f\u0007\u0001\u0000\u0000\u0000 !\u0005\u0005\u0000\u0000!%\u0006"+
+		"\u0004\uffff\uffff\u0000\"#\u0005\u0006\u0000\u0000#%\u0006\u0004\uffff"+
+		"\uffff\u0000$ \u0001\u0000\u0000\u0000$\"\u0001\u0000\u0000\u0000%\t\u0001"+
+		"\u0000\u0000\u0000\u0003\r\u0013$";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

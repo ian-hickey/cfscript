@@ -5,14 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67965906-ab66-4ed2-be2c-2be3edd1c218" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/Cfscript.interp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/Cfscript.tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptBaseListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptLexer.interp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptLexer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptLexer.tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
@@ -42,6 +34,11 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
     <option name="importingSettings">
       <MavenImportingSettings>
         <option name="workspaceImportEnabled" value="true" />
