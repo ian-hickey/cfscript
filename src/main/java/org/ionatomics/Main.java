@@ -8,13 +8,11 @@ import com.oracle.truffle.api.nodes.RootNode;
 
 public class Main {
     public static void main(String[] args) {
-        CharStream charStream = CharStreams.fromString("test=1; \n" +
-                "print(test);");
+        CharStream charStream = CharStreams.fromString("test=100; print(test);");
         CfscriptLexer lexer = new CfscriptLexer(charStream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         CfscriptParser parser = new CfscriptParser(tokens);
-        CfscriptParser.ProgContext programContext = parser.prog();
-        //RootNode rootNode = programContext.getCfscriptNode();
-        System.out.println("Program completed.");
+        //CfscriptParser.ProgContext programContext = parser.prog();
+        //System.out.println("Program completed.");
     }
 }

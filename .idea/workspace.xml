@@ -5,20 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67965906-ab66-4ed2-be2c-2be3edd1c218" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/Cfscript.interp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/Cfscript.tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptBaseListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptLexer.interp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptLexer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptLexer.tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/nodes/CfscriptAssignmentNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/nodes/CfscriptAssignmentNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/nodes/CfscriptPrintNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/nodes/CfscriptPrintNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/nodes/CfscriptVarRefNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/nodes/CfscriptVarRefNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/Cfscript.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/Cfscript.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/Cfscript.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/Cfscript.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptBaseListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptLexer.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptLexer.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ionatomics/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ionatomics/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/Cfscript.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Cfscript.g4" afterDir="false" />
     </list>
@@ -52,30 +47,33 @@
     <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2VZBDHDmZkTJTia0Wx6Zgl8QG1v" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/ian.hickey/cfscript/src/main/java/Cfscript/parser",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "configurable.group.tools",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ian.hickey/cfscript/src/main/java/Cfscript/parser&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.tools&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="Cfscript.nodes" />
@@ -96,12 +94,16 @@
       <workItem from="1695045063144" duration="179000" />
       <workItem from="1695061059535" duration="321000" />
       <workItem from="1695061393152" duration="1016000" />
-      <workItem from="1695064247597" duration="5313000" />
+      <workItem from="1695064247597" duration="6301000" />
+      <workItem from="1695150187807" duration="4426000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
