@@ -60,8 +60,8 @@
                     <source>11</source>
                     <target>11</target>
                     <compilerArgs>
-                        <arg>--add-exports=org.graalvm.truffle/com.oracle.truffle.api.frame=cfscript</arg>
-                        <arg>--add-exports=org.graalvm.truffle/com.oracle.truffle.api.nodes=cfscript</arg>
+                        <arg>--add-exports=org.graalvm.truffle/com.oracle.truffle.api.frame=Cfscript</arg>
+                        <arg>--add-exports=org.graalvm.truffle/com.oracle.truffle.api.nodes=Cfscript</arg>
                     </compilerArgs>
                 </configuration>
             </plugin>
@@ -72,7 +72,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>org.ionatomics.Main</mainClass>
+                            <mainClass>Cfscript.main.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -90,8 +90,9 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>org.ionatomics.Main</mainClass>
+                                    <mainClass>Cfscript.main.Main</mainClass>
                                 </transformer>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                             </transformers>
                         </configuration>
                     </execution>

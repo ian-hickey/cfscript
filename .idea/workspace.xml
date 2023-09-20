@@ -5,14 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67965906-ab66-4ed2-be2c-2be3edd1c218" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/config/CfscriptContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/config/CfscriptLanguage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/services/com.oracle.truffle.api.TruffleLanguage" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/nodes/CfscriptAssignmentNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/nodes/CfscriptAssignmentNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/nodes/CfscriptPrintNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/nodes/CfscriptPrintNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/nodes/CfscriptVarRefNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/nodes/CfscriptVarRefNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ionatomics/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ionatomics/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Cfscript.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Cfscript.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/nodes/CfscriptExpressionNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/nodes/CfscriptExpressionNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/nodes/CfscriptNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/nodes/CfscriptNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ionatomics/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/main/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +58,10 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -66,9 +72,9 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
+    "project.structure.side.proportion": "0.3381089",
     "settings.editor.selected.configurable": "configurable.group.tools",
     "vue.rearranger.settings.migration": "true"
   }
@@ -80,6 +86,40 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\ian.hickey\cfscript\src\main\java\Cfscript\parser" />
     </key>
+  </component>
+  <component name="RunManager" selected="Application.Cfscript.main.Main">
+    <configuration name="Cfscript.main.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Cfscript.main.Main" />
+      <module name="Cfscript" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Cfscript.main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.ionatomics.Main" />
+      <module name="Cfscript" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.ionatomics.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Cfscript.main.Main" />
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
