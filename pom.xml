@@ -21,11 +21,10 @@
             <artifactId>antlr4</artifactId>
             <version>4.9.1</version>
         </dependency>
-        <!-- Truffle dependencies -->
         <dependency>
-            <groupId>org.graalvm.truffle</groupId>
-            <artifactId>truffle-api</artifactId>
-            <version>21.0.0</version>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+            <version>4.9.1</version>
         </dependency>
     </dependencies>
 
@@ -36,6 +35,7 @@
                 <artifactId>antlr4-maven-plugin</artifactId>
                 <version>4.9.1</version>
                 <configuration>
+                    <outputDirectory>src/main/java/Cfscript/parser</outputDirectory>
                     <sourceDirectory>src/main/resources</sourceDirectory>
                 </configuration>
                 <executions>
@@ -54,10 +54,41 @@
                     <source>11</source>
                     <target>11</target>
                     <compilerArgs>
-                        <arg>--add-exports=org.graalvm.truffle/com.oracle.truffle.api.frame=cfscript</arg>
-                        <arg>--add-exports=org.graalvm.truffle/com.oracle.truffle.api.nodes=cfscript</arg>
+
                     </compilerArgs>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>org.ionatomics.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version> <!-- Check for the latest version -->
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>org.ionatomics.Main</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
