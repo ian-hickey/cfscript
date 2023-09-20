@@ -30,6 +30,18 @@ public class CfscriptBaseListener implements CfscriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterComponentDefinition(CfscriptParser.ComponentDefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitComponentDefinition(CfscriptParser.ComponentDefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterAnnotation(CfscriptParser.AnnotationContext ctx) { }
 	/**
 	 * {@inheritDoc}

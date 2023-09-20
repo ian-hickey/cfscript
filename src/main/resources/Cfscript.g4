@@ -1,6 +1,6 @@
 /**
  * Define a grammar called Cfscript. The goal of the grammar is to be able to parse
- * CFScript. Use MVN compile to compile this to a parser
+ * CFScript. Use MVN compile to compile this to a parser.
  * This grammar does not support AND, OR, NOT GT LT etc.
  */
 grammar Cfscript;
@@ -10,9 +10,13 @@ grammar Cfscript;
 }
 
 component
-	: annotation* K_Component keyValue* '{' componentBody '}'
+	: componentDefinition '{' componentBody '}'
 	EOF
 	;
+
+componentDefinition
+    : K_Component keyValue*
+    ;
 
 annotation
 	: '@' Identifier argumentsDefinition*
@@ -35,7 +39,7 @@ propertyDeclaration
 	;
 
 functionDeclaration
-	: annotation* Identifier? Identifier? K_Function functionName argumentsDefinition functionBody
+	: Identifier? Identifier? K_Function functionName argumentsDefinition functionBody
 	;
 
 functionName

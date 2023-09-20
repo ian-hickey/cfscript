@@ -1,6 +1,5 @@
-@Test("This is an annotation")
 component name="Cfscript" {
-    property name="myprop" value="test";
+    property name="myprop" value="test" type="String";
 
     function init() {
         writedump("This is a component");
@@ -9,7 +8,6 @@ component name="Cfscript" {
         text = "This is some text";
     }
 
-    @Path("/path")
     function getObjects() {
 
     }

@@ -24,10 +24,9 @@ public class Main {
         var parser = new CfscriptParser(tokens);
         var tree = parser.component();
         var walker = new ParseTreeWalker();
-        var listener = new CfscriptCustomListener(rewriter);
+        var listener = new CfscriptCustomListener(rewriter, tokens);
         ParseTreeWalker.DEFAULT.walk(listener, tree);
-
-        String translatedJavaCode = listener.getJavaCode();
+        var translatedJavaCode = rewriter.getText();
         System.out.println(translatedJavaCode);
 
     }
