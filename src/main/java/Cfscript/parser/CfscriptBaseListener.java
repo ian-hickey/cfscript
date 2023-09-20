@@ -390,30 +390,6 @@ public class CfscriptBaseListener implements CfscriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArgumentValue(CfscriptParser.ArgumentValueContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitArgumentValue(CfscriptParser.ArgumentValueContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterArgumentList(CfscriptParser.ArgumentListContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitArgumentList(CfscriptParser.ArgumentListContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterLambdaExpression(CfscriptParser.LambdaExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}

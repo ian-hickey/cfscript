@@ -28,10 +28,7 @@
         <configuration>
           <source>11</source>
           <target>11</target>
-          <compilerArgs>
-            <arg>--add-exports=org.graalvm.truffle/com.oracle.truffle.api.frame=cfscript</arg>
-            <arg>--add-exports=org.graalvm.truffle/com.oracle.truffle.api.nodes=cfscript</arg>
-          </compilerArgs>
+          <compilerArgs />
         </configuration>
       </plugin>
       <plugin>

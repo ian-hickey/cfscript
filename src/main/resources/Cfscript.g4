@@ -9,13 +9,14 @@ grammar Cfscript;
     package Cfscript.parser;
 }
 
+component
+	: annotation* K_Component keyValue* '{' componentBody '}'
+	EOF
+	;
+
 annotation
 	: '@' Identifier argumentsDefinition*
 	| '@' Identifier '(' StringLiteral ')'
-	;
-
-component
-	: annotation* K_Component keyValue* '{' componentBody '}'
 	;
 
 componentBody
@@ -210,13 +211,13 @@ keyValue
 	: Identifier '=' (StringLiteral|CharacterLiteral)
 	;
 
-argumentValue
-	: literal | keyValue
-	;
+//argumentValue
+//	: literal | keyValue
+//	;
 
-argumentList
-	: argumentValue (',' argumentValue)*
-	;
+//argumentList
+//	: argumentValue (',' argumentValue)*
+//	;
 
 lambdaExpression
 	: '(' parameterList? ')' '=>' expression

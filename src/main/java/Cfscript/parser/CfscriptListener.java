@@ -320,26 +320,6 @@ public interface CfscriptListener extends ParseTreeListener {
 	 */
 	void exitKeyValue(CfscriptParser.KeyValueContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CfscriptParser#argumentValue}.
-	 * @param ctx the parse tree
-	 */
-	void enterArgumentValue(CfscriptParser.ArgumentValueContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CfscriptParser#argumentValue}.
-	 * @param ctx the parse tree
-	 */
-	void exitArgumentValue(CfscriptParser.ArgumentValueContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CfscriptParser#argumentList}.
-	 * @param ctx the parse tree
-	 */
-	void enterArgumentList(CfscriptParser.ArgumentListContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CfscriptParser#argumentList}.
-	 * @param ctx the parse tree
-	 */
-	void exitArgumentList(CfscriptParser.ArgumentListContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link CfscriptParser#lambdaExpression}.
 	 * @param ctx the parse tree
 	 */
