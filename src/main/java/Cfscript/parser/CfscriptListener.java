@@ -320,16 +320,6 @@ public interface CfscriptListener extends ParseTreeListener {
 	 */
 	void exitObjectLiteral(CfscriptParser.ObjectLiteralContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CfscriptParser#keyValue}.
-	 * @param ctx the parse tree
-	 */
-	void enterKeyValue(CfscriptParser.KeyValueContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CfscriptParser#keyValue}.
-	 * @param ctx the parse tree
-	 */
-	void exitKeyValue(CfscriptParser.KeyValueContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link CfscriptParser#lambdaExpression}.
 	 * @param ctx the parse tree
 	 */
@@ -350,6 +340,36 @@ public interface CfscriptListener extends ParseTreeListener {
 	 */
 	void exitParameterList(CfscriptParser.ParameterListContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link CfscriptParser#annotation}.
+	 * @param ctx the parse tree
+	 */
+	void enterAnnotation(CfscriptParser.AnnotationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CfscriptParser#annotation}.
+	 * @param ctx the parse tree
+	 */
+	void exitAnnotation(CfscriptParser.AnnotationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CfscriptParser#annotationArgument}.
+	 * @param ctx the parse tree
+	 */
+	void enterAnnotationArgument(CfscriptParser.AnnotationArgumentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CfscriptParser#annotationArgument}.
+	 * @param ctx the parse tree
+	 */
+	void exitAnnotationArgument(CfscriptParser.AnnotationArgumentContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CfscriptParser#keyValue}.
+	 * @param ctx the parse tree
+	 */
+	void enterKeyValue(CfscriptParser.KeyValueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CfscriptParser#keyValue}.
+	 * @param ctx the parse tree
+	 */
+	void exitKeyValue(CfscriptParser.KeyValueContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link CfscriptParser#booleanLiteral}.
 	 * @param ctx the parse tree
 	 */
@@ -359,4 +379,14 @@ public interface CfscriptListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBooleanLiteral(CfscriptParser.BooleanLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CfscriptParser#objectKeyDelimiter}.
+	 * @param ctx the parse tree
+	 */
+	void enterObjectKeyDelimiter(CfscriptParser.ObjectKeyDelimiterContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CfscriptParser#objectKeyDelimiter}.
+	 * @param ctx the parse tree
+	 */
+	void exitObjectKeyDelimiter(CfscriptParser.ObjectKeyDelimiterContext ctx);
 }

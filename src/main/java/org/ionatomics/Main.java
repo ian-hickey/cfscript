@@ -22,7 +22,7 @@ public class Main {
         var parser = new CfscriptParser(tokens);
         var tree = parser.component();
         var walker = new ParseTreeWalker();
-        var listener = new CfscriptCustomListener(rewriter, tokens);
+        var listener = new CfscriptCustomListener(rewriter, tokens, filepath);
         walker.walk(listener, tree);
         var translatedJavaCode = rewriter.getText();
         System.out.println(translatedJavaCode);

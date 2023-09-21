@@ -15,7 +15,7 @@ component
 	;
 
 componentDefinition
-    : K_Component keyValue*
+    : (annotation)* K_Component keyValue*
     ;
 
 componentBody
@@ -34,7 +34,7 @@ propertyDeclaration
 	;
 
 functionDeclaration
-	: functionDefinition argumentsDefinition functionBody
+	: (annotation)* functionDefinition argumentsDefinition functionBody
 	;
 
 functionDefinition
@@ -51,8 +51,8 @@ argumentsDefinition
 	;
 
 argumentDefinition
-	: Identifier? Identifier? argumentName ('=' expression)?
-	; 
+	: (annotation)* Identifier? Identifier? argumentName ('=' expression)?
+	;
 
 argumentName
 	: K_Variable
@@ -206,21 +206,9 @@ arrayLiteral
 	;
 
 objectLiteral
-	: '{' (Identifier ':' expression (',' Identifier ':' expression)*)? '}'
+	: '{' (Identifier objectKeyDelimiter expression (',' Identifier objectKeyDelimiter expression)*)? '}'
 	| '{}'
 	;
-
-keyValue
-	: Identifier '=' (StringLiteral|CharacterLiteral)
-	;
-
-//argumentValue
-//	: literal | keyValue
-//	;
-
-//argumentList
-//	: argumentValue (',' argumentValue)*
-//	;
 
 lambdaExpression
 	: '(' parameterList? ')' '=>' expression
@@ -229,6 +217,21 @@ lambdaExpression
 
 parameterList
 	: Identifier (',' Identifier)*
+	;
+annotation
+	: '@' Identifier '()'
+	| '@' Identifier '(' keyValue? ')'
+	| '@' Identifier '(' (StringLiteral|CharacterLiteral|NumberLiteral) ')'
+	| '@' Identifier '(' annotationArgument (',' annotationArgument)* ')'
+	| '@' Identifier
+	;
+
+annotationArgument
+	: Identifier '=' (keyValue|NumberLiteral)
+	;
+
+keyValue
+	: Identifier '=' (StringLiteral|CharacterLiteral)
 	;
 
 K_Return : ('r'|'R')('e'|'E')('t'|'T')('u'|'U')('r'|'R')('n'|'N');
@@ -262,6 +265,11 @@ booleanLiteral
     |   K_False
     ;
 
+objectKeyDelimiter
+    :   ':'
+    |   '='
+    ;
+
 CharacterLiteral
 	: '\'' ( EscapeSequence | ~('\''|'\\') )* '\''
 	;
@@ -276,6 +284,10 @@ DecimalLiteral
 
 FloatingPointLiteral
     : Digit* '.' Digit*
+    ;
+
+NumberLiteral
+    : [0-9]+    // Recognizes one or more digits.
     ;
 
 Identifier
@@ -315,4 +327,3 @@ JAVADOC
 ML_COMMENT
     :   '/*' (.)*? '*/' -> channel(HIDDEN)
     ;
-

@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67965906-ab66-4ed2-be2c-2be3edd1c218" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/Cfscript.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/Cfscript.interp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/Cfscript.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/Cfscript.tokens" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptBaseListener.java" afterDir="false" />
