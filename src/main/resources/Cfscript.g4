@@ -18,11 +18,6 @@ componentDefinition
     : K_Component keyValue*
     ;
 
-annotation
-	: '@' Identifier argumentsDefinition*
-	| '@' Identifier '(' StringLiteral ')'
-	;
-
 componentBody
 	: (componentElement)*
 	;
@@ -39,8 +34,12 @@ propertyDeclaration
 	;
 
 functionDeclaration
-	: Identifier? Identifier? K_Function functionName argumentsDefinition functionBody
+	: functionDefinition argumentsDefinition functionBody
 	;
+
+functionDefinition
+    : Identifier? Identifier? K_Function functionName
+    ;
 
 functionName
 	: Identifier
@@ -307,7 +306,6 @@ LINE_COMMENT
     '//'
     ( ~('\n'|'\r') )*
     ( '\n'|'\r'('\n')? )? -> skip;
-
 
 JAVADOC
 	:

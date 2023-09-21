@@ -8,9 +8,12 @@
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/Cfscript.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/Cfscript.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/Cfscript.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/Cfscript.tokens" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptBaseListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptCustomListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptCustomListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptLexer.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptLexer.tokens" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ionatomics/Cfscript.cfc" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ionatomics/Cfscript.cfc" afterDir="false" />
@@ -22,6 +25,9 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -32,6 +38,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/java/org/ionatomics/Cfscript.cfc" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -90,7 +99,7 @@
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.ionatomics.Main" />
-      <module name="cfscript" />
+      <module name="Cfscript" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="org.ionatomics.*" />

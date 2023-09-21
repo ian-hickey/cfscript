@@ -30,16 +30,6 @@ public interface CfscriptListener extends ParseTreeListener {
 	 */
 	void exitComponentDefinition(CfscriptParser.ComponentDefinitionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CfscriptParser#annotation}.
-	 * @param ctx the parse tree
-	 */
-	void enterAnnotation(CfscriptParser.AnnotationContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CfscriptParser#annotation}.
-	 * @param ctx the parse tree
-	 */
-	void exitAnnotation(CfscriptParser.AnnotationContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link CfscriptParser#componentBody}.
 	 * @param ctx the parse tree
 	 */
@@ -79,6 +69,16 @@ public interface CfscriptListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFunctionDeclaration(CfscriptParser.FunctionDeclarationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CfscriptParser#functionDefinition}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctionDefinition(CfscriptParser.FunctionDefinitionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CfscriptParser#functionDefinition}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctionDefinition(CfscriptParser.FunctionDefinitionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CfscriptParser#functionName}.
 	 * @param ctx the parse tree
