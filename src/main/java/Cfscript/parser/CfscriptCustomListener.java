@@ -3,7 +3,8 @@ package Cfscript.parser;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.TokenStreamRewriter;
 
-import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 
 public class CfscriptCustomListener extends CfscriptBaseListener {
 
@@ -13,10 +14,10 @@ public class CfscriptCustomListener extends CfscriptBaseListener {
     private String filepath = "";
     private CommonTokenStream tokens = null;
     private StringBuilder translation = new StringBuilder();
-    private HashMap<String, String> imports = new HashMap<>();
+    private HashSet<String> imports = new HashSet<>();
 
     private void println(String text) {
-        //System.out.println(text);
+        System.out.println(text);
     }
     public StringBuilder getTranslation() {
         return translation;
@@ -27,11 +28,12 @@ public class CfscriptCustomListener extends CfscriptBaseListener {
         this.rewriter = rewriter;
         this.tokens = tokens;
         this.filepath = filepath;
+        imports.add("import java.util.*;");
+        imports.add("import java.lang.*;");
     }
 
     @Override
     public void enterComponentDefinition(CfscriptParser.ComponentDefinitionContext ctx) {
-        println("Enter Component");
         this.context = "component";
 
         // Iterate the attributes and find the component. TODO: default to the filename
@@ -42,6 +44,18 @@ public class CfscriptCustomListener extends CfscriptBaseListener {
         for (var id : ctx.annotation()) {
             // if the return value
             annotation = id.getText();
+            // handle imports.
+            if (annotation.startsWith("@Path")) {
+                imports.add("import jakarta.ws.rs.Path;");
+            }else if (annotation.startsWith("@GET")) {
+                imports.add("import jakarta.ws.rs.GET;");
+            }else if (annotation.startsWith("@POST")) {
+                imports.add("import jakarta.ws.rs.POST;");
+            }else if (annotation.startsWith("@PUT")) {
+                imports.add("import jakarta.ws.rs.PUT;");
+            }else if (annotation.startsWith("@DELETE")) {
+                imports.add("import jakarta.ws.rs.DELETE;");
+            }
             newComponentText = annotation + "\n" + newComponentText;
         }
 
@@ -79,7 +93,7 @@ public class CfscriptCustomListener extends CfscriptBaseListener {
 
     @Override
     public void enterPropertyDeclaration(CfscriptParser.PropertyDeclarationContext ctx) {
-        println("Enter Property");
+        //println("Enter Property");
         this.context = "property";
         // Translate CFScript property to Java class
         String propertyName = ctx.keyValue().stream()
@@ -105,13 +119,17 @@ public class CfscriptCustomListener extends CfscriptBaseListener {
 
     @Override
     public void exitComponent(CfscriptParser.ComponentContext ctx) {
-        println("Exited Component");
-        // TODO: Add import statements and package
+        if (!imports.isEmpty()) {
+            Iterator<String> iterator = imports.iterator();
+            while(iterator.hasNext()){
+                rewriter.insertBefore(ctx.start, iterator.next() + "\n");
+            }
+        }
     }
 
     @Override
     public void enterFunctionDefinition(CfscriptParser.FunctionDefinitionContext ctx) {
-        println("Entered FunctionDeclaration");
+        //println("Entered FunctionDeclaration");
         this.context = "function";
         // TODO: Check if this is a constructor and handle
         var functionName = ctx.functionName().getText();
@@ -126,6 +144,9 @@ public class CfscriptCustomListener extends CfscriptBaseListener {
             }else {
                 // if the return value
                 functionReturn = id.getText();
+                if (functionReturn.toLowerCase().equals("response")) {
+                    imports.add("import jakarta.ws.rs.core.Response;");
+                }
             }
         }
         // If this is a constructor, then name it as one.
@@ -139,23 +160,8 @@ public class CfscriptCustomListener extends CfscriptBaseListener {
     }
 
     @Override
-    public void exitFunctionDeclaration(CfscriptParser.FunctionDeclarationContext ctx) {
-
-    }
-
-    @Override
     public void enterObjectLiteral(CfscriptParser.ObjectLiteralContext ctx) {
-        println("Entered CFObject");
-
-    }
-    @Override
-    public void enterStatement(CfscriptParser.StatementContext ctx) {
-        println("Entered Statement");
-    }
-
-    @Override
-    public void exitStatement(CfscriptParser.StatementContext ctx) {
-        println("Exited Statement");
+        //println("Entered CFObject");
     }
 }
 

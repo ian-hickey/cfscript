@@ -234,6 +234,16 @@ keyValue
 	: Identifier '=' (StringLiteral|CharacterLiteral)
 	;
 
+booleanLiteral
+    :   K_True
+    |   K_False
+    ;
+
+objectKeyDelimiter
+    :   ':'
+    |   '='
+    ;
+
 K_Return : ('r'|'R')('e'|'E')('t'|'T')('u'|'U')('r'|'R')('n'|'N');
 K_If : ('i'|'I')('f'|'F');
 K_Else : ('e'|'E')('l'|'L')('s'|'S')('e'|'E');
@@ -260,16 +270,6 @@ K_False : ('f'|'F')('a'|'A')('l'|'L')('s'|'S')('e'|'E');
 K_New : ('n'|'N')('e'|'E')('w'|'W');
 K_In : ('i'|'I')('n'|'N');
 
-booleanLiteral
-    :   K_True
-    |   K_False
-    ;
-
-objectKeyDelimiter
-    :   ':'
-    |   '='
-    ;
-
 CharacterLiteral
 	: '\'' ( EscapeSequence | ~('\''|'\\') )* '\''
 	;
@@ -287,7 +287,7 @@ FloatingPointLiteral
     ;
 
 NumberLiteral
-    : [0-9]+    // Recognizes one or more digits.
+    : Digit+    // Recognizes one or more digits.
     ;
 
 Identifier
