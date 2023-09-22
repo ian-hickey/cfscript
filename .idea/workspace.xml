@@ -5,14 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67965906-ab66-4ed2-be2c-2be3edd1c218" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/ionatomics/FruitsResource.cfc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/object/parser/Object.g4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/object/parser/Object.interp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/object/parser/Object.tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/object/parser/ObjectBaseListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/object/parser/ObjectCustomListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/object/parser/ObjectLexer.interp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/object/parser/ObjectLexer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/object/parser/ObjectLexer.tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/object/parser/ObjectListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Cfscript/object/parser/ObjectParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/Cfscript.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/Cfscript.interp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptCustomListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptCustomListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptLexer.interp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptLexer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ionatomics/Cfscript.cfc" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ionatomics/Cfscript.cfc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ionatomics/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ionatomics/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Cfscript.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Cfscript.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Cfscript.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cfscript/parser/Cfscript.g4" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +57,7 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
+        <option name="mavenHome" value="$PROJECT_DIR$/../Downloads/apache-maven-3.8.2" />
         <option name="useMavenConfig" value="true" />
       </MavenGeneralSettings>
     </option>
@@ -69,16 +85,17 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/ianhickey/Cfscript/src/main/java/org/ionatomics",
+    "ignore.preview.features.used": "true",
+    "last_opened_file_path": "C:/Users/ian.hickey/cfscript/src/main/java/org/ionatomics/Cfscript.cfc",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "configurable.group.tools",
+    "settings.editor.selected.configurable": "reference.settings.deploy.options",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -90,9 +107,14 @@
       <recent name="$PROJECT_DIR$/src/main/java/org/ionatomics" />
       <recent name="C:\Users\ian.hickey\cfscript\src\main\java\Cfscript\parser" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\ian.hickey\cfscript\src\main\java\Cfscript\parser" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="temurin-17" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="org.ionatomics.Main" />
       <module name="Cfscript" />
       <extension name="coverage">
@@ -125,6 +147,8 @@
       <workItem from="1695061393152" duration="1016000" />
       <workItem from="1695064247597" duration="6301000" />
       <workItem from="1695150187807" duration="4426000" />
+      <workItem from="1695409428679" duration="448000" />
+      <workItem from="1695410010128" duration="5355000" />
     </task>
     <servers />
   </component>
