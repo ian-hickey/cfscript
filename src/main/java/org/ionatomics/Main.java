@@ -1,8 +1,8 @@
 package org.ionatomics;
 
-import Cfscript.parser.CfscriptCustomListener;
-import Cfscript.parser.CfscriptLexer;
-import Cfscript.parser.CfscriptParser;
+import cfscript.parser.CfscriptCustomListener;
+import cfscript.parser.CfscriptLexer;
+import cfscript.parser.CfscriptParser;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.TokenStreamRewriter;
@@ -14,7 +14,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        var filepath = System.getProperty("user.dir") + "/src/main/java/org/ionatomics/Cfscript.cfc";
+        var filepath = System.getProperty("user.dir") + "/src/main/java/org/ionatomics/cfscript.cfc";
 
         Path startingDir = Paths.get(System.getProperty("user.dir"));
         

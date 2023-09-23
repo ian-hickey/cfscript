@@ -35,8 +35,8 @@
                 <artifactId>antlr4-maven-plugin</artifactId>
                 <version>4.9.1</version>
                 <configuration>
-                    <outputDirectory>src/main/java/Cfscript/parser</outputDirectory>
-                    <sourceDirectory>src/main/java/Cfscript/parser</sourceDirectory>
+                    <outputDirectory>src/main/java/cfscript/parser</outputDirectory>
+                    <sourceDirectory>src/main/java/cfscript/parser</sourceDirectory>
                 </configuration>
                 <executions>
                     <execution>
@@ -50,15 +50,26 @@
                 <groupId>org.antlr</groupId>
                 <artifactId>antlr4-maven-plugin</artifactId>
                 <version>4.9.1</version>
-                <configuration>
-                    <outputDirectory>src/main/java/Cfscript/object/parser</outputDirectory>
-                    <sourceDirectory>src/main/java/Cfscript/object/parser</sourceDirectory>
-                </configuration>
                 <executions>
                     <execution>
+                        <id>cfscript-parser</id>
                         <goals>
                             <goal>antlr4</goal>
                         </goals>
+                        <configuration>
+                            <outputDirectory>src/main/java/cfscript/parser</outputDirectory>
+                            <sourceDirectory>src/main/java/cfscript/parser</sourceDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>cfscript-object-parser</id>
+                        <goals>
+                            <goal>antlr4</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>src/main/java/cfscript/object/parser</outputDirectory>
+                            <sourceDirectory>src/main/java/cfscript/object/parser</sourceDirectory>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

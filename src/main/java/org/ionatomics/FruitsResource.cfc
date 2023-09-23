@@ -22,5 +22,4 @@ component {
         arrayAppend(fruits, fruit);
         return Response.ok(fruits).build();
     }
-
 }

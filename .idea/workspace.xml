@@ -5,7 +5,65 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67965906-ab66-4ed2-be2c-2be3edd1c218" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ArrayAvgFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ArrayContainsNoCaseFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ArrayDeleteAtFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ArrayDeleteFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ArrayEachFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ArrayFilterFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ArrayFindAllFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ArrayFindFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ArrayFirstFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ArrayFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ArrayGetFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ArrayInsertAtFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ArrayIsDefinedFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ArrayIsEmptyFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ArrayLenFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ArrayMaxFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ArrayMinFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ArrayNewFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ArrayResizeFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ArraySetFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ArraySortFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ArrayToListFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/DateTimeFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ListAppendFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ListFindFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ListLenFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ListPrependFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ListSortFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/ListToArrayFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/StdLib.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/Cfscript.interp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/ionatomics/Fruit.cfc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/object/parser/Object.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/object/parser/Object.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/object/parser/Object.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/object/parser/Object.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/object/parser/Object.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/object/parser/Object.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/object/parser/ObjectBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/object/parser/ObjectBaseListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/object/parser/ObjectCustomListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/object/parser/ObjectCustomListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/object/parser/ObjectLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/object/parser/ObjectLexer.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/object/parser/ObjectLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/object/parser/ObjectLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/object/parser/ObjectLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/object/parser/ObjectLexer.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/object/parser/ObjectListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/object/parser/ObjectListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/object/parser/ObjectParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/object/parser/ObjectParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/Cfscript.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/Cfscript.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/Cfscript.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/Cfscript.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/Cfscript.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptBaseListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptCustomListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptCustomListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptLexer.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptLexer.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cfscript/parser/CfscriptParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ionatomics/Cfscript.cfc" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ionatomics/Cfscript.cfc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ionatomics/FruitsResource.cfc" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ionatomics/FruitsResource.cfc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ionatomics/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ionatomics/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -53,13 +111,13 @@
     "WebServerToolWindowFactoryState": "false",
     "extract.method.default.visibility": "private",
     "ignore.preview.features.used": "true",
-    "last_opened_file_path": "C:/Users/ian.hickey/cfscript/src/main/java/org/ionatomics/Cfscript.cfc",
+    "last_opened_file_path": "/Users/ianhickey/Cfscript/src/main/java/Cfscript/stdlib",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "SDKs",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "MavenSettings",
@@ -71,6 +129,7 @@
       <recent name="Cfscript.nodes" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/Cfscript/stdlib" />
       <recent name="$PROJECT_DIR$/src/main/java/org/ionatomics" />
       <recent name="C:\Users\ian.hickey\cfscript\src\main\java\Cfscript\parser" />
     </key>
@@ -79,8 +138,8 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="temurin-17" />
+    <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../Library/Java/JavaVirtualMachines/graalvm-ce-17/Contents/Home" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="org.ionatomics.Main" />
       <module name="Cfscript" />
@@ -94,11 +153,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.Main" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
