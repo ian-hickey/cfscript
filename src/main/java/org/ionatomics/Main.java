@@ -17,6 +17,7 @@ public class Main {
         var filepath = System.getProperty("user.dir") + "/src/main/java/org/ionatomics/Cfscript.cfc";
 
         Path startingDir = Paths.get(System.getProperty("user.dir"));
+        
         Files.walkFileTree(startingDir, new SimpleFileVisitor<Path>() {
             @Override
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
@@ -32,7 +33,6 @@ public class Main {
 
     public static void doParse(String filePath) throws IOException {
         System.out.println("Compiling " + filePath);
-
         var content = Files.readString(Paths.get(filePath));
         var charStream = CharStreams.fromString(content);
         var lexer  = new CfscriptLexer(charStream);
@@ -47,5 +47,6 @@ public class Main {
         System.out.println("*******************************");
         System.out.println(rewriter.getText());
         System.out.println("*******************************");
+
     }
 }

@@ -23,7 +23,7 @@ component displayname="MyComponent" accessors="true" {
     @test("skip")
     public struct function getOtherObjects() {
         writeoutput("testing");
-        return { test= "test", test2: "test2" };
+        return { test= "test3", test5: "test2" };
     }
 
 }

@@ -3,6 +3,8 @@ package Cfscript.parser;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.TokenStreamRewriter;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -23,11 +25,11 @@ public class CfscriptCustomListener extends CfscriptBaseListener {
         return translation;
     }
 
-    public CfscriptCustomListener(TokenStreamRewriter rewriter, CommonTokenStream tokens, String filepath) {
+    public CfscriptCustomListener(TokenStreamRewriter rewriter, CommonTokenStream tokens, String filePath) {
         super();
         this.rewriter = rewriter;
         this.tokens = tokens;
-        this.filepath = filepath;
+        this.filepath = filePath;
         imports.add("import java.util.*;");
         imports.add("import java.lang.*;");
     }
@@ -70,24 +72,33 @@ public class CfscriptCustomListener extends CfscriptBaseListener {
                 .orElse(this.getFileName(this.filepath));
     }
 
-    private String getFileName(String filepath) {
-        // Get the last occurrence of the slash '/'
-        int lastSlashIndex = filepath.lastIndexOf('/');
+    public String getFileName(String filepath) {
+        // Convert the file path string to a Path object
+        Path path = Paths.get(filepath);
 
-        // Get the substring after the last slash (the file name)
-        String fileNameWithExtension = filepath.substring(lastSlashIndex + 1);
+        // Get the file name from the Path object
+        Path fileNamePath = path.getFileName();
+
+        // If the path ends with a directory separator, the file name will be null
+        if (fileNamePath == null) {
+            return "default";  // Or whatever default value you want to use
+        }
+
+        // Convert the file name Path object to a string
+        String fileNameWithExtension = fileNamePath.toString();
 
         // Get the index of the last dot '.' in the file name
         int lastDotIndex = fileNameWithExtension.lastIndexOf('.');
 
         // Check if there is a dot in the file name and extract the part before it
-        String fileNameWithoutExtension = "default";
+        String fileNameWithoutExtension;
         if (lastDotIndex != -1) {
             fileNameWithoutExtension = fileNameWithExtension.substring(0, lastDotIndex);
         } else {
             // If there's no dot in the file name, use the entire file name
             fileNameWithoutExtension = fileNameWithExtension;
         }
+
         return fileNameWithoutExtension;
     }
 
@@ -160,8 +171,17 @@ public class CfscriptCustomListener extends CfscriptBaseListener {
     }
 
     @Override
-    public void enterObjectLiteral(CfscriptParser.ObjectLiteralContext ctx) {
-        //println("Entered CFObject");
+    public void enterLiteral(CfscriptParser.LiteralContext ctx) {
+        System.out.println(ctx.getParent().getText());
+        System.out.println(ctx.getParent().getParent().getText());
+        /*String objectLiteralText = ctx.getText();
+        ObjectLexer lexer = new ObjectLexer(CharStreams.fromString(objectLiteralText));
+        ObjectParser parser = new ObjectParser(new CommonTokenStream(lexer));
+        ParseTree tree = parser.prog();
+        ObjectCustomListener listener = new ObjectCustomListener();
+        ParseTreeWalker.DEFAULT.walk(listener, tree);
+        String javaCode = listener.getResult();
+        println(javaCode);*/
     }
 }
 
