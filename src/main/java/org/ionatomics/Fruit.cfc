@@ -1,8 +1,13 @@
 @Entity
 @Table(name = "known_fruits")
-@NamedQuery(name = "Fruits.findAll", query="SELECT * from Fruit;")
+@NamedQuery(name = "Fruits.findAll", query = "SELECT f FROM Fruit f ORDER BY f.name", hints = @QueryHint(name = "org.hibernate.cacheable", value = "true"))
 @Cacheable
 component name="Fruit" {
+
+    @Id
+    @SequenceGenerator(name = "fruitsSequence", sequenceName = "known_fruits_id_seq", allocationSize = 1, initialValue = 10)
+    @GeneratedValue(generator = "fruitsSequence")
+    property name="id" type="int";
 
     @test(name = "1")
     property name="name" value="";

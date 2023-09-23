@@ -236,7 +236,7 @@ annotationArgument
 	;
 
 keyValue
-	: Identifier '=' (StringLiteral|CharacterLiteral|NumberLiteral|booleanLiteral)
+	: Identifier '=' (StringLiteral|CharacterLiteral|NumberLiteral|booleanLiteral|annotation)
 	;
 
 booleanLiteral

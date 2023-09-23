@@ -3237,6 +3237,9 @@ public class CfscriptParser extends Parser {
 		public BooleanLiteralContext booleanLiteral() {
 			return getRuleContext(BooleanLiteralContext.class,0);
 		}
+		public AnnotationContext annotation() {
+			return getRuleContext(AnnotationContext.class,0);
+		}
 		public KeyValueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -3261,7 +3264,7 @@ public class CfscriptParser extends Parser {
 			match(Identifier);
 			setState(553);
 			match(T__7);
-			setState(558);
+			setState(559);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case StringLiteral:
@@ -3287,6 +3290,12 @@ public class CfscriptParser extends Parser {
 				{
 				setState(557);
 				booleanLiteral();
+				}
+				break;
+			case T__33:
+				{
+				setState(558);
+				annotation();
 				}
 				break;
 			default:
@@ -3329,7 +3338,7 @@ public class CfscriptParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(560);
+			setState(561);
 			_la = _input.LA(1);
 			if ( !(_la==K_True || _la==K_False) ) {
 			_errHandler.recoverInline(this);
@@ -3374,7 +3383,7 @@ public class CfscriptParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(562);
+			setState(563);
 			_la = _input.LA(1);
 			if ( !(_la==T__7 || _la==T__28) ) {
 			_errHandler.recoverInline(this);
@@ -3456,7 +3465,7 @@ public class CfscriptParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3F\u0237\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3F\u0238\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
@@ -3497,19 +3506,19 @@ public class CfscriptParser extends Parser {
 		"\3\"\5\"\u01f4\n\"\3#\3#\3#\7#\u01f9\n#\f#\16#\u01fc\13#\3$\3$\3$\3$\3"+
 		"$\3$\3$\5$\u0205\n$\3$\3$\7$\u0209\n$\f$\16$\u020c\13$\3$\3$\3$\3$\3$"+
 		"\3$\3$\3$\3$\3$\3$\3$\7$\u021a\n$\f$\16$\u021d\13$\3$\3$\3$\3$\5$\u0223"+
-		"\n$\3%\3%\3%\3%\5%\u0229\n%\3&\3&\3&\3&\3&\3&\5&\u0231\n&\3\'\3\'\3(\3"+
-		"(\3(\2\4.:)\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,.\60\62\64\66"+
-		"8:<>@BDFHJLN\2\r\5\2*-//BB\3\2\13\r\3\2\f\r\3\2\23\24\3\2\25\27\3\2\21"+
-		"\22\5\2%\64\66<BB\3\2>?\3\2>@\3\2:;\4\2\n\n\37\37\2\u026f\2P\3\2\2\2\4"+
-		"Y\3\2\2\2\6f\3\2\2\2\bl\3\2\2\2\n\u0085\3\2\2\2\f\u008a\3\2\2\2\16\u0092"+
-		"\3\2\2\2\20\u009a\3\2\2\2\22\u00a8\3\2\2\2\24\u00ad\3\2\2\2\26\u00bb\3"+
-		"\2\2\2\30\u00bd\3\2\2\2\32\u00ce\3\2\2\2\34\u00d0\3\2\2\2\36\u00d6\3\2"+
-		"\2\2 \u00df\3\2\2\2\"\u00e7\3\2\2\2$\u00ed\3\2\2\2&\u011a\3\2\2\2(\u011c"+
+		"\n$\3%\3%\3%\3%\5%\u0229\n%\3&\3&\3&\3&\3&\3&\3&\5&\u0232\n&\3\'\3\'\3"+
+		"(\3(\3(\2\4.:)\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,.\60\62\64"+
+		"\668:<>@BDFHJLN\2\r\5\2*-//BB\3\2\13\r\3\2\f\r\3\2\23\24\3\2\25\27\3\2"+
+		"\21\22\5\2%\64\66<BB\3\2>?\3\2>@\3\2:;\4\2\n\n\37\37\2\u0271\2P\3\2\2"+
+		"\2\4Y\3\2\2\2\6f\3\2\2\2\bl\3\2\2\2\n\u0085\3\2\2\2\f\u008a\3\2\2\2\16"+
+		"\u0092\3\2\2\2\20\u009a\3\2\2\2\22\u00a8\3\2\2\2\24\u00ad\3\2\2\2\26\u00bb"+
+		"\3\2\2\2\30\u00bd\3\2\2\2\32\u00ce\3\2\2\2\34\u00d0\3\2\2\2\36\u00d6\3"+
+		"\2\2\2 \u00df\3\2\2\2\"\u00e7\3\2\2\2$\u00ed\3\2\2\2&\u011a\3\2\2\2(\u011c"+
 		"\3\2\2\2*\u0122\3\2\2\2,\u0125\3\2\2\2.\u0132\3\2\2\2\60\u0186\3\2\2\2"+
 		"\62\u0188\3\2\2\2\64\u01a7\3\2\2\2\66\u01b0\3\2\2\28\u01b2\3\2\2\2:\u01b4"+
 		"\3\2\2\2<\u01c4\3\2\2\2>\u01d3\3\2\2\2@\u01e7\3\2\2\2B\u01f3\3\2\2\2D"+
-		"\u01f5\3\2\2\2F\u0222\3\2\2\2H\u0224\3\2\2\2J\u022a\3\2\2\2L\u0232\3\2"+
-		"\2\2N\u0234\3\2\2\2PQ\5\4\3\2QR\7\3\2\2RS\5\6\4\2ST\7\4\2\2TU\7\2\2\3"+
+		"\u01f5\3\2\2\2F\u0222\3\2\2\2H\u0224\3\2\2\2J\u022a\3\2\2\2L\u0233\3\2"+
+		"\2\2N\u0235\3\2\2\2PQ\5\4\3\2QR\7\3\2\2RS\5\6\4\2ST\7\4\2\2TU\7\2\2\3"+
 		"U\3\3\2\2\2VX\5F$\2WV\3\2\2\2X[\3\2\2\2YW\3\2\2\2YZ\3\2\2\2Z\\\3\2\2\2"+
 		"[Y\3\2\2\2\\`\7-\2\2]_\5J&\2^]\3\2\2\2_b\3\2\2\2`^\3\2\2\2`a\3\2\2\2a"+
 		"\5\3\2\2\2b`\3\2\2\2ce\5\b\5\2dc\3\2\2\2eh\3\2\2\2fd\3\2\2\2fg\3\2\2\2"+
@@ -3660,15 +3669,15 @@ public class CfscriptParser extends Parser {
 		"\3\2\2\2\u0222\u020e\3\2\2\2\u0222\u0213\3\2\2\2\u0222\u0220\3\2\2\2\u0223"+
 		"G\3\2\2\2\u0224\u0225\7B\2\2\u0225\u0228\7\n\2\2\u0226\u0229\5J&\2\u0227"+
 		"\u0229\7@\2\2\u0228\u0226\3\2\2\2\u0228\u0227\3\2\2\2\u0229I\3\2\2\2\u022a"+
-		"\u022b\7B\2\2\u022b\u0230\7\n\2\2\u022c\u0231\7?\2\2\u022d\u0231\7>\2"+
-		"\2\u022e\u0231\7@\2\2\u022f\u0231\5L\'\2\u0230\u022c\3\2\2\2\u0230\u022d"+
-		"\3\2\2\2\u0230\u022e\3\2\2\2\u0230\u022f\3\2\2\2\u0231K\3\2\2\2\u0232"+
-		"\u0233\t\13\2\2\u0233M\3\2\2\2\u0234\u0235\t\f\2\2\u0235O\3\2\2\29Y`f"+
-		"lqz\u0081\u0085\u008a\u0092\u0095\u00a2\u00a8\u00ad\u00b1\u00b4\u00b9"+
-		"\u00c1\u00ce\u00d9\u00e1\u00e9\u00f6\u00fb\u0101\u011a\u0132\u013f\u0149"+
-		"\u0151\u017a\u017c\u0186\u018d\u0193\u01a2\u01a7\u01b0\u01bf\u01c1\u01cc"+
-		"\u01cf\u01d3\u01e0\u01e3\u01e7\u01eb\u01f3\u01fa\u0204\u020a\u021b\u0222"+
-		"\u0228\u0230";
+		"\u022b\7B\2\2\u022b\u0231\7\n\2\2\u022c\u0232\7?\2\2\u022d\u0232\7>\2"+
+		"\2\u022e\u0232\7@\2\2\u022f\u0232\5L\'\2\u0230\u0232\5F$\2\u0231\u022c"+
+		"\3\2\2\2\u0231\u022d\3\2\2\2\u0231\u022e\3\2\2\2\u0231\u022f\3\2\2\2\u0231"+
+		"\u0230\3\2\2\2\u0232K\3\2\2\2\u0233\u0234\t\13\2\2\u0234M\3\2\2\2\u0235"+
+		"\u0236\t\f\2\2\u0236O\3\2\2\29Y`flqz\u0081\u0085\u008a\u0092\u0095\u00a2"+
+		"\u00a8\u00ad\u00b1\u00b4\u00b9\u00c1\u00ce\u00d9\u00e1\u00e9\u00f6\u00fb"+
+		"\u0101\u011a\u0132\u013f\u0149\u0151\u017a\u017c\u0186\u018d\u0193\u01a2"+
+		"\u01a7\u01b0\u01bf\u01c1\u01cc\u01cf\u01d3\u01e0\u01e3\u01e7\u01eb\u01f3"+
+		"\u01fa\u0204\u020a\u021b\u0222\u0228\u0231";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

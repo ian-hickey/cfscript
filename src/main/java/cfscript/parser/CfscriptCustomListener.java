@@ -128,7 +128,7 @@ public class CfscriptCustomListener extends CfscriptBaseListener {
                 .filter(kv -> kv.Identifier().getText().equals("value"))
                 .map(kv -> kv.StringLiteral().getText())
                 .findFirst()
-                .orElse("\"\"");
+                .orElse(null);
 
         String propertyType = ctx.keyValue().stream()
                 .filter(kv -> kv.Identifier().getText().equals("type"))
@@ -139,10 +139,20 @@ public class CfscriptCustomListener extends CfscriptBaseListener {
         var property = "";
         if (propertyType.toLowerCase().equals("array")) {
             property = "ArrayList<Object> " + propertyName + " = new ArrayList<Object>();";
-        } else {
+        } else if ((propertyType.toLowerCase().equals("String") || propertyType.toLowerCase().equals("Integer")) && propertyValue == null) {
+            property = propertyType + " " + propertyName + ";";
+        }else {
             property = propertyType + " " + propertyName + " = " + propertyValue + ";";
         };
 
+        // Check annotations
+        var annotation = "";
+        // Translate CFScript component to Java class
+        for (var id : ctx.annotation()) {
+            // if the return value
+            annotation = id.getText();
+            property = annotation + "\n" + property;
+        }
         rewriter.replace(ctx.start, ctx.stop, property);
     }
 

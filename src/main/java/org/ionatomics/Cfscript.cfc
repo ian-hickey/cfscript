@@ -3,7 +3,7 @@
   Others, will represent entities and REST controllers.
 */
 @testable(name="testname")
-component displayname="MyComponent" accessors="true" {
+component displayname="MyComponent" accessors=true {
 
     property name="first" value="test" type="String";
     property name="last" value="name";
