@@ -32,7 +32,7 @@ public class Main {
     }
 
     public static void doParse(String filePath) throws IOException {
-        System.out.println("Compiling " + filePath);
+        System.out.println(filePath);
         var content = Files.readString(Paths.get(filePath));
         var charStream = CharStreams.fromString(content);
         var lexer  = new CfscriptLexer(charStream);
