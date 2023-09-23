@@ -1,17 +1,25 @@
 
+# Dark Matter
+_The glue that binds the universe_
+
 There are a number of moving parts in this framework:
 
-Parser for Cfscript that generates Java from CFscript.
+Parser for DMscript, a language based on (a subset of) Cfscript that generates Java from CFscript.
 The language is based on Cfscript but does not
 implement the entire (or even most of) the api.
-The version we use adds annotations the components
-methods, and properties. 
+The add native annotations to the components
+methods, and properties. We don't use Cfscript scopes (arguments, variables)
+and instead favor Java scoping rules (this keyword).
+We do implement most String (len), List (listLen), and Array (arrayAppend) methods.
 
+Most of your favorite APIs are missing and replaced with something else.
+However. If you do try it out was you get is a powerful, fast, and feature rich
+modern development experience. How fast? Try, fraction of a second startup, built in
+server, no configuration dev profiles, built in application metrics. And it will
+feel like second nature to anyone who already knows Cfscript.
 
 There are main considerations:
 We use JSON-B and quarkus-resteasy-jsonb extension
-
-
 
 We import:
 jakarta.ws.rs.* (in anything annotated with Path)
@@ -37,13 +45,13 @@ quarkus-jdbc-oracle for Oracle Database
 quarkus-jdbc-postgresql for PostgreSQL
 
 application.properties example:
-# datasource configuration
+## datasource configuration
 quarkus.datasource.db-kind = postgresql
 quarkus.datasource.username = hibernate
 quarkus.datasource.password = hibernate
 quarkus.datasource.jdbc.url = jdbc:postgresql://localhost:5432/hibernate_db
 
-# drop and create the database at startup (use `update` to only update the schema)
+### drop and create the database at startup (use `update` to only update the schema)
 quarkus.hibernate-orm.database.generation=drop-and-create
 
 POM:
@@ -63,5 +71,8 @@ POM:
 Services should be annotated with @ApplicationScope.
 @ApplicationScoped
 public class SomeService { }
+
+## Annotation List
+
 
 

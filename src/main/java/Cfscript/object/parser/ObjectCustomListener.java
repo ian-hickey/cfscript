@@ -16,30 +16,27 @@ public class ObjectCustomListener extends ObjectBaseListener {
 
     @Override
     public void exitStruct(ObjectParser.StructContext ctx) {
-
         StringBuilder sb = new StringBuilder();
-        sb.append("var randomname = new HashMap<String, Object>();\n");
+        sb.append("new HashMap<String, Object>() {{\n");
         for (var pair : ctx.structPair()) {
             var key = pair.ID().getText();
             var value = stack.pop();
-            sb.append(String.format("randomname.put(\"%s\", %s);\n", key, value));
+            sb.append(String.format("put(\"%s\", %s);\n", key, value));
         }
+        sb.append("}}");
         stack.push(sb.toString());
+
     }
 
     @Override
     public void exitArray(ObjectParser.ArrayContext ctx) {
         StringBuilder sb = new StringBuilder();
-        sb.append("new ArrayList<Object>(Arrays.asList(");
-        boolean first = true;
+        sb.append("new ArrayList<Object>() {{");
+
         for (var value : ctx.value()) {
-            if (!first) {
-                sb.append(", ");
-            }
-            first = false;
-            sb.append(stack.pop());
+            sb.append("add(").append(stack.pop()).append(");");
         }
-        sb.append("))");
+        sb.append("}}");
         stack.push(sb.toString());
     }
 

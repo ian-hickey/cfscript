@@ -1,7 +1,14 @@
 package Cfscript.parser;
 
+import Cfscript.object.parser.ObjectCustomListener;
+import Cfscript.object.parser.ObjectLexer;
+import Cfscript.object.parser.ObjectParser;
+import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.TokenStreamRewriter;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -171,17 +178,24 @@ public class CfscriptCustomListener extends CfscriptBaseListener {
     }
 
     @Override
-    public void enterLiteral(CfscriptParser.LiteralContext ctx) {
-        System.out.println(ctx.getParent().getText());
-        System.out.println(ctx.getParent().getParent().getText());
-        /*String objectLiteralText = ctx.getText();
-        ObjectLexer lexer = new ObjectLexer(CharStreams.fromString(objectLiteralText));
+    public void enterObjectLiteral(CfscriptParser.ObjectLiteralContext ctx) {
+        parseObject(ctx.getText(), ctx);
+    }
+
+    @Override
+    public void enterArrayLiteral(CfscriptParser.ArrayLiteralContext ctx) {
+        parseObject(ctx.getText(), ctx);
+    }
+
+    private void parseObject(String text, ParserRuleContext ctx) {
+        String arrayLiteralText = text;
+        ObjectLexer lexer = new ObjectLexer(CharStreams.fromString(arrayLiteralText));
         ObjectParser parser = new ObjectParser(new CommonTokenStream(lexer));
         ParseTree tree = parser.prog();
         ObjectCustomListener listener = new ObjectCustomListener();
         ParseTreeWalker.DEFAULT.walk(listener, tree);
         String javaCode = listener.getResult();
-        println(javaCode);*/
+        rewriter.replace(ctx.start, ctx.stop, javaCode);
     }
 }
 
