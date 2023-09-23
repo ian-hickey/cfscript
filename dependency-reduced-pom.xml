@@ -19,7 +19,7 @@
         </executions>
         <configuration>
           <outputDirectory>src/main/java/Cfscript/parser</outputDirectory>
-          <sourceDirectory>src/main/resources</sourceDirectory>
+          <sourceDirectory>src/main/java/Cfscript/parser</sourceDirectory>
         </configuration>
       </plugin>
       <plugin>
