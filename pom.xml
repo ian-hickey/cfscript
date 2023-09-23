@@ -9,8 +9,8 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -36,7 +36,23 @@
                 <version>4.9.1</version>
                 <configuration>
                     <outputDirectory>src/main/java/Cfscript/parser</outputDirectory>
-                    <sourceDirectory>src/main/resources</sourceDirectory>
+                    <sourceDirectory>src/main/java/Cfscript/parser</sourceDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>antlr4</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.antlr</groupId>
+                <artifactId>antlr4-maven-plugin</artifactId>
+                <version>4.9.1</version>
+                <configuration>
+                    <outputDirectory>src/main/java/Cfscript/object/parser</outputDirectory>
+                    <sourceDirectory>src/main/java/Cfscript/object/parser</sourceDirectory>
                 </configuration>
                 <executions>
                     <execution>
@@ -51,8 +67,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
+                    <source>17</source>
+                    <target>17</target>
                     <compilerArgs>
 
                     </compilerArgs>

@@ -15,13 +15,8 @@ component
 	;
 
 componentDefinition
-    : K_Component keyValue*
+    : (annotation)* K_Component keyValue*
     ;
-
-annotation
-	: '@' Identifier argumentsDefinition*
-	| '@' Identifier '(' StringLiteral ')'
-	;
 
 componentBody
 	: (componentElement)*
@@ -39,8 +34,12 @@ propertyDeclaration
 	;
 
 functionDeclaration
-	: Identifier? Identifier? K_Function functionName argumentsDefinition functionBody
+	: (annotation)* functionDefinition argumentsDefinition functionBody
 	;
+
+functionDefinition
+    : Identifier? Identifier? K_Function functionName
+    ;
 
 functionName
 	: Identifier
@@ -52,8 +51,8 @@ argumentsDefinition
 	;
 
 argumentDefinition
-	: Identifier? Identifier? argumentName ('=' expression)?
-	; 
+	: (annotation)* Identifier? Identifier? argumentName ('=' expression)?
+	;
 
 argumentName
 	: K_Variable
@@ -207,21 +206,9 @@ arrayLiteral
 	;
 
 objectLiteral
-	: '{' (Identifier ':' expression (',' Identifier ':' expression)*)? '}'
+	: '{' (Identifier objectKeyDelimiter expression (',' Identifier objectKeyDelimiter expression)*)? '}'
 	| '{}'
 	;
-
-keyValue
-	: Identifier '=' (StringLiteral|CharacterLiteral)
-	;
-
-//argumentValue
-//	: literal | keyValue
-//	;
-
-//argumentList
-//	: argumentValue (',' argumentValue)*
-//	;
 
 lambdaExpression
 	: '(' parameterList? ')' '=>' expression
@@ -231,6 +218,31 @@ lambdaExpression
 parameterList
 	: Identifier (',' Identifier)*
 	;
+annotation
+	: '@' Identifier '()'
+	| '@' Identifier '(' keyValue? ')'
+	| '@' Identifier '(' (StringLiteral|CharacterLiteral|NumberLiteral) ')'
+	| '@' Identifier '(' annotationArgument (',' annotationArgument)* ')'
+	| '@' Identifier
+	;
+
+annotationArgument
+	: Identifier '=' (keyValue|NumberLiteral)
+	;
+
+keyValue
+	: Identifier '=' (StringLiteral|CharacterLiteral)
+	;
+
+booleanLiteral
+    :   K_True
+    |   K_False
+    ;
+
+objectKeyDelimiter
+    :   ':'
+    |   '='
+    ;
 
 K_Return : ('r'|'R')('e'|'E')('t'|'T')('u'|'U')('r'|'R')('n'|'N');
 K_If : ('i'|'I')('f'|'F');
@@ -258,11 +270,6 @@ K_False : ('f'|'F')('a'|'A')('l'|'L')('s'|'S')('e'|'E');
 K_New : ('n'|'N')('e'|'E')('w'|'W');
 K_In : ('i'|'I')('n'|'N');
 
-booleanLiteral
-    :   K_True
-    |   K_False
-    ;
-
 CharacterLiteral
 	: '\'' ( EscapeSequence | ~('\''|'\\') )* '\''
 	;
@@ -277,6 +284,10 @@ DecimalLiteral
 
 FloatingPointLiteral
     : Digit* '.' Digit*
+    ;
+
+NumberLiteral
+    : Digit+    // Recognizes one or more digits.
     ;
 
 Identifier
@@ -308,7 +319,6 @@ LINE_COMMENT
     ( ~('\n'|'\r') )*
     ( '\n'|'\r'('\n')? )? -> skip;
 
-
 JAVADOC
 	:
 	'/**' ~[*]+ '*/' -> channel(HIDDEN)
@@ -317,4 +327,3 @@ JAVADOC
 ML_COMMENT
     :   '/*' (.)*? '*/' -> channel(HIDDEN)
     ;
-
