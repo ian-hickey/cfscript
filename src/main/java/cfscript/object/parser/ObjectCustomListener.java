@@ -17,12 +17,12 @@ public class ObjectCustomListener extends ObjectBaseListener {
     @Override
     public void exitStruct(ObjectParser.StructContext ctx) {
         StringBuilder sb = new StringBuilder();
-        sb.append("new HashMap<String, Object>() {{\n");
+        sb.append("new HashMap<String, Object>() {{ ");
 
         for (var pair : ctx.structPair()) {
             var key = pair.ID().getText();
             var value = pair.value().getText();
-            sb.append(indent()).append(String.format("put(\"%s\", %s);\n", key, value));
+            sb.append(indent()).append(String.format("put(\"%s\", %s);", key, value));
         }
         sb.append("}}");
         stack.push(sb.toString());

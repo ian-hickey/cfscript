@@ -5,13 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67965906-ab66-4ed2-be2c-2be3edd1c218" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/design-doc.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/Any.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptSymbolListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/typewriter/Symbol.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cfscript/typewriter/SymbolTable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cfscript/parser/Cfscript.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/Cfscript.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cfscript/parser/Cfscript.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/Cfscript.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptCustomListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptCustomListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ionatomics/Cfscript.cfc" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ionatomics/Cfscript.cfc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ionatomics/Fruit.cfc" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ionatomics/Fruit.cfc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cfscript/object/parser/ObjectCustomListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/object/parser/ObjectCustomListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptCustomListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptSourceListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ionatomics/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ionatomics/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +60,7 @@
     "WebServerToolWindowFactoryState": "false",
     "extract.method.default.visibility": "private",
     "ignore.preview.features.used": "true",
-    "last_opened_file_path": "/Users/ianhickey/Cfscript/src/main/java/Cfscript/stdlib",
+    "last_opened_file_path": "/Users/ianhickey/Cfscript",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -76,12 +78,16 @@
       <recent name="Cfscript.nodes" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/main/java/Cfscript/stdlib" />
       <recent name="$PROJECT_DIR$/src/main/java/org/ionatomics" />
       <recent name="C:\Users\ian.hickey\cfscript\src\main\java\Cfscript\parser" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\ian.hickey\cfscript\src\main\java\Cfscript\parser" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="cfscript.parser" />
     </key>
   </component>
   <component name="RunManager">

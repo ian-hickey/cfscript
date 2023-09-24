@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Iterator;
 
-public class CfscriptCustomListener extends CfscriptBaseListener {
+public class CfscriptSourceListener extends CfscriptBaseListener {
 
     private final TokenStreamRewriter rewriter;
     private String componentName = "";
@@ -32,7 +32,7 @@ public class CfscriptCustomListener extends CfscriptBaseListener {
         return translation;
     }
 
-    public CfscriptCustomListener(TokenStreamRewriter rewriter, CommonTokenStream tokens, String filePath) {
+    public CfscriptSourceListener(TokenStreamRewriter rewriter, CommonTokenStream tokens, String filePath) {
         super();
         this.rewriter = rewriter;
         this.tokens = tokens;
@@ -145,11 +145,9 @@ public class CfscriptCustomListener extends CfscriptBaseListener {
             property = propertyType + " " + propertyName + " = " + propertyValue + ";";
         };
 
-        // Check annotations
+        // Check property annotations
         var annotation = "";
-        // Translate CFScript component to Java class
         for (var id : ctx.annotation()) {
-            // if the return value
             annotation = id.getText();
             property = annotation + "\n" + property;
         }
@@ -211,13 +209,10 @@ public class CfscriptCustomListener extends CfscriptBaseListener {
 
     @Override
     public void exitStructKeyAccess(CfscriptParser.StructKeyAccessContext ctx) {
-        System.out.println(ctx.getText());
         var newAccess = ctx.getText().replace("[", "").replace("]", "");
         newAccess = ".get(" + newAccess + ")";
         rewriter.replace(ctx.start, ctx.stop, newAccess);
     }
-
-
 
     private void parseObject(String text, ParserRuleContext ctx) {
         String arrayLiteralText = text;
