@@ -360,6 +360,16 @@ public interface CfscriptListener extends ParseTreeListener {
 	 */
 	void exitAnnotation(CfscriptParser.AnnotationContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link CfscriptParser#staticVariableAccess}.
+	 * @param ctx the parse tree
+	 */
+	void enterStaticVariableAccess(CfscriptParser.StaticVariableAccessContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CfscriptParser#staticVariableAccess}.
+	 * @param ctx the parse tree
+	 */
+	void exitStaticVariableAccess(CfscriptParser.StaticVariableAccessContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link CfscriptParser#annotationArgument}.
 	 * @param ctx the parse tree
 	 */

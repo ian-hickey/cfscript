@@ -8,7 +8,7 @@ import java.time.temporal.Temporal;
 import java.util.*;
 
 /**
- * This static library is import where ever this builtin functions are needed.
+ * This static library is imported where ever these built-in functions are needed.
  */
 public class StdLib {
     /**
@@ -147,31 +147,6 @@ public class StdLib {
         return str.substring(Math.max(0, str.length() - count));
     }
 
-    // len function for strings
-    public static int len(String str) {
-        return str.length();
-    }
-
-    // len function for arrays
-    public static int len(Object[] arr) {
-        return arr.length;
-    }
-
-    // len function for lists
-    public static int len(List<?> list) {
-        return list.size();
-    }
-
-    // len function for collections
-    public static int len(Collection<?> collection) {
-        return collection.size();
-    }
-
-    // len function for maps
-    public static int len(Map<?, ?> map) {
-        return map.size();
-    }
-
     // Replace function
     public static String replace(String str, String subStr, String replacement) {
         return str.replace(subStr, replacement);
@@ -281,5 +256,46 @@ public class StdLib {
      * LANGUAGE SPECIFIC
      *******************
      */
+    public static boolean isNull(Object any) {
+        if (any == null) {
+            return true;
+        }
+        return false;
+    }
 
+    public static boolean isNotNull(Object any) {
+        if (any != null) {
+            return true;
+        }
+        return false;
+    }
+
+    // len function for strings
+    public static int len(String str) {
+        return str.length();
+    }
+
+    // len function for arrays
+    public static int len(Object[] arr) {
+        return arr.length;
+    }
+
+    // len function for lists
+    public static int len(List<?> list) {
+        return list.size();
+    }
+
+    // len function for collections
+    public static int len(Collection<?> collection) {
+        return collection.size();
+    }
+
+    // len function for maps
+    public static int len(Map<?, ?> map) {
+        return map.size();
+    }
+
+    public static void doThrow(String msg) throws Exception {
+        throw new Exception(msg);
+    }
 }

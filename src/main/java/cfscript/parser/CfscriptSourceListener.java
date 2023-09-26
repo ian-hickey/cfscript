@@ -12,18 +12,19 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class CfscriptSourceListener extends CfscriptBaseListener {
 
     private final TokenStreamRewriter rewriter;
+    private final String packageName;
     private String componentName = "";
     private String context = "";
     private String filepath = "";
     private CommonTokenStream tokens = null;
     private StringBuilder translation = new StringBuilder();
-    private HashSet<String> imports = new HashSet<>();
+    private ArrayList<String> imports = new ArrayList<>();
 
     private void println(String text) {
         System.out.println(text);
@@ -32,17 +33,23 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
         return translation;
     }
 
-    public CfscriptSourceListener(TokenStreamRewriter rewriter, CommonTokenStream tokens, String filePath) {
+    public CfscriptSourceListener(TokenStreamRewriter rewriter, CommonTokenStream tokens, String filePath, String finalPackageName) {
         super();
         this.rewriter = rewriter;
         this.tokens = tokens;
         this.filepath = filePath;
+        this.packageName = finalPackageName;
         // Imports common to all source files
-        imports.add("import java.util.*;");
-        imports.add("import java.lang.*;");
-        imports.add("import io.quarkus.logging.Log;");
-        imports.add("import static cfscript.library.StdLib;");
+        addImportIfNotFound(imports, "import java.util.*;");
+        addImportIfNotFound(imports, "import java.lang.*;");
+        addImportIfNotFound(imports, "import io.quarkus.qute.*;"); // Qute Template Library
+        addImportIfNotFound(imports, "import io.quarkus.mailer.Mailer;");
+        addImportIfNotFound(imports, "import io.quarkus.logging.Log;"); // Simplified Logging
+        addImportIfNotFound(imports, "import static cfscript.library.StdLib.*;"); // Cfscript STD functions like len and isNull.
+        addImportIfNotFound(imports, "import jakarta.enterprise.context.*;"); // Handle Application, Singleton and Request Scopes
+        addImportIfNotFound(imports, "import org.eclipse.microprofile.config.inject.ConfigProperty;");
     }
+
 
     @Override
     public void enterComponentDefinition(CfscriptParser.ComponentDefinitionContext ctx) {
@@ -58,17 +65,12 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
             annotation = id.getText();
             // handle imports.
             if (annotation.startsWith("@Path")) {
-                imports.add("import jakarta.ws.rs.Path;");
-            }else if (annotation.startsWith("@GET")) {
-                imports.add("import jakarta.ws.rs.GET;");
-            }else if (annotation.startsWith("@POST")) {
-                imports.add("import jakarta.ws.rs.POST;");
-            }else if (annotation.startsWith("@PUT")) {
-                imports.add("import jakarta.ws.rs.PUT;");
-            }else if (annotation.startsWith("@DELETE")) {
-                imports.add("import jakarta.ws.rs.DELETE;");
+                addImportIfNotFound(imports, "import jakarta.ws.rs.*;");
+                addImportIfNotFound(imports, "import jakarta.ws.rs.core.*;");
+                addImportIfNotFound(imports, "import jakarta.transaction.Transactional;");
+                addImportIfNotFound(imports, "import java.net.URI;");
             }else if (annotation.startsWith("@Entity")) {
-                imports.add("import jakarta.persistence.*;");
+                addImportIfNotFound(imports, "import jakarta.persistence.*;");
             }
             newComponentText = annotation + "\n" + newComponentText;
         }
@@ -139,7 +141,7 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
         var property = "";
         if (propertyType.toLowerCase().equals("array")) {
             property = "ArrayList<Object> " + propertyName + " = new ArrayList<Object>();";
-        } else if ((propertyType.toLowerCase().equals("String") || propertyType.toLowerCase().equals("Integer")) && propertyValue == null) {
+        } else if ((propertyType.toLowerCase().equals("String") || propertyType.toLowerCase().equals("Integer")) || propertyValue == null) {
             property = propertyType + " " + propertyName + ";";
         }else {
             property = propertyType + " " + propertyName + " = " + propertyValue + ";";
@@ -150,6 +152,13 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
         for (var id : ctx.annotation()) {
             annotation = id.getText();
             property = annotation + "\n" + property;
+
+            // Add imports
+            if (annotation.startsWith("@Inject")) {
+                addImportIfNotFound(imports, "import jakarta.inject.Inject;");
+            }else if (annotation.startsWith("@Produces") || annotation.startsWith("@Consumes")) {
+                addImportIfNotFound(imports, "import jakarta.ws.rs.core.*;");
+            }
         }
         rewriter.replace(ctx.start, ctx.stop, property);
     }
@@ -157,12 +166,16 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
 
     @Override
     public void exitComponent(CfscriptParser.ComponentContext ctx) {
+        // Add Package
+        addImportIfNotFound(imports, "package "+ this.packageName +";\n");
+
         if (!imports.isEmpty()) {
             Iterator<String> iterator = imports.iterator();
             while(iterator.hasNext()){
                 rewriter.insertBefore(ctx.start, iterator.next() + "\n");
             }
         }
+
     }
 
     @Override
@@ -183,7 +196,7 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
                 // if the return value
                 functionReturn = id.getText();
                 if (functionReturn.toLowerCase().equals("response")) {
-                    imports.add("import jakarta.ws.rs.core.Response;");
+                    addImportIfNotFound(imports, "import jakarta.ws.rs.core.Response;");
                 }
             }
         }
@@ -223,6 +236,12 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
         ParseTreeWalker.DEFAULT.walk(listener, tree);
         String javaCode = listener.getResult();
         rewriter.replace(ctx.start, ctx.stop, javaCode);
+    }
+
+    private void addImportIfNotFound(ArrayList<String> imports, String s) {
+        if (!imports.contains(s)) {
+            imports.add(s);
+        }
     }
 }
 

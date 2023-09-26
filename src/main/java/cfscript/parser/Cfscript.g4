@@ -226,10 +226,15 @@ parameterList
 annotation
 	: '@' Identifier '()'
 	| '@' Identifier '(' keyValue? (',' keyValue)* ')'
+	| '@' Identifier '(' staticVariableAccess')'
 	| '@' Identifier '(' (StringLiteral|CharacterLiteral|NumberLiteral) ')'
 	| '@' Identifier '(' annotationArgument (',' annotationArgument)* ')'
 	| '@' Identifier
 	;
+
+staticVariableAccess
+    : Identifier '.' Identifier ('.' Identifier)*
+    ;
 
 annotationArgument
 	: Identifier '=' (keyValue|NumberLiteral)
@@ -249,6 +254,7 @@ objectKeyDelimiter
     |   '='
     ;
 
+K_Underscore : '_';
 K_Return : ('r'|'R')('e'|'E')('t'|'T')('u'|'U')('r'|'R')('n'|'N');
 K_If : ('i'|'I')('f'|'F');
 K_Else : ('e'|'E')('l'|'L')('s'|'S')('e'|'E');
@@ -294,7 +300,7 @@ FloatingPointLiteral
     ;
 
 Identifier
-	: Letter (Letter|Digit)*
+	: Letter (Letter|Digit|K_Underscore)*
 	;
 
 fragment

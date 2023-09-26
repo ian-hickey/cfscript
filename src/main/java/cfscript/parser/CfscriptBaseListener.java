@@ -438,6 +438,18 @@ public class CfscriptBaseListener implements CfscriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterStaticVariableAccess(CfscriptParser.StaticVariableAccessContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStaticVariableAccess(CfscriptParser.StaticVariableAccessContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterAnnotationArgument(CfscriptParser.AnnotationArgumentContext ctx) { }
 	/**
 	 * {@inheritDoc}
