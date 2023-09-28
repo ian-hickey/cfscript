@@ -11,6 +11,7 @@ import org.antlr.v4.runtime.TokenStreamRewriter;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.*;
@@ -58,7 +59,11 @@ public class Main {
                     String outputLine = getOutputLine(filePath, checksum);
 
                     if (!checksumExistsInFile(outputPath, outputLine)) {
-                        doParse(file.toString(), symbolTable, finalMode, finalPackageName);
+                        var calculatedPackage = filePath.replace(File.separator + fileName, "")
+                                .split(File.separator + "src"+File.separator +"main"+File.separator + "cfscript" + File.separator)[1]
+                                .replace(File.separator, ".");
+
+                        doParse(file.toString(), symbolTable, finalMode, calculatedPackage);
                         saveChecksumToFile(filePath, checksum); // save the checksum
                     }else{
                         System.out.println("No change - skipping");
@@ -106,13 +111,16 @@ public class Main {
             String outputFilePath = filePath
                     .replace(".cfc", ".java")
                     .replace(".dms", ".java")
-                    .replace("src/main/cfscript", "src/main/java")
-                    .replace(finalPackageName, finalPackageName.replace(".", "/"));
+                    .replace(File.separator + "cfscript", File.separator + "java")
+                    .replace(finalPackageName, finalPackageName.replace(".", File.separator));
 
             Path out = Paths.get(outputFilePath);
             if (Files.exists(out)) {
                 Files.delete(out);
             }
+            // Maybe we need to create parent directories for the file.
+            createJavaDirectories(removeFileFromPath(outputFilePath));
+
             try (BufferedWriter writer = Files.newBufferedWriter(out,
                     StandardOpenOption.CREATE)) {
                 writer.write(processedContent);
@@ -126,6 +134,29 @@ public class Main {
 
     }
 
+    public static void createJavaDirectories(String filePath) {
+        String[] splitPath = filePath.split(File.separator + "src" + File.separator + "main" + File.separator + "java" + File.separator);
+        String basePath = splitPath[0] + File.separator + "src" + File.separator + "main" + File.separator + "java";
+        String[] pathParts = splitPath[1].split(File.separator);
+        String currentPath = "";
+        System.out.println("Checking Directory for " + basePath);
+        for (String pathPart : pathParts) {
+            currentPath += File.separator + pathPart;
+            File directory = new File(basePath + currentPath);
+            if (!directory.exists()) {
+                System.out.println("Creating Directory for " + currentPath);
+                directory.mkdir();
+            }
+        }
+    }
+
+    public static String removeFileFromPath(String filePath) {
+        int lastSlashIndex = filePath.lastIndexOf(File.separator);
+        if (lastSlashIndex == -1) {
+            return filePath;
+        }
+        return filePath.substring(0, lastSlashIndex);
+    }
     public static String calculateChecksum(Path filePath) throws IOException {
         CRC32 crc = new CRC32();
 

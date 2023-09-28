@@ -5,19 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67965906-ab66-4ed2-be2c-2be3edd1c218" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/ionatomics/ExampleResource.cfc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/checksums.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cfscript/library/StdLib.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/library/StdLib.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cfscript/parser/Cfscript.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/Cfscript.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cfscript/parser/Cfscript.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/Cfscript.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cfscript/parser/Cfscript.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/Cfscript.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptBaseListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptLexer.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptLexer.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptSourceListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptSourceListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ionatomics/Fruit.cfc" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cfscript/org.ionatomics/Fruit.cfc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ionatomics/FruitsResource.cfc" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cfscript/org.ionatomics/FruitsResource.cfc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ionatomics/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ionatomics/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,7 +57,7 @@
     "WebServerToolWindowFactoryState": "false",
     "extract.method.default.visibility": "private",
     "ignore.preview.features.used": "true",
-    "last_opened_file_path": "/Users/ianhickey/Cfscript/src/main/java/org/ionatomics",
+    "last_opened_file_path": "/Users/ianhickey/Cfscript/src/main/cfscript/org.ionatomics",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -83,6 +75,7 @@
       <recent name="Cfscript.nodes" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/cfscript/org.ionatomics" />
       <recent name="$PROJECT_DIR$/src/main/java/org/ionatomics" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/main/java/Cfscript/stdlib" />

@@ -57,6 +57,7 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
 
         // Iterate the attributes and find the component. TODO: default to the filename
         findComponentName(ctx);
+        String extendClass = findExtends(ctx);
         var newComponentText = "public class " + this.componentName + " ";
         var annotation = "";
         // Translate CFScript component to Java class
@@ -71,10 +72,14 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
                 addImportIfNotFound(imports, "import java.net.URI;");
             }else if (annotation.startsWith("@Entity")) {
                 addImportIfNotFound(imports, "import jakarta.persistence.*;");
+                addImportIfNotFound(imports, "import io.quarkus.hibernate.reactive.panache.PanacheEntity;");
             }
             newComponentText = annotation + "\n" + newComponentText;
         }
 
+        if (extendClass != null) {
+            newComponentText = newComponentText + " extends " + extendClass;
+        }
         rewriter.replace(ctx.start, ctx.stop, newComponentText);
     }
 
@@ -84,6 +89,14 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
                 .map(kv -> kv.StringLiteral().getText().replaceAll("\"", ""))  // Strip quotes
                 .findFirst()
                 .orElse(this.getFileName(this.filepath));
+    }
+
+    private String findExtends(CfscriptParser.ComponentDefinitionContext ctx) {
+        return ctx.keyValue().stream()
+                .filter(kv -> kv.Identifier().getText().equals("extends"))
+                .map(kv -> kv.StringLiteral().getText().replaceAll("\"", ""))  // Strip quotes
+                .findFirst()
+                .orElse(null);
     }
 
     public String getFileName(String filepath) {
