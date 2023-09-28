@@ -1,0 +1,6 @@
+/Users/ianhickey/Cfscript/src/main/java/org/ionatomics/Fruit.cfc 260028e2
+/Users/ianhickey/Cfscript/src/main/java/org/ionatomics/FruitsResource.cfc 528eb3d7
+/Users/ianhickey/Cfscript/src/main/java/org/ionatomics/Cfscript.cfc c92ae4cf
+/Users/ianhickey/Cfscript/src/main/java/org/ionatomics/ExampleResource.cfc b08d8e2e
+/Users/ianhickey/Cfscript/src/main/cfscript/org.ionatomics/Fruit.cfc 260028e2
+/Users/ianhickey/Cfscript/src/main/cfscript/org.ionatomics/FruitsResource.cfc 528eb3d7
