@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67965906-ab66-4ed2-be2c-2be3edd1c218" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/checksums.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptSourceListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cfscript/parser/CfscriptSourceListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ionatomics/Fruit.cfc" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cfscript/org.ionatomics/Fruit.cfc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ionatomics/FruitsResource.cfc" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cfscript/org.ionatomics/FruitsResource.cfc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ionatomics/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ionatomics/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -57,13 +53,13 @@
     "WebServerToolWindowFactoryState": "false",
     "extract.method.default.visibility": "private",
     "ignore.preview.features.used": "true",
-    "last_opened_file_path": "/Users/ianhickey/Cfscript/src/main/cfscript/org.ionatomics",
+    "last_opened_file_path": "C:/Users/ian.hickey/cfscript/src/main/java/org/ionatomics/Cfscript.cfc",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "MavenSettings",
@@ -75,22 +71,16 @@
       <recent name="Cfscript.nodes" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/cfscript/org.ionatomics" />
       <recent name="$PROJECT_DIR$/src/main/java/org/ionatomics" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/src/main/java/Cfscript/stdlib" />
       <recent name="C:\Users\ian.hickey\cfscript\src\main\java\Cfscript\parser" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\ian.hickey\cfscript\src\main\java\Cfscript\parser" />
     </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="cfscript.parser" />
-    </key>
   </component>
   <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../Library/Java/JavaVirtualMachines/graalvm-ce-17/Contents/Home" />
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="temurin-17" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="org.ionatomics.Main" />
       <module name="Cfscript" />
@@ -104,6 +94,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
