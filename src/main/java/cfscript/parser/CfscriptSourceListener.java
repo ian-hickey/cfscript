@@ -178,17 +178,17 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
                 property = symbol.getInferredType() + " " + propertyName + (propertyValue != null ? "=" + propertyValue + ";" : ";");
             }
             else if (symbol.getDeclaredType().equalsIgnoreCase("boolean")) {
-                property = "boolean %s%s".formatted(propertyName, propertyValue != null ? "=" + propertyValue + ";" : ";");
+                property = "Boolean %s%s".formatted(propertyName, propertyValue != null ? "=" + propertyValue + ";" : ";");
             }
             else if (symbol.getDeclaredType().equalsIgnoreCase("string")) {
                 property = "String %s%s".formatted(propertyName, propertyValue != null ? "=\"" + propertyValue + "\";" : ";");
             }
         }else if (symbol.getInferredType() != null) {
-            if (symbol.getInferredType().equalsIgnoreCase("int") || symbol.getInferredType().equalsIgnoreCase("double")) {
+            if (symbol.getInferredType().equalsIgnoreCase("integer") || symbol.getInferredType().equalsIgnoreCase("double")) {
                 property = symbol.getInferredType() + " " + propertyName + (propertyValue != null ? "=" + propertyValue + ";" : ";");
             }
             else if (symbol.getInferredType().equalsIgnoreCase("boolean")) {
-                property = "boolean " + propertyName + (propertyValue != null ? "=" + propertyValue + ";" : ";");
+                property = "Boolean " + propertyName + (propertyValue != null ? "=" + propertyValue + ";" : ";");
             }
             else if (symbol.getInferredType().equalsIgnoreCase("string")) {
                 property = "String " + propertyName + (propertyValue != null ? "=\"" + propertyValue + "\";" : ";");
@@ -260,6 +260,7 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
             // use the constructor name instead of the method name
             isConstructor = true;
             functionName = this.componentName; // Use the defined name or the filename depending
+            functionScope = "public";
         }
         var newFunction = functionScope + " " + (!isConstructor ? functionReturn+" " : "") + functionName;
         rewriter.replace(ctx.start, ctx.stop, newFunction);
@@ -276,7 +277,7 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
     }
 
     @Override
-    public void exitStructKeyAccess(CfscriptParser.StructKeyAccessContext ctx) {
+    public void exitCollectionAccess(CfscriptParser.CollectionAccessContext ctx) {
         var newAccess = ctx.getText().replace("[", "").replace("]", "");
         newAccess = ".get(" + newAccess + ")";
         rewriter.replace(ctx.start, ctx.stop, newAccess);

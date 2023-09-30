@@ -72,7 +72,7 @@ public class Main {
                         }
 
                         doSymbolize(file.toString(), symbolTable);
-                        symbolTable.asString();
+                        //symbolTable.asString();
                         doParse(file.toString(), symbolTable, finalMode, calculatedPackage);
                         saveChecksumToFile(filePath, checksum); // save the checksum
                     }
@@ -83,7 +83,6 @@ public class Main {
     }
 
     public static void doSymbolize(String filePath, SymbolTable symbolTable) throws IOException {
-        System.out.println(filePath);
         var content = Files.readString(Paths.get(filePath));
         var charStream = CharStreams.fromString(content);
         var lexer  = new CfscriptLexer(charStream);
@@ -96,7 +95,6 @@ public class Main {
     }
 
     public static void doParse(String filePath, SymbolTable symbolTable, String finalMode, String finalPackageName) throws IOException {
-        System.out.println(filePath);
         var content = Files.readString(Paths.get(filePath));
         var charStream = CharStreams.fromString(content);
         var lexer  = new CfscriptLexer(charStream);

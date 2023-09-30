@@ -270,13 +270,13 @@ public class CfscriptBaseListener implements CfscriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStructKeyAccess(CfscriptParser.StructKeyAccessContext ctx) { }
+	@Override public void enterCollectionAccess(CfscriptParser.CollectionAccessContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStructKeyAccess(CfscriptParser.StructKeyAccessContext ctx) { }
+	@Override public void exitCollectionAccess(CfscriptParser.CollectionAccessContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

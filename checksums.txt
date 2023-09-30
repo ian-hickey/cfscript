@@ -1,4 +1,0 @@
-/Users/ianhickey/Cfscript/src/main/cfscript/org/acme/FruitsResource.cfc 2863acc3
-/Users/ianhickey/Cfscript/src/main/cfscript/org/acme/Cfscript.cfc c92ae4cf
-/Users/ianhickey/Cfscript/src/main/cfscript/org/acme/ExampleResource.cfc 60ee66c0
-/Users/ianhickey/Cfscript/src/main/cfscript/org/acme/model/Fruit.cfc 260028e2

@@ -220,15 +220,15 @@ public interface CfscriptListener extends ParseTreeListener {
 	 */
 	void exitExpressionStatement(CfscriptParser.ExpressionStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CfscriptParser#structKeyAccess}.
+	 * Enter a parse tree produced by {@link CfscriptParser#collectionAccess}.
 	 * @param ctx the parse tree
 	 */
-	void enterStructKeyAccess(CfscriptParser.StructKeyAccessContext ctx);
+	void enterCollectionAccess(CfscriptParser.CollectionAccessContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CfscriptParser#structKeyAccess}.
+	 * Exit a parse tree produced by {@link CfscriptParser#collectionAccess}.
 	 * @param ctx the parse tree
 	 */
-	void exitStructKeyAccess(CfscriptParser.StructKeyAccessContext ctx);
+	void exitCollectionAccess(CfscriptParser.CollectionAccessContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CfscriptParser#expression}.
 	 * @param ctx the parse tree

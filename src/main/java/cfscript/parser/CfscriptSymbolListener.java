@@ -148,7 +148,7 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
     }
 
     @Override
-    public void exitStructKeyAccess(CfscriptParser.StructKeyAccessContext ctx) {
+    public void exitCollectionAccess(CfscriptParser.CollectionAccessContext ctx) {
 
     }
 
@@ -203,21 +203,21 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
         }
         // Check for boolean
         if (token.equalsIgnoreCase("true") ||
-                token.equalsIgnoreCase("false")) return "boolean";
+                token.equalsIgnoreCase("false")) return "Boolean";
 
         // Check for integer and double of numeric type
         if (token.matches("\\d+\\.\\d+")) {
             // Token matches the pattern of a decimal number
             try {
                 var d = Double.parseDouble(token); /* if this doesn't error, its doubleISH */
-                return "double";
+                return "Double";
             } catch (NumberFormatException ignored) {
             }
         } else if (token.matches("\\d+")) {
             // Token matches the pattern of an integer
             try {
                 var i = Integer.parseInt(token); /* if this doesn't error, its intISH */
-                return "int";
+                return "Integer";
             } catch (NumberFormatException ignored) {
             }
         }

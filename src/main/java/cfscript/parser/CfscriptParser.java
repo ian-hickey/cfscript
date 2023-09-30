@@ -38,7 +38,7 @@ public class CfscriptParser extends Parser {
 		RULE_statement = 12, RULE_saveContentStatement = 13, RULE_variableStatement = 14, 
 		RULE_nonVarVariableStatement = 15, RULE_returnStatement = 16, RULE_ifStatement = 17, 
 		RULE_forStatement = 18, RULE_whileStatement = 19, RULE_expressionStatement = 20, 
-		RULE_structKeyAccess = 21, RULE_expression = 22, RULE_expressionFirst = 23, 
+		RULE_collectionAccess = 21, RULE_expression = 22, RULE_expressionFirst = 23, 
 		RULE_validSecond = 24, RULE_expressionMethod = 25, RULE_literal = 26, 
 		RULE_quotedVariableName = 27, RULE_variableName = 28, RULE_variableNameFirst = 29, 
 		RULE_arrayLiteral = 30, RULE_objectLiteral = 31, RULE_lambdaExpression = 32, 
@@ -52,7 +52,7 @@ public class CfscriptParser extends Parser {
 			"argumentsDefinition", "argumentDefinition", "argumentName", "functionBody", 
 			"statement", "saveContentStatement", "variableStatement", "nonVarVariableStatement", 
 			"returnStatement", "ifStatement", "forStatement", "whileStatement", "expressionStatement", 
-			"structKeyAccess", "expression", "expressionFirst", "validSecond", "expressionMethod", 
+			"collectionAccess", "expression", "expressionFirst", "validSecond", "expressionMethod", 
 			"literal", "quotedVariableName", "variableName", "variableNameFirst", 
 			"arrayLiteral", "objectLiteral", "lambdaExpression", "parameterList", 
 			"annotation", "staticVariableAccess", "annotationArgument", "keyValue", 
@@ -1637,33 +1637,42 @@ public class CfscriptParser extends Parser {
 		return _localctx;
 	}
 
-	public static class StructKeyAccessContext extends ParserRuleContext {
+	public static class CollectionAccessContext extends ParserRuleContext {
 		public TerminalNode StringLiteral() { return getToken(CfscriptParser.StringLiteral, 0); }
-		public StructKeyAccessContext(ParserRuleContext parent, int invokingState) {
+		public TerminalNode CharacterLiteral() { return getToken(CfscriptParser.CharacterLiteral, 0); }
+		public TerminalNode NumberLiteral() { return getToken(CfscriptParser.NumberLiteral, 0); }
+		public CollectionAccessContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_structKeyAccess; }
+		@Override public int getRuleIndex() { return RULE_collectionAccess; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CfscriptListener ) ((CfscriptListener)listener).enterStructKeyAccess(this);
+			if ( listener instanceof CfscriptListener ) ((CfscriptListener)listener).enterCollectionAccess(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CfscriptListener ) ((CfscriptListener)listener).exitStructKeyAccess(this);
+			if ( listener instanceof CfscriptListener ) ((CfscriptListener)listener).exitCollectionAccess(this);
 		}
 	}
 
-	public final StructKeyAccessContext structKeyAccess() throws RecognitionException {
-		StructKeyAccessContext _localctx = new StructKeyAccessContext(_ctx, getState());
-		enterRule(_localctx, 42, RULE_structKeyAccess);
+	public final CollectionAccessContext collectionAccess() throws RecognitionException {
+		CollectionAccessContext _localctx = new CollectionAccessContext(_ctx, getState());
+		enterRule(_localctx, 42, RULE_collectionAccess);
+		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(293);
 			match(T__10);
-			{
 			setState(294);
-			match(StringLiteral);
+			_la = _input.LA(1);
+			if ( !(((((_la - 61)) & ~0x3f) == 0 && ((1L << (_la - 61)) & ((1L << (CharacterLiteral - 61)) | (1L << (StringLiteral - 61)) | (1L << (NumberLiteral - 61)))) != 0)) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
 			}
 			setState(295);
 			match(T__11);
@@ -1698,8 +1707,8 @@ public class CfscriptParser extends Parser {
 		public ValidSecondContext validSecond() {
 			return getRuleContext(ValidSecondContext.class,0);
 		}
-		public StructKeyAccessContext structKeyAccess() {
-			return getRuleContext(StructKeyAccessContext.class,0);
+		public CollectionAccessContext collectionAccess() {
+			return getRuleContext(CollectionAccessContext.class,0);
 		}
 		public ExpressionMethodContext expressionMethod() {
 			return getRuleContext(ExpressionMethodContext.class,0);
@@ -2059,7 +2068,7 @@ public class CfscriptParser extends Parser {
 						setState(367);
 						if (!(precpred(_ctx, 20))) throw new FailedPredicateException(this, "precpred(_ctx, 20)");
 						setState(368);
-						structKeyAccess();
+						collectionAccess();
 						}
 						break;
 					case 15:
@@ -2128,8 +2137,8 @@ public class CfscriptParser extends Parser {
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
-		public StructKeyAccessContext structKeyAccess() {
-			return getRuleContext(StructKeyAccessContext.class,0);
+		public CollectionAccessContext collectionAccess() {
+			return getRuleContext(CollectionAccessContext.class,0);
 		}
 		public LiteralContext literal() {
 			return getRuleContext(LiteralContext.class,0);
@@ -2171,7 +2180,7 @@ public class CfscriptParser extends Parser {
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(387);
-				structKeyAccess();
+				collectionAccess();
 				}
 				break;
 			case 3:
@@ -3595,8 +3604,8 @@ public class CfscriptParser extends Parser {
 		"\13$\3$\3$\3$\3$\5$\u022b\n$\3%\3%\3%\3%\3%\7%\u0232\n%\f%\16%\u0235\13"+
 		"%\3&\3&\3&\3&\5&\u023b\n&\3\'\3\'\3\'\3\'\3\'\3\'\3\'\5\'\u0244\n\'\3"+
 		"(\3(\3)\3)\3)\2\4.:*\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,.\60"+
-		"\62\64\668:<>@BDFHJLNP\2\r\5\2*-//DD\4\2\13\f>>\3\2\13\f\3\2\22\23\3\2"+
-		"\24\26\3\2\20\21\5\2%\64\66<DD\3\2?@\4\2?@BB\3\2:;\4\2\n\n\36\36\2\u0284"+
+		"\62\64\668:<>@BDFHJLNP\2\r\5\2*-//DD\4\2\13\f>>\4\2?@BB\3\2\13\f\3\2\22"+
+		"\23\3\2\24\26\3\2\20\21\5\2%\64\66<DD\3\2?@\3\2:;\4\2\n\n\36\36\2\u0284"+
 		"\2R\3\2\2\2\4[\3\2\2\2\6h\3\2\2\2\bn\3\2\2\2\n\u0087\3\2\2\2\f\u008c\3"+
 		"\2\2\2\16\u0094\3\2\2\2\20\u009c\3\2\2\2\22\u00aa\3\2\2\2\24\u00af\3\2"+
 		"\2\2\26\u00bd\3\2\2\2\30\u00bf\3\2\2\2\32\u00d0\3\2\2\2\34\u00d2\3\2\2"+
@@ -3667,22 +3676,22 @@ public class CfscriptParser extends Parser {
 		"\2\2\2\u011c\u010b\3\2\2\2\u011c\u0114\3\2\2\2\u011d\'\3\2\2\2\u011e\u011f"+
 		"\7)\2\2\u011f\u0120\7\6\2\2\u0120\u0121\5.\30\2\u0121\u0122\7\b\2\2\u0122"+
 		"\u0123\5\30\r\2\u0123)\3\2\2\2\u0124\u0125\5.\30\2\u0125\u0126\7\5\2\2"+
-		"\u0126+\3\2\2\2\u0127\u0128\7\r\2\2\u0128\u0129\7@\2\2\u0129\u012a\7\16"+
-		"\2\2\u012a-\3\2\2\2\u012b\u012c\b\30\1\2\u012c\u0135\5\60\31\2\u012d\u012e"+
-		"\7<\2\2\u012e\u0135\5.\30\22\u012f\u0130\t\4\2\2\u0130\u0135\5.\30\21"+
-		"\u0131\u0132\t\5\2\2\u0132\u0135\5.\30\20\u0133\u0135\5B\"\2\u0134\u012b"+
-		"\3\2\2\2\u0134\u012d\3\2\2\2\u0134\u012f\3\2\2\2\u0134\u0131\3\2\2\2\u0134"+
-		"\u0133\3\2\2\2\u0135\u017e\3\2\2\2\u0136\u0137\f\17\2\2\u0137\u0138\t"+
-		"\6\2\2\u0138\u017d\5.\30\20\u0139\u013a\f\16\2\2\u013a\u013b\t\4\2\2\u013b"+
-		"\u017d\5.\30\17\u013c\u0141\f\r\2\2\u013d\u013e\7\27\2\2\u013e\u0142\7"+
-		"\27\2\2\u013f\u0140\7\30\2\2\u0140\u0142\7\30\2\2\u0141\u013d\3\2\2\2"+
-		"\u0141\u013f\3\2\2\2\u0142\u0143\3\2\2\2\u0143\u017d\5.\30\16\u0144\u014b"+
-		"\f\f\2\2\u0145\u014c\7\27\2\2\u0146\u014c\7\30\2\2\u0147\u0148\7\27\2"+
-		"\2\u0148\u014c\7\n\2\2\u0149\u014a\7\30\2\2\u014a\u014c\7\n\2\2\u014b"+
-		"\u0145\3\2\2\2\u014b\u0146\3\2\2\2\u014b\u0147\3\2\2\2\u014b\u0149\3\2"+
-		"\2\2\u014c\u014d\3\2\2\2\u014d\u017d\5.\30\r\u014e\u0153\f\13\2\2\u014f"+
-		"\u0150\7\23\2\2\u0150\u0154\7\n\2\2\u0151\u0152\7\n\2\2\u0152\u0154\7"+
-		"\n\2\2\u0153\u014f\3\2\2\2\u0153\u0151\3\2\2\2\u0154\u0155\3\2\2\2\u0155"+
+		"\u0126+\3\2\2\2\u0127\u0128\7\r\2\2\u0128\u0129\t\4\2\2\u0129\u012a\7"+
+		"\16\2\2\u012a-\3\2\2\2\u012b\u012c\b\30\1\2\u012c\u0135\5\60\31\2\u012d"+
+		"\u012e\7<\2\2\u012e\u0135\5.\30\22\u012f\u0130\t\5\2\2\u0130\u0135\5."+
+		"\30\21\u0131\u0132\t\6\2\2\u0132\u0135\5.\30\20\u0133\u0135\5B\"\2\u0134"+
+		"\u012b\3\2\2\2\u0134\u012d\3\2\2\2\u0134\u012f\3\2\2\2\u0134\u0131\3\2"+
+		"\2\2\u0134\u0133\3\2\2\2\u0135\u017e\3\2\2\2\u0136\u0137\f\17\2\2\u0137"+
+		"\u0138\t\7\2\2\u0138\u017d\5.\30\20\u0139\u013a\f\16\2\2\u013a\u013b\t"+
+		"\5\2\2\u013b\u017d\5.\30\17\u013c\u0141\f\r\2\2\u013d\u013e\7\27\2\2\u013e"+
+		"\u0142\7\27\2\2\u013f\u0140\7\30\2\2\u0140\u0142\7\30\2\2\u0141\u013d"+
+		"\3\2\2\2\u0141\u013f\3\2\2\2\u0142\u0143\3\2\2\2\u0143\u017d\5.\30\16"+
+		"\u0144\u014b\f\f\2\2\u0145\u014c\7\27\2\2\u0146\u014c\7\30\2\2\u0147\u0148"+
+		"\7\27\2\2\u0148\u014c\7\n\2\2\u0149\u014a\7\30\2\2\u014a\u014c\7\n\2\2"+
+		"\u014b\u0145\3\2\2\2\u014b\u0146\3\2\2\2\u014b\u0147\3\2\2\2\u014b\u0149"+
+		"\3\2\2\2\u014c\u014d\3\2\2\2\u014d\u017d\5.\30\r\u014e\u0153\f\13\2\2"+
+		"\u014f\u0150\7\23\2\2\u0150\u0154\7\n\2\2\u0151\u0152\7\n\2\2\u0152\u0154"+
+		"\7\n\2\2\u0153\u014f\3\2\2\2\u0153\u0151\3\2\2\2\u0154\u0155\3\2\2\2\u0155"+
 		"\u017d\5.\30\f\u0156\u0157\f\n\2\2\u0157\u0158\7>\2\2\u0158\u017d\5.\30"+
 		"\13\u0159\u015a\f\t\2\2\u015a\u015b\7\31\2\2\u015b\u017d\5.\30\n\u015c"+
 		"\u015d\f\b\2\2\u015d\u015e\7\32\2\2\u015e\u017d\5.\30\t\u015f\u0160\f"+
@@ -3694,7 +3703,7 @@ public class CfscriptParser extends Parser {
 		"\u0171\u0172\f\26\2\2\u0172\u017d\5,\27\2\u0173\u0174\f\25\2\2\u0174\u0175"+
 		"\7\r\2\2\u0175\u0176\5.\30\2\u0176\u0177\7\16\2\2\u0177\u017d\3\2\2\2"+
 		"\u0178\u0179\f\24\2\2\u0179\u017d\5\64\33\2\u017a\u017b\f\23\2\2\u017b"+
-		"\u017d\t\7\2\2\u017c\u0136\3\2\2\2\u017c\u0139\3\2\2\2\u017c\u013c\3\2"+
+		"\u017d\t\b\2\2\u017c\u0136\3\2\2\2\u017c\u0139\3\2\2\2\u017c\u013c\3\2"+
 		"\2\2\u017c\u0144\3\2\2\2\u017c\u014e\3\2\2\2\u017c\u0156\3\2\2\2\u017c"+
 		"\u0159\3\2\2\2\u017c\u015c\3\2\2\2\u017c\u015f\3\2\2\2\u017c\u0162\3\2"+
 		"\2\2\u017c\u0165\3\2\2\2\u017c\u016b\3\2\2\2\u017c\u016e\3\2\2\2\u017c"+
@@ -3704,7 +3713,7 @@ public class CfscriptParser extends Parser {
 		"\u0183\u0184\7\b\2\2\u0184\u0189\3\2\2\2\u0185\u0189\5,\27\2\u0186\u0189"+
 		"\5\66\34\2\u0187\u0189\7D\2\2\u0188\u0181\3\2\2\2\u0188\u0185\3\2\2\2"+
 		"\u0188\u0186\3\2\2\2\u0188\u0187\3\2\2\2\u0189\61\3\2\2\2\u018a\u018b"+
-		"\t\b\2\2\u018b\63\3\2\2\2\u018c\u01aa\7\t\2\2\u018d\u018f\7\6\2\2\u018e"+
+		"\t\t\2\2\u018b\63\3\2\2\2\u018c\u01aa\7\t\2\2\u018d\u018f\7\6\2\2\u018e"+
 		"\u0190\5.\30\2\u018f\u018e\3\2\2\2\u018f\u0190\3\2\2\2\u0190\u0195\3\2"+
 		"\2\2\u0191\u0192\7\7\2\2\u0192\u0194\5.\30\2\u0193\u0191\3\2\2\2\u0194"+
 		"\u0197\3\2\2\2\u0195\u0193\3\2\2\2\u0195\u0196\3\2\2\2\u0196\u0198\3\2"+
@@ -3718,7 +3727,7 @@ public class CfscriptParser extends Parser {
 		"\5@!\2\u01ad\u01b3\5N(\2\u01ae\u01b3\7@\2\2\u01af\u01b3\7?\2\2\u01b0\u01b3"+
 		"\7B\2\2\u01b1\u01b3\7C\2\2\u01b2\u01ab\3\2\2\2\u01b2\u01ac\3\2\2\2\u01b2"+
 		"\u01ad\3\2\2\2\u01b2\u01ae\3\2\2\2\u01b2\u01af\3\2\2\2\u01b2\u01b0\3\2"+
-		"\2\2\u01b2\u01b1\3\2\2\2\u01b3\67\3\2\2\2\u01b4\u01b5\t\t\2\2\u01b59\3"+
+		"\2\2\u01b2\u01b1\3\2\2\2\u01b3\67\3\2\2\2\u01b4\u01b5\t\n\2\2\u01b59\3"+
 		"\2\2\2\u01b6\u01b7\b\36\1\2\u01b7\u01b8\5<\37\2\u01b8\u01c3\3\2\2\2\u01b9"+
 		"\u01ba\f\4\2\2\u01ba\u01bb\7\17\2\2\u01bb\u01c2\5\62\32\2\u01bc\u01bd"+
 		"\f\3\2\2\u01bd\u01be\7\r\2\2\u01be\u01bf\5.\30\2\u01bf\u01c0\7\16\2\2"+
@@ -3750,7 +3759,7 @@ public class CfscriptParser extends Parser {
 		"\2\2\u020e\u020c\3\2\2\2\u020f\u022b\7\b\2\2\u0210\u0211\7#\2\2\u0211"+
 		"\u0212\7D\2\2\u0212\u0213\7\6\2\2\u0213\u0214\5H%\2\u0214\u0215\7\b\2"+
 		"\2\u0215\u022b\3\2\2\2\u0216\u0217\7#\2\2\u0217\u0218\7D\2\2\u0218\u0219"+
-		"\7\6\2\2\u0219\u021a\t\n\2\2\u021a\u022b\7\b\2\2\u021b\u021c\7#\2\2\u021c"+
+		"\7\6\2\2\u0219\u021a\t\4\2\2\u021a\u022b\7\b\2\2\u021b\u021c\7#\2\2\u021c"+
 		"\u021d\7D\2\2\u021d\u021e\7\6\2\2\u021e\u0223\5J&\2\u021f\u0220\7\7\2"+
 		"\2\u0220\u0222\5J&\2\u0221\u021f\3\2\2\2\u0222\u0225\3\2\2\2\u0223\u0221"+
 		"\3\2\2\2\u0223\u0224\3\2\2\2\u0224\u0226\3\2\2\2\u0225\u0223\3\2\2\2\u0226"+

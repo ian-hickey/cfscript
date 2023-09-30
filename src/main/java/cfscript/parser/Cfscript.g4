@@ -111,15 +111,15 @@ expressionStatement
 	: expression ';'
 	;
 
-structKeyAccess
-    : '[' (StringLiteral) ']'
+collectionAccess
+    : '[' (StringLiteral|CharacterLiteral|NumberLiteral) ']'
     ;
 
 expression
 	: expressionFirst
 	| expression '.' validSecond
-	| expression structKeyAccess
-	| expression '[' expression ']'
+	| expression collectionAccess
+	| expression '[' expression']'
 	| expression expressionMethod
 	| expression ('++'|'--')
 	| K_New expression
@@ -142,7 +142,7 @@ expression
 
 expressionFirst
 	: '(' expression ')'
-	| structKeyAccess
+	| collectionAccess
 	| literal
 	| Identifier
 	;

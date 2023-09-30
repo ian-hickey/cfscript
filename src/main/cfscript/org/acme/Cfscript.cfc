@@ -16,7 +16,8 @@ component displayname="MyComponent" accessors=true {
         str = { test= innerObject, test2: 2 };
         var val = str["test"]["obj"];
         arr = [1,2,3,4,5,"test"];
-        writedump(getStruct()[1]);
+        var arrVal = arr[0];
+
     }
 
     @test(name = "1")
