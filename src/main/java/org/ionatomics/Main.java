@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.zip.CRC32;
@@ -27,7 +29,6 @@ public class Main {
         String mode = "debug";
         String packageName = "org.ionatomics.darkmatter";
         if (args.length > 0) {
-            System.out.println(args[0]);
             mode = "live";
             packageName = args[0];
         }
@@ -57,23 +58,28 @@ public class Main {
                     System.out.println("checksum: " + checksum);
                     Path outputPath = Paths.get("checksums.txt");
                     String outputLine = getOutputLine(filePath, checksum);
-
+                    var calculatedPackage = "";
                     if (!checksumExistsInFile(outputPath, outputLine)) {
-                        var calculatedPackage = filePath.replace(File.separator + fileName, "")
-                                .split(File.separator + "src"+File.separator +"main"+File.separator + "cfscript" + File.separator)[1]
-                                .replace(File.separator, ".");
+                        System.out.println(filePath);
+                        String[] parts = filePath.replace(File.separator + fileName, "")
+                                .split(File.separator + "src"+File.separator +"main"+File.separator + "cfscript" + File.separator);
+                        if (parts.length > 1) {
+                            calculatedPackage = parts[1].replace(File.separator, ".");
+                        } else {
+                            System.err.println("Unable to calculate package name. Ensure files are in " +
+                                    "the src/main/cfscript directory");
+                            // Handle the case where the array doesn't have at least two elements
+                        }
 
+                        doSymbolize(file.toString(), symbolTable);
+                        symbolTable.asString();
                         doParse(file.toString(), symbolTable, finalMode, calculatedPackage);
                         saveChecksumToFile(filePath, checksum); // save the checksum
-                    }else{
-                        System.out.println("No change - skipping");
                     }
                 }
                 return FileVisitResult.CONTINUE;
             }
         });
-
-        //symbolTable.asString();
     }
 
     public static void doSymbolize(String filePath, SymbolTable symbolTable) throws IOException {
@@ -99,7 +105,7 @@ public class Main {
         var parser = new CfscriptParser(tokens);
         var tree = parser.component();
         var walker = new ParseTreeWalker();
-        var listener = new CfscriptSourceListener(rewriter, tokens, filePath, finalPackageName);
+        var listener = new CfscriptSourceListener(rewriter, tokens, filePath, finalPackageName, symbolTable);
         walker.walk(listener, tree);
 
         System.out.println("*******************************");
@@ -139,12 +145,12 @@ public class Main {
         String basePath = splitPath[0] + File.separator + "src" + File.separator + "main" + File.separator + "java";
         String[] pathParts = splitPath[1].split(File.separator);
         String currentPath = "";
-        System.out.println("Checking Directory for " + basePath);
+        //System.out.println("Checking Directory for " + basePath);
         for (String pathPart : pathParts) {
             currentPath += File.separator + pathPart;
             File directory = new File(basePath + currentPath);
             if (!directory.exists()) {
-                System.out.println("Creating Directory for " + currentPath);
+                //System.out.println("Creating Directory for " + currentPath);
                 directory.mkdir();
             }
         }
@@ -173,13 +179,41 @@ public class Main {
 
     public static void saveChecksumToFile(String filePath, String checksum) throws IOException {
         Path outputPath = Paths.get("checksums.txt");
-        String outputLine = getOutputLine(filePath, checksum);
 
-        if (checksumExistsInFile(outputPath, outputLine)) return;
+        List<String> lines = new ArrayList<>();  // Initialize an empty list to hold the lines
 
-        // Append checksum to file
-        String outputEntry = outputLine + System.lineSeparator();
-        Files.write(outputPath, outputEntry.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+        // Check if the file exists
+        if (Files.exists(outputPath)) {
+            // If the file exists, read all lines from the file into the list
+            lines = Files.readAllLines(outputPath);
+        }
+
+        // This flag will be used to track whether we've found and updated an existing entry
+        boolean found = false;
+
+        // Iterate through each line in the list
+        for (int i = 0; i < lines.size(); i++) {
+            String line = lines.get(i);
+
+            // Split the line into its components based on whitespace
+            String[] parts = line.split("\\s+", 2);
+
+            // Check if the filePath matches the current line
+            if (parts.length > 0 && parts[0].equals(filePath)) {
+                // Update the checksum for this filePath
+                lines.set(i, filePath + " " + checksum);
+                found = true;
+                break;
+            }
+        }
+
+        // If we didn't find an existing entry, add a new one
+        if (!found) {
+            lines.add(filePath + " " + checksum);
+        }
+
+        // Write the updated list of lines back to the file
+        Files.write(outputPath, lines, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     private static String getOutputLine(String outputPath, String checksum) {

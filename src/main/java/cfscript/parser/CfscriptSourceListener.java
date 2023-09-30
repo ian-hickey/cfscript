@@ -3,10 +3,8 @@ package cfscript.parser;
 import cfscript.object.parser.ObjectCustomListener;
 import cfscript.object.parser.ObjectLexer;
 import cfscript.object.parser.ObjectParser;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.TokenStreamRewriter;
+import cfscript.typewriter.SymbolTable;
+import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
@@ -19,6 +17,7 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
 
     private final TokenStreamRewriter rewriter;
     private final String packageName;
+    private final SymbolTable symbolTable;
     private String componentName = "";
     private String context = "";
     private String filepath = "";
@@ -33,12 +32,13 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
         return translation;
     }
 
-    public CfscriptSourceListener(TokenStreamRewriter rewriter, CommonTokenStream tokens, String filePath, String finalPackageName) {
+    public CfscriptSourceListener(TokenStreamRewriter rewriter, CommonTokenStream tokens, String filePath, String finalPackageName, SymbolTable symbolTable) {
         super();
         this.rewriter = rewriter;
         this.tokens = tokens;
         this.filepath = filePath;
         this.packageName = finalPackageName;
+        this.symbolTable = symbolTable;
         // Imports common to all source files
         addImportIfNotFound(imports, "import java.util.*;");
         addImportIfNotFound(imports, "import java.lang.*;");
@@ -152,13 +152,49 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
                 .orElse("String");
 
         var property = "";
-        if (propertyType.toLowerCase().equals("array")) {
-            property = "ArrayList<Object> " + propertyName + " = new ArrayList<Object>();";
-        } else if ((propertyType.toLowerCase().equals("String") || propertyType.toLowerCase().equals("Integer")) || propertyValue == null) {
-            property = propertyType + " " + propertyName + ";";
-        }else {
-            property = propertyType + " " + propertyName + " = " + propertyValue + ";";
-        };
+        var symbol = symbolTable.getSymbol(propertyName);
+
+        //System.out.println("Found symbol for property " + symbol.getDeclaredType());
+        // Handle declared first.
+        // Strip the quotes around the value. Add them back in for field string type.
+        if (propertyValue != null) {
+            if (propertyValue.startsWith("\"") && propertyValue.endsWith("\"") || propertyValue.startsWith("'")
+                    && propertyValue.endsWith("'")) {
+                propertyValue = propertyValue.substring(1, propertyValue.length() - 1);  // Remove quotes
+            }
+        }
+        if (symbol.getDeclaredType() != null) {
+            if (symbol.getDeclaredType().equalsIgnoreCase("array")) {
+                property = "ArrayList<Object> " + propertyName + " = new ArrayList<Object>();";
+            }
+            else if (symbol.getDeclaredType().equalsIgnoreCase("struct")) {
+                property = "HashMap<String, Object> " + propertyName + " = new HashMap<>();";
+            }
+            else if (symbol.getDeclaredType().equalsIgnoreCase("mailer")) {
+                property = "Mailer " + propertyName + (propertyValue != null ? "=" + propertyValue + ";" : ";");
+            }
+            else if (symbol.getDeclaredType().equalsIgnoreCase("numeric") &&
+                    symbol.getInferredType() != null) {
+                property = symbol.getInferredType() + " " + propertyName + (propertyValue != null ? "=" + propertyValue + ";" : ";");
+            }
+            else if (symbol.getDeclaredType().equalsIgnoreCase("boolean")) {
+                property = "boolean %s%s".formatted(propertyName, propertyValue != null ? "=" + propertyValue + ";" : ";");
+            }
+            else if (symbol.getDeclaredType().equalsIgnoreCase("string")) {
+                property = "String %s%s".formatted(propertyName, propertyValue != null ? "=\"" + propertyValue + "\";" : ";");
+            }
+        }else if (symbol.getInferredType() != null) {
+            if (symbol.getInferredType().equalsIgnoreCase("int") || symbol.getInferredType().equalsIgnoreCase("double")) {
+                property = symbol.getInferredType() + " " + propertyName + (propertyValue != null ? "=" + propertyValue + ";" : ";");
+            }
+            else if (symbol.getInferredType().equalsIgnoreCase("boolean")) {
+                property = "boolean " + propertyName + (propertyValue != null ? "=" + propertyValue + ";" : ";");
+            }
+            else if (symbol.getInferredType().equalsIgnoreCase("string")) {
+                property = "String " + propertyName + (propertyValue != null ? "=\"" + propertyValue + "\";" : ";");
+            }
+        }
+
 
         // Check property annotations
         var annotation = "";
@@ -190,7 +226,13 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
         }
 
     }
-
+    @Override
+    public void exitExpression(CfscriptParser.ExpressionContext ctx) {
+        if (ctx.STRING_CONCAT_CHAR() != null) {
+            Token token = ctx.STRING_CONCAT_CHAR().getSymbol();
+            rewriter.replace(token, "+");
+        }
+    }
     @Override
     public void enterFunctionDefinition(CfscriptParser.FunctionDefinitionContext ctx) {
         //println("Entered FunctionDeclaration");
@@ -204,7 +246,7 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
             if (id.toString().toLowerCase().equals("public") ||
                     id.toString().toLowerCase().equals("private") ||
                     id.toString().toLowerCase().equals("remote")) {
-                functionScope = id.getText();
+                functionScope = ""; // Make everything package scope for Quarkus
             }else {
                 // if the return value
                 functionReturn = id.getText();
@@ -217,7 +259,7 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
         if (functionName.toLowerCase().equals("init")) {
             // use the constructor name instead of the method name
             isConstructor = true;
-            functionName = this.getFileName(this.filepath);
+            functionName = this.componentName; // Use the defined name or the filename depending
         }
         var newFunction = functionScope + " " + (!isConstructor ? functionReturn+" " : "") + functionName;
         rewriter.replace(ctx.start, ctx.stop, newFunction);

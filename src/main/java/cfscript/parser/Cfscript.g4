@@ -130,7 +130,7 @@ expression
 	| expression ('<''<'|'>''>') expression
 	| expression ('<'|'>'|'<''='|'>''=') expression
 	| expression ('!''='|'=''=') expression
-	| expression '&' expression
+	| expression STRING_CONCAT_CHAR expression
 	| expression '^' expression
 	| expression '|' expression
 	| expression ('&&') expression
@@ -280,6 +280,7 @@ K_True : ('t'|'T')('r'|'R')('u'|'U')('e'|'E');
 K_False : ('f'|'F')('a'|'A')('l'|'L')('s'|'S')('e'|'E');
 K_New : ('n'|'N')('e'|'E')('w'|'W');
 K_In : ('i'|'I')('n'|'N');
+STRING_CONCAT_CHAR : '&';
 
 CharacterLiteral
 	: '\'' ( EscapeSequence | ~('\''|'\\') )* '\''
@@ -288,6 +289,15 @@ CharacterLiteral
 StringLiteral
 	:  '"' ( EscapeSequence | ~('\\'|'"') )* '"'
 	;
+
+String
+    : (StringLiteral|CharacterLiteral)
+    ;
+
+//STRING
+//    :   '\'' (~'\'' | '\'\'' | '\\\'' | '\\')* '\''
+//    |   '"' (~'"' | '""' | '\\"' | '\\')* '"'
+//    ;
 
 NumberLiteral
     : Digit+ ('.' Digit*)?
