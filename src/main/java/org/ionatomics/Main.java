@@ -139,7 +139,10 @@ public class Main {
     }
 
     public static void createJavaDirectories(String filePath) {
-        String[] splitPath = filePath.split(File.separator + "src" + File.separator + "main" + File.separator + "java" + File.separator);
+        String[] splitPath = filePath.split(File.separator + "src"
+                + File.separator
+                + "main" + File.separator
+                + "java" + File.separator);
         String basePath = splitPath[0] + File.separator + "src" + File.separator + "main" + File.separator + "java";
         String[] pathParts = splitPath[1].split(File.separator);
         String currentPath = "";

@@ -242,11 +242,15 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
         var functionScope="private";
         var functionReturn="void";
         var isConstructor = false;
+
         for (var id : ctx.Identifier()) {
             if (id.toString().toLowerCase().equals("public") ||
                     id.toString().toLowerCase().equals("private") ||
                     id.toString().toLowerCase().equals("remote")) {
-                functionScope = ""; // Make everything package scope for Quarkus
+                functionScope = ""; // Make everything package scope for Quarkus except resource methods.
+                if (symbolTable.getSymbol(this.componentName).getRestComponent()){
+                    functionScope = "public";
+                }
             }else {
                 // if the return value
                 functionReturn = id.getText();
