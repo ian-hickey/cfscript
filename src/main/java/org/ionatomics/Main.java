@@ -61,8 +61,7 @@ public class Main {
                     var calculatedPackage = "";
                     if (!checksumExistsInFile(outputPath, outputLine)) {
                         System.out.println(filePath);
-                        String[] parts = filePath.replace(File.separator + fileName, "")
-                                .split(File.separator + "src"+File.separator +"main"+File.separator + "cfscript" + File.separator);
+                        String[] parts = getParts(filePath, fileName);
                         if (parts.length > 1) {
                             calculatedPackage = parts[1].replace(File.separator, ".");
                         } else {
@@ -80,6 +79,17 @@ public class Main {
                 return FileVisitResult.CONTINUE;
             }
         });
+    }
+
+    private static String[] getParts(String filePath, String fileName) {
+        if ("/".equals(File.separator)) {
+            return filePath.replace(File.separator + fileName, "")
+                    .split(File.separator + "src" + File.separator + "main" + File.separator +
+                            "cfscript" + File.separator);
+        }
+        var fs = File.separator + File.separator;
+        return filePath.replace(fs + fileName, "")
+                .split(fs + "src" + fs + "main" + fs + "cfscript" + fs);
     }
 
     public static void doSymbolize(String filePath, SymbolTable symbolTable) throws IOException {
