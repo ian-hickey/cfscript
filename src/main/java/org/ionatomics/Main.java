@@ -87,10 +87,11 @@ public class Main {
                     .split(File.separator + "src" + File.separator + "main" + File.separator +
                             "cfscript" + File.separator);
         }
-        var fs = File.separator + File.separator;
-        return filePath.replace(fs + fileName, "")
+        var fs = "\\\\";  // double-escaped backslash for regex
+        return filePath.replace(File.separator + fileName, "")
                 .split(fs + "src" + fs + "main" + fs + "cfscript" + fs);
     }
+
 
     public static void doSymbolize(String filePath, SymbolTable symbolTable) throws IOException {
         var content = Files.readString(Paths.get(filePath));
@@ -122,7 +123,9 @@ public class Main {
             System.out.println(rewriter.getText());
         } else if (finalMode == "live") {
             // Define the path where you want to save the Java file
-            String outputFilePath = filePath
+            String outputFilePath;
+
+            outputFilePath = filePath
                     .replace(".cfc", ".java")
                     .replace(".dms", ".java")
                     .replace(File.separator + "cfscript", File.separator + "java")
@@ -148,22 +151,10 @@ public class Main {
 
     }
 
-    public static void createJavaDirectories(String filePath) {
-        String[] splitPath = filePath.split(File.separator + "src"
-                + File.separator
-                + "main" + File.separator
-                + "java" + File.separator);
-        String basePath = splitPath[0] + File.separator + "src" + File.separator + "main" + File.separator + "java";
-        String[] pathParts = splitPath[1].split(File.separator);
-        String currentPath = "";
-        //System.out.println("Checking Directory for " + basePath);
-        for (String pathPart : pathParts) {
-            currentPath += File.separator + pathPart;
-            File directory = new File(basePath + currentPath);
-            if (!directory.exists()) {
-                //System.out.println("Creating Directory for " + currentPath);
-                directory.mkdir();
-            }
+    public static void createJavaDirectories(String filePath) throws IOException {
+        Path path = Paths.get(filePath);
+        if (path.toString().contains("src" + File.separator + "main" + File.separator + "java")) {
+            Files.createDirectories(path);
         }
     }
 
