@@ -16,10 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.zip.CRC32;
 
 public class Main {
@@ -67,6 +64,7 @@ public class Main {
                         } else {
                             System.err.println("Unable to calculate package name. Ensure files are in " +
                                     "the src/main/cfscript directory");
+                            System.exit(1);  // Exit with status 1
                             // Handle the case where the array doesn't have at least two elements
                         }
 
@@ -119,9 +117,9 @@ public class Main {
 
         System.out.println("*******************************");
         String processedContent = rewriter.getText(); // Replace this with the processed content
-        if (finalMode == "debug") {
+        if (Objects.equals(finalMode, "debug")) {
             System.out.println(rewriter.getText());
-        } else if (finalMode == "live") {
+        } else if (Objects.equals(finalMode, "live")) {
             // Define the path where you want to save the Java file
             String outputFilePath;
 
@@ -143,6 +141,7 @@ public class Main {
                 writer.write(processedContent);
             } catch (IOException e) {
                 e.printStackTrace();
+                System.exit(1);  // Exit with status 1
             }
 
             System.out.println("Java file saved at: " + outputFilePath);

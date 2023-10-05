@@ -21,9 +21,8 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
     private String componentName = "";
     private String context = "";
     private String filepath = "";
-    private CommonTokenStream tokens = null;
-    private StringBuilder translation = new StringBuilder();
-    private ArrayList<String> imports = new ArrayList<>();
+    private final StringBuilder translation = new StringBuilder();
+    private final ArrayList<String> imports = new ArrayList<>();
 
     private void println(String text) {
         System.out.println(text);
@@ -35,7 +34,6 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
     public CfscriptSourceListener(TokenStreamRewriter rewriter, CommonTokenStream tokens, String filePath, String finalPackageName, SymbolTable symbolTable) {
         super();
         this.rewriter = rewriter;
-        this.tokens = tokens;
         this.filepath = filePath;
         this.packageName = finalPackageName;
         this.symbolTable = symbolTable;
@@ -112,6 +110,10 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
         }
 
         // Convert the file name Path object to a string
+        return getFilenameWithoutExtension(fileNamePath);
+    }
+
+    private static String getFilenameWithoutExtension(Path fileNamePath) {
         String fileNameWithExtension = fileNamePath.toString();
 
         // Get the index of the last dot '.' in the file name
@@ -125,7 +127,6 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
             // If there's no dot in the file name, use the entire file name
             fileNameWithoutExtension = fileNameWithExtension;
         }
-
         return fileNameWithoutExtension;
     }
 
@@ -145,13 +146,7 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
                 .findFirst()
                 .orElse(null);
 
-        String propertyType = ctx.keyValue().stream()
-                .filter(kv -> kv.Identifier().getText().equals("type"))
-                .map(kv -> kv.StringLiteral().getText().replaceAll("\"", ""))  // Strip quotes
-                .findFirst()
-                .orElse("String");
-
-        var property = "";
+        StringBuilder property = new StringBuilder();
         var symbol = symbolTable.getSymbol(propertyName);
 
         //System.out.println("Found symbol for property " + symbol.getDeclaredType());
@@ -165,33 +160,33 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
         }
         if (symbol.getDeclaredType() != null) {
             if (symbol.getDeclaredType().equalsIgnoreCase("array")) {
-                property = "ArrayList<Object> " + propertyName + " = new ArrayList<Object>();";
+                property = new StringBuilder("ArrayList<Object> " + propertyName + " = new ArrayList<Object>();");
             }
             else if (symbol.getDeclaredType().equalsIgnoreCase("struct")) {
-                property = "HashMap<String, Object> " + propertyName + " = new HashMap<>();";
+                property = new StringBuilder("HashMap<String, Object> " + propertyName + " = new HashMap<>();");
             }
             else if (symbol.getDeclaredType().equalsIgnoreCase("mailer")) {
-                property = "Mailer " + propertyName + (propertyValue != null ? "=" + propertyValue + ";" : ";");
+                property = new StringBuilder("Mailer " + propertyName + (propertyValue != null ? "=" + propertyValue + ";" : ";"));
             }
             else if (symbol.getDeclaredType().equalsIgnoreCase("numeric") &&
                     symbol.getInferredType() != null) {
-                property = symbol.getInferredType() + " " + propertyName + (propertyValue != null ? "=" + propertyValue + ";" : ";");
+                property = new StringBuilder(symbol.getInferredType() + " " + propertyName + (propertyValue != null ? "=" + propertyValue + ";" : ";"));
             }
             else if (symbol.getDeclaredType().equalsIgnoreCase("boolean")) {
-                property = "Boolean %s%s".formatted(propertyName, propertyValue != null ? "=" + propertyValue + ";" : ";");
+                property = new StringBuilder("Boolean %s%s".formatted(propertyName, propertyValue != null ? "=" + propertyValue + ";" : ";"));
             }
             else if (symbol.getDeclaredType().equalsIgnoreCase("string")) {
-                property = "String %s%s".formatted(propertyName, propertyValue != null ? "=\"" + propertyValue + "\";" : ";");
+                property = new StringBuilder("String %s%s".formatted(propertyName, propertyValue != null ? "=\"" + propertyValue + "\";" : ";"));
             }
         }else if (symbol.getInferredType() != null) {
             if (symbol.getInferredType().equalsIgnoreCase("integer") || symbol.getInferredType().equalsIgnoreCase("double")) {
-                property = symbol.getInferredType() + " " + propertyName + (propertyValue != null ? "=" + propertyValue + ";" : ";");
+                property = new StringBuilder(symbol.getInferredType() + " " + propertyName + (propertyValue != null ? "=" + propertyValue + ";" : ";"));
             }
             else if (symbol.getInferredType().equalsIgnoreCase("boolean")) {
-                property = "Boolean " + propertyName + (propertyValue != null ? "=" + propertyValue + ";" : ";");
+                property = new StringBuilder("Boolean " + propertyName + (propertyValue != null ? "=" + propertyValue + ";" : ";"));
             }
             else if (symbol.getInferredType().equalsIgnoreCase("string")) {
-                property = "String " + propertyName + (propertyValue != null ? "=\"" + propertyValue + "\";" : ";");
+                property = new StringBuilder("String " + propertyName + (propertyValue != null ? "=\"" + propertyValue + "\";" : ";"));
             }
         }
 
@@ -200,7 +195,7 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
         var annotation = "";
         for (var id : ctx.annotation()) {
             annotation = id.getText();
-            property = annotation + "\n" + property;
+            property.insert(0, annotation + "\n");
 
             // Add imports
             if (annotation.startsWith("@Inject")) {
@@ -209,7 +204,7 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
                 addImportIfNotFound(imports, "import jakarta.ws.rs.core.*;");
             }
         }
-        rewriter.replace(ctx.start, ctx.stop, property);
+        rewriter.replace(ctx.start, ctx.stop, property.toString());
     }
 
 
@@ -219,9 +214,8 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
         addImportIfNotFound(imports, "package "+ this.packageName +";\n");
 
         if (!imports.isEmpty()) {
-            Iterator<String> iterator = imports.iterator();
-            while(iterator.hasNext()){
-                rewriter.insertBefore(ctx.start, iterator.next() + "\n");
+            for (String anImport : imports) {
+                rewriter.insertBefore(ctx.start, anImport + "\n");
             }
         }
 
@@ -244,9 +238,9 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
         var isConstructor = false;
 
         for (var id : ctx.Identifier()) {
-            if (id.toString().toLowerCase().equals("public") ||
-                    id.toString().toLowerCase().equals("private") ||
-                    id.toString().toLowerCase().equals("remote")) {
+            if (id.toString().equalsIgnoreCase("public") ||
+                    id.toString().equalsIgnoreCase("private") ||
+                    id.toString().equalsIgnoreCase("remote")) {
                 functionScope = ""; // Make everything package scope for Quarkus except resource methods.
                 if (symbolTable.getSymbol(this.componentName).getRestComponent()){
                     functionScope = "public";
@@ -254,13 +248,20 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
             }else {
                 // if the return value
                 functionReturn = id.getText();
-                if (functionReturn.toLowerCase().equals("response")) {
+                if (functionReturn.equalsIgnoreCase("response")) {
                     addImportIfNotFound(imports, "import jakarta.ws.rs.core.Response;");
+                    functionReturn = "Response";
+                }else if(functionReturn.equalsIgnoreCase("struct")){
+                    functionReturn = "HashMap<String, Object>";
+                }else if(functionReturn.equalsIgnoreCase("array")){
+                    functionReturn = "ArrayList<Object>";
+                }else if(functionReturn.equalsIgnoreCase("string")){
+                    functionReturn = "String";
                 }
             }
         }
         // If this is a constructor, then name it as one.
-        if (functionName.toLowerCase().equals("init")) {
+        if (functionName.equalsIgnoreCase("init")) {
             // use the constructor name instead of the method name
             isConstructor = true;
             functionName = this.componentName; // Use the defined name or the filename depending
@@ -288,8 +289,7 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
     }
 
     private void parseObject(String text, ParserRuleContext ctx) {
-        String arrayLiteralText = text;
-        ObjectLexer lexer = new ObjectLexer(CharStreams.fromString(arrayLiteralText));
+        ObjectLexer lexer = new ObjectLexer(CharStreams.fromString(text));
         ObjectParser parser = new ObjectParser(new CommonTokenStream(lexer));
         ParseTree tree = parser.prog();
         ObjectCustomListener listener = new ObjectCustomListener();

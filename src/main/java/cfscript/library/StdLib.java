@@ -178,13 +178,11 @@ public class StdLib {
     }
 
     public static LocalDateTime createDateTime() {
-        LocalDateTime now = LocalDateTime.now();
-        return now;
+        return LocalDateTime.now();
     }
 
     public static LocalDate createDate() {
-        LocalDate now = LocalDate.now();
-        return now;
+        return LocalDate.now();
     }
 
     /**
@@ -227,29 +225,18 @@ public class StdLib {
 
     // DateAdd function
     public static Temporal dateAdd(String unit, int number, Temporal date) throws IllegalArgumentException {
-        switch (unit.toLowerCase()) {
-            case "yyyy":
-                return date.plus(number, ChronoUnit.YEARS);
-            case "q":
-                return date.plus(number * 3, ChronoUnit.MONTHS);
-            case "m":
-                return date.plus(number, ChronoUnit.MONTHS);
-            case "y":
-            case "d":
-                return date.plus(number, ChronoUnit.DAYS);
-            case "w":
-                return date.plus(number * 7, ChronoUnit.DAYS);
-            case "ww":
-                return date.plus(number, ChronoUnit.WEEKS);
-            case "h":
-                return date.plus(number, ChronoUnit.HOURS);
-            case "n":
-                return date.plus(number, ChronoUnit.MINUTES);
-            case "s":
-                return date.plus(number, ChronoUnit.SECONDS);
-            default:
-                throw new IllegalArgumentException("Unsupported unit: " + unit);
-        }
+        return switch (unit.toLowerCase()) {
+            case "yyyy" -> date.plus(number, ChronoUnit.YEARS);
+            case "q" -> date.plus(number * 3L, ChronoUnit.MONTHS);
+            case "m" -> date.plus(number, ChronoUnit.MONTHS);
+            case "y", "d" -> date.plus(number, ChronoUnit.DAYS);
+            case "w" -> date.plus(number * 7L, ChronoUnit.DAYS);
+            case "ww" -> date.plus(number, ChronoUnit.WEEKS);
+            case "h" -> date.plus(number, ChronoUnit.HOURS);
+            case "n" -> date.plus(number, ChronoUnit.MINUTES);
+            case "s" -> date.plus(number, ChronoUnit.SECONDS);
+            default -> throw new IllegalArgumentException("Unsupported unit: " + unit);
+        };
     }
 
     /**
@@ -350,4 +337,6 @@ public class StdLib {
     public static boolean structIsEmpty(HashMap<?, ?> hashMap) {
         return hashMap.isEmpty();
     }
+
+
 }

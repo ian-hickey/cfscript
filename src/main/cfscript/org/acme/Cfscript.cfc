@@ -2,7 +2,7 @@
   This test component represents a basic cfscript component.
   Others, will represent entities and REST controllers.
 */
-@testable(name="testname")
+@Path(name="/testname")
 component displayname="MyComponent" accessors=true {
 
     property name="first" value="test" type="String";
@@ -20,14 +20,17 @@ component displayname="MyComponent" accessors=true {
 
     }
 
-    @test(name = "1")
-    private any function getNumbers() {
+    /**
+     * Test returning an array
+     */
+    private array function getNumbers() {
         return [1,2,3,4,5];
     }
 
-    @test("skip")
+    /**
+     * Test returning an struct
+     */
     public struct function getOtherObjects() {
-        writeoutput("testing");
         return { test= "test3", test5: "test2" };
     }
 
