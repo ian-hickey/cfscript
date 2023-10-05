@@ -46,9 +46,8 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
         addImportIfNotFound(imports, "import static cfscript.library.StdLib.*;"); // Cfscript STD functions like len and isNull.
         addImportIfNotFound(imports, "import jakarta.enterprise.context.*;"); // Handle Application, Singleton and Request Scopes
         addImportIfNotFound(imports, "import org.eclipse.microprofile.config.inject.ConfigProperty;");
+        addImportIfNotFound(imports, "import java.io.File;");
     }
-
-
     @Override
     public void enterComponentDefinition(CfscriptParser.ComponentDefinitionContext ctx) {
         this.context = "component";
