@@ -7,11 +7,11 @@ import cfscript.typewriter.SymbolTable;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Iterator;
+
+import static java.lang.System.out;
 
 public class CfscriptSourceListener extends CfscriptBaseListener {
 
@@ -24,9 +24,6 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
     private final StringBuilder translation = new StringBuilder();
     private final ArrayList<String> imports = new ArrayList<>();
 
-    private void println(String text) {
-        System.out.println(text);
-    }
     public StringBuilder getTranslation() {
         return translation;
     }
@@ -48,11 +45,24 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
         addImportIfNotFound(imports, "import org.eclipse.microprofile.config.inject.ConfigProperty;");
         addImportIfNotFound(imports, "import java.io.File;");
     }
+
+    @Override
+    public void enterVariableStatement(CfscriptParser.VariableStatementContext ctx) {
+        //out.println(ctx.getText());
+    }
+
+    @Override
+    public void enterNonVarVariableStatement(CfscriptParser.NonVarVariableStatementContext ctx) {
+        if (!ctx.variableName().getText().startsWith("this.")) {
+            rewriter.insertBefore(ctx.start, "var "); // java need the var
+        }
+    }
+
     @Override
     public void enterComponentDefinition(CfscriptParser.ComponentDefinitionContext ctx) {
         this.context = "component";
 
-        // Iterate the attributes and find the component. TODO: default to the filename
+        // Iterate the attributes and find the component.
         findComponentName(ctx);
         String extendClass = findExtends(ctx);
         var newComponentText = "public class " + this.componentName + " ";

@@ -17,7 +17,7 @@ public class Symbol {
     private int scopeLevel;  // Scope level of the symbol
     private List<String> parameterTypes;  // For functions
     private String returnType;  // For functions
-    private Map<String, Integer> usageInfo;  // Usage information, e.g., count of arithmetic operations, count of String operations etc
+    private Map<String, Integer> constraints;  // Usage information, e.g., count of arithmetic operations, count of String operations etc
 
     public Symbol(String name) {
         setName(name);
@@ -80,12 +80,12 @@ public class Symbol {
         this.returnType = returnType;
     }
 
-    public Map<String, Integer> getUsageInfo() {
-        return usageInfo;
+    public Map<String, Integer> getConstraints() {
+        return constraints;
     }
 
-    public void setUsageInfo(Map<String, Integer> usageInfo) {
-        this.usageInfo = usageInfo;
+    public void setConstraints(Map<String, Integer> constraints) {
+        this.constraints = constraints;
     }
 
     public String getDescription() {

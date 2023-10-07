@@ -3,6 +3,7 @@ package cfscript.parser;
 import cfscript.typewriter.Symbol;
 import cfscript.typewriter.SymbolScope;
 import cfscript.typewriter.SymbolTable;
+import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,7 +12,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.UUID;
+
+import static java.lang.System.out;
 
 public class CfscriptSymbolListener extends CfscriptBaseListener {
 
@@ -20,13 +25,46 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
     private void println(String text) {
         System.out.println(text);
     }
-    private String filePath;
-    private SymbolTable symbolTable;
+    private final String filePath;
+    private final SymbolTable symbolTable;
+    private final HashSet<String> primativeTypes = new HashSet<>(){{
+        add("string");
+        add("numeric");
+        add("boolean");
+        add("uuid");
+    }};
+
+    private final HashSet<String> arithmeticOperators = new HashSet<>(){{
+        add("+");
+        add("-");
+        add("*");
+        add("/");
+        add("%");
+        add("++");
+        add("--");
+    }};
+
+    private final HashSet<String> relationalOperators = new HashSet<>(){{
+        add("<");
+        add(">");
+        add("<=");
+        add(">=");
+    }};
+
+    private final HashSet<String> logicalOperators = new HashSet<>(){{
+        add("&&");
+        add("||");
+    }};
 
     public CfscriptSymbolListener(String filePath, SymbolTable symbolTable) {
         super();
         this.filePath = filePath;
         this.symbolTable = symbolTable;
+    }
+    @Override
+    public void enterExpression(CfscriptParser.ExpressionContext ctx) {
+
+
     }
 
     @Override
@@ -46,10 +84,6 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
             }
         }
         this.symbolTable.addSymbol(this.componentName, componentSymbol);
-    }
-
-    public void exitComponent(CfscriptParser.ComponentContext ctx) {
-
     }
 
     @Override
@@ -76,14 +110,16 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
         if (propertyType != null) {
             propertySymbol.setDeclaredType(propertyType);
         }
+
+        // If the propertyType is not a primitive type assume it's a component / class
+        if (propertyValue == null && propertyType != null && !this.primativeTypes.contains(propertyType.toLowerCase())) {
+            propertySymbol.setInferredType("class");
+        }
+
         if (propertyValue != null) {
             propertySymbol.setInferredType(inferType(propertyValue));
         }
         this.symbolTable.addSymbol(propertyName, propertySymbol);
-    }
-    @Override
-    public void exitPropertyDeclaration(CfscriptParser.PropertyDeclarationContext ctx) {
-
     }
 
     @Override
@@ -109,7 +145,7 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
             var scopeVal = ctx.functionDefinition().Identifier().get(0).getText().toLowerCase();
             functionReturnType = ctx.functionDefinition().Identifier().get(1).getText().toLowerCase();
             boolean exists = scopeValues.contains(scopeVal);
-            if (scopeVal != null && exists) {
+            if (exists) {
                 // we have a scope
                 functionScope = scopeVal;
             }
@@ -119,7 +155,7 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
             var scopeOrReturnVal = ctx.functionDefinition().Identifier().get(0);
             List<String> values = Arrays.asList("public", "private");
             boolean exists = values.contains(scopeOrReturnVal.getText().toLowerCase());
-            if (scopeOrReturnVal != null && exists) {
+            if (exists) {
                 // we have a scope
                 functionScope = scopeOrReturnVal.getText().toLowerCase();
             }else{
@@ -133,23 +169,31 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
     }
 
     @Override
-    public void exitFunctionBody(CfscriptParser.FunctionBodyContext ctx) {
-
-    }
-
-    @Override
-    public void enterObjectLiteral(CfscriptParser.ObjectLiteralContext ctx) {
-
-    }
-
-    @Override
-    public void enterArrayLiteral(CfscriptParser.ArrayLiteralContext ctx){
-
-    }
-
-    @Override
-    public void exitCollectionAccess(CfscriptParser.CollectionAccessContext ctx) {
-
+    public void enterNonVarVariableStatement(CfscriptParser.NonVarVariableStatementContext ctx) {
+        if (ctx.getText().trim().startsWith("this.")) {
+            // if the symbol starts with this. it is referring to a property. if the property has no type,
+            // or the type is `any`, try to resolve the type.
+            out.println("Found property reference. Infer type.");
+            out.println(ctx.getText());
+            out.println("Variable Name: " + ctx.variableName().getText());
+            out.println("Exp: " + ctx.expression().getText());
+            Symbol symbol = symbolTable.get(ctx.variableName().getText().replace("this.", ""));
+            if (symbol == null) {
+                out.println("Couldn't find symbol with name: " + ctx.variableName().getText());
+            }
+            if (symbol != null && (symbol.getDeclaredType() == null || symbol.getDeclaredType().equals("any")) &&
+            symbol.getInferredType() == null) {
+                // let's try to infer it this way.
+                out.println("Infer Type as its missing type declaration");
+                inferTypeBasedOnUsage(ctx, ctx.variableName().getText().replace("this.", ""),
+                        ctx.expression().getText());
+            }
+        }else{
+            out.println("Found possible property reference. Infer type.");
+            out.println(ctx.getText());
+            out.println("Variable Name: " + ctx.variableName().getText());
+            out.println("Exp: " + ctx.expression().getText());
+        }
     }
 
     /**
@@ -158,12 +202,11 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
      * @return
      */
     private String findComponentName(CfscriptParser.ComponentDefinitionContext ctx) {
-        String componentName = ctx.keyValue().stream()
+        return ctx.keyValue().stream()
                 .filter(kv -> kv.Identifier().getText().equals("name"))
                 .map(kv -> kv.StringLiteral().getText().replaceAll("\"", ""))  // Strip quotes
                 .findFirst()
                 .orElse(this.getFileName(this.filePath));
-        return componentName;
     }
 
     public String getFileName(String filepath) {
@@ -201,6 +244,15 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
         if (token.startsWith("\"") && token.endsWith("\"") || token.startsWith("'") && token.endsWith("'")) {
             token = token.substring(1, token.length() - 1);  // Remove quotes
         }
+
+        // check for uuid
+        try {
+            UUID uuid = UUID.fromString(token);
+            return "uuid";
+        } catch (IllegalArgumentException e) {
+            /* not a uuid */
+        }
+
         // Check for boolean
         if (token.equalsIgnoreCase("true") ||
                 token.equalsIgnoreCase("false")) return "Boolean";
@@ -223,6 +275,85 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
         }
 
         return "String"; /* string is the default for properties if a value is defined. */
+    }
+
+    private void inferTypeBasedOnUsage(ParseTree ctx, String name, String type) {
+
+        // For arithmetic operations
+        out.printf("Children: %s %s %n", name, type);
+
+        // Handle found struct
+        if (ctx.getChildCount() > 2) {
+            if (ctx.getChild(3).getText().startsWith("[") && (ctx.getChild(3).getText().endsWith("]") ||
+                    ctx.getChild(3).getText().endsWith("];"))) {
+                var s = symbolTable.get(name);
+                s.setInferredType("array");
+                out.println("Found Array");
+                return;
+            }
+        }
+
+        // Handle found struct
+        if (ctx.getChildCount() > 2) {
+            if (ctx.getChild(3).getText().startsWith("{") && (ctx.getChild(3).getText().endsWith("}") ||
+                    ctx.getChild(3).getText().endsWith("};"))) {
+                var s = symbolTable.get(name);
+                s.setInferredType("struct");
+                out.println("Found Struct");
+                return;
+            }
+        }
+
+
+        var containsOperator = false;
+        for (String op : arithmeticOperators) {
+            if (op.equals("++")) {
+                out.println("Checking " + op + " " + type);
+            }
+            if (type.contains(op)) {
+                containsOperator = true;
+                break;
+            }
+        }
+
+        if (containsOperator) {
+            out.println("contains arithmetic operations");
+            var s = symbolTable.get(name);
+            //TODO: bad, fix this and handle better number types.
+            if (type.replace("this.", "").contains(".")) {
+                s.setInferredType("Double");
+            }else {
+                s.setInferredType("Integer");
+            }
+            return;
+        }
+
+        // For logical operations
+        for (String op : relationalOperators) {
+            if (type.contains(op)) {
+                containsOperator = true;
+                break;
+            }
+        }
+
+        if (containsOperator) {
+            out.println("contains relational operations");
+            var s = symbolTable.get(name);
+            //TODO: bad, fix this and handle better number types.
+            if (type.contains(".")) {
+                s.setInferredType("Double");
+            }else {
+                s.setInferredType("Integer");
+            }
+            return;
+        }
+
+        // For string concatenation (assuming STRING_CONCAT_CHAR represents concatenation)
+        if (type.contains("&")) {
+            out.println("contains concat");
+            var s = symbolTable.get(name);
+            s.setInferredType("String");
+        }
     }
 }
 
