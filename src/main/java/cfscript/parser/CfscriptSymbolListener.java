@@ -119,6 +119,7 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
         if (propertyValue != null) {
             propertySymbol.setInferredType(inferType(propertyValue));
         }
+        propertySymbol.setProperty(true);
         this.symbolTable.addSymbol(propertyName, propertySymbol);
     }
 
@@ -170,29 +171,19 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
 
     @Override
     public void enterNonVarVariableStatement(CfscriptParser.NonVarVariableStatementContext ctx) {
-        if (ctx.getText().trim().startsWith("this.")) {
-            // if the symbol starts with this. it is referring to a property. if the property has no type,
-            // or the type is `any`, try to resolve the type.
-            out.println("Found property reference. Infer type.");
-            out.println(ctx.getText());
-            out.println("Variable Name: " + ctx.variableName().getText());
-            out.println("Exp: " + ctx.expression().getText());
-            Symbol symbol = symbolTable.get(ctx.variableName().getText().replace("this.", ""));
-            if (symbol == null) {
-                out.println("Couldn't find symbol with name: " + ctx.variableName().getText());
+        Symbol symbol = symbolTable.get(ctx.variableName().getText().replace("this.", ""));
+        if (symbol == null) {
+            out.println("Couldn't find symbol with name: " + ctx.variableName().getText());
+        }
+        if (symbol != null && (symbol.getDeclaredType() == null || symbol.getDeclaredType().equals("any")) &&
+                symbol.getInferredType() == null) {
+            if (symbol.getProperty()) {
+                symbol.setUseVar(false);
             }
-            if (symbol != null && (symbol.getDeclaredType() == null || symbol.getDeclaredType().equals("any")) &&
-            symbol.getInferredType() == null) {
-                // let's try to infer it this way.
-                out.println("Infer Type as its missing type declaration");
-                inferTypeBasedOnUsage(ctx, ctx.variableName().getText().replace("this.", ""),
-                        ctx.expression().getText());
-            }
-        }else{
-            out.println("Found possible property reference. Infer type.");
-            out.println(ctx.getText());
-            out.println("Variable Name: " + ctx.variableName().getText());
-            out.println("Exp: " + ctx.expression().getText());
+            // let's try to infer it this way.
+            out.println("Infer Type as its missing type declaration");
+            inferTypeBasedOnUsage(ctx, ctx.variableName().getText().replace("this.", ""),
+                    ctx.expression().getText());
         }
     }
 
@@ -280,7 +271,7 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
     private void inferTypeBasedOnUsage(ParseTree ctx, String name, String type) {
 
         // For arithmetic operations
-        out.printf("Children: %s %s %n", name, type);
+        out.printf("Children: %s %s %d %n", name, type, ctx.getChildCount());
 
         // Handle found struct
         if (ctx.getChildCount() > 2) {

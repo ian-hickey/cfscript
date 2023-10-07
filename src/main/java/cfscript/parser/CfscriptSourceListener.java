@@ -53,9 +53,12 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
 
     @Override
     public void enterNonVarVariableStatement(CfscriptParser.NonVarVariableStatementContext ctx) {
-        if (!ctx.variableName().getText().startsWith("this.")) {
-            rewriter.insertBefore(ctx.start, "var "); // java need the var
+        if (!ctx.variableName().getText().startsWith("this.") &&
+                symbolTable.get(ctx.variableName().getText()) != null &&
+                symbolTable.get(ctx.variableName().getText()).getUseVar()) {
+            rewriter.insertBefore(ctx.start, "var ");
         }
+
     }
 
     @Override

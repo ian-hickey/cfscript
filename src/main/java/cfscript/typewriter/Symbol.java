@@ -18,6 +18,9 @@ public class Symbol {
     private List<String> parameterTypes;  // For functions
     private String returnType;  // For functions
     private Map<String, Integer> constraints;  // Usage information, e.g., count of arithmetic operations, count of String operations etc
+    private Boolean useVar = true;
+    private Boolean isProperty = false;
+
 
     public Symbol(String name) {
         setName(name);
@@ -158,5 +161,21 @@ public class Symbol {
 
     public void setComponentName(String componentName) {
         this.componentName = componentName;
+    }
+
+    public Boolean getUseVar() {
+        return useVar;
+    }
+
+    public void setUseVar(Boolean useVar) {
+        this.useVar = useVar;
+    }
+
+    public Boolean getProperty() {
+        return isProperty;
+    }
+
+    public void setProperty(Boolean property) {
+        isProperty = property;
     }
 }
