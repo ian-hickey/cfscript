@@ -57,6 +57,9 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
                 symbolTable.get(ctx.variableName().getText()) != null &&
                 symbolTable.get(ctx.variableName().getText()).getUseVar()) {
             rewriter.insertBefore(ctx.start, "var ");
+        } else if (!ctx.variableName().getText().startsWith("this.") &&
+                symbolTable.get(ctx.variableName().getText()) == null) {
+            rewriter.insertBefore(ctx.start, "var ");
         }
 
     }
@@ -199,6 +202,15 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
             }
             else if (symbol.getInferredType().equalsIgnoreCase("string")) {
                 property = new StringBuilder("String " + propertyName + (propertyValue != null ? "=\"" + propertyValue + "\";" : ";"));
+            }
+            else if (symbol.getInferredType().equalsIgnoreCase("array")) {
+                property = new StringBuilder("ArrayList<Object> " + propertyName + ";");
+            }
+            else if (symbol.getInferredType().equalsIgnoreCase("struct")) {
+                property = new StringBuilder("HashMap<String, Object> " + propertyName + ";");
+            }
+            else if (symbol.getInferredType().equalsIgnoreCase("uuid")) {
+                property = new StringBuilder("UUID " + propertyName + ";");
             }
         }
 

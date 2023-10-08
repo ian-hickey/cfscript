@@ -232,7 +232,7 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
 
     private String inferType (String token) {
         // Remove enclosing double and single quotes first.
-        if (token.startsWith("\"") && token.endsWith("\"") || token.startsWith("'") && token.endsWith("'")) {
+        if (isStringType(token)) {
             token = token.substring(1, token.length() - 1);  // Remove quotes
         }
 
@@ -268,15 +268,34 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
         return "String"; /* string is the default for properties if a value is defined. */
     }
 
-    private void inferTypeBasedOnUsage(ParseTree ctx, String name, String type) {
+    private static boolean isStringType(String token) {
+        return token.startsWith("\"") && token.endsWith("\"") || token.startsWith("'") && token.endsWith("'");
+    }
 
-        // For arithmetic operations
-        out.printf("Children: %s %s %d %n", name, type, ctx.getChildCount());
+    private void inferTypeBasedOnUsage(ParseTree ctx, String name, String type) {
+        // First, infer primative types (boolean, string, uuid, etc)
+        var foundPrimitiveCandidate = inferType(type);
+        if (foundPrimitiveCandidate.equals("String") && isStringType(type)) {
+            var s = symbolTable.get(name);
+            s.setInferredType("string");
+            out.println("Found String");
+            return;
+        }else if(!foundPrimitiveCandidate.equals("String")) {
+            var s = symbolTable.get(name);
+            s.setInferredType(foundPrimitiveCandidate);
+            out.println("Found " + foundPrimitiveCandidate);
+            return;
+        }
+
+
+        //out.printf("Primitive Candidate: %s %n", foundPrimitiveCandidate);
+        //out.printf("Children: %s %s %d %n", name, type, ctx.getChildCount());
 
         // Handle found struct
         if (ctx.getChildCount() > 2) {
-            if (ctx.getChild(3).getText().startsWith("[") && (ctx.getChild(3).getText().endsWith("]") ||
-                    ctx.getChild(3).getText().endsWith("];"))) {
+            out.println("[=>" + ctx.getChild(2).getText().startsWith("["));
+            out.println("]=>" + ctx.getChild(2).getText().endsWith("]"));
+            if (ctx.getChild(2).getText().startsWith("[") && (ctx.getChild(2).getText().endsWith("]"))) {
                 var s = symbolTable.get(name);
                 s.setInferredType("array");
                 out.println("Found Array");
@@ -286,8 +305,9 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
 
         // Handle found struct
         if (ctx.getChildCount() > 2) {
-            if (ctx.getChild(3).getText().startsWith("{") && (ctx.getChild(3).getText().endsWith("}") ||
-                    ctx.getChild(3).getText().endsWith("};"))) {
+            out.println("{=>" + ctx.getChild(2).getText().startsWith("}"));
+            out.println("}=>" + ctx.getChild(2).getText().endsWith("}"));
+            if (ctx.getChild(2).getText().startsWith("{") && (ctx.getChild(2).getText().endsWith("}"))) {
                 var s = symbolTable.get(name);
                 s.setInferredType("struct");
                 out.println("Found Struct");
