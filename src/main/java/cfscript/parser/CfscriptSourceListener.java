@@ -7,11 +7,11 @@ import cfscript.typewriter.SymbolTable;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Iterator;
+
+import static java.lang.System.out;
 
 public class CfscriptSourceListener extends CfscriptBaseListener {
 
@@ -24,9 +24,6 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
     private final StringBuilder translation = new StringBuilder();
     private final ArrayList<String> imports = new ArrayList<>();
 
-    private void println(String text) {
-        System.out.println(text);
-    }
     public StringBuilder getTranslation() {
         return translation;
     }
@@ -48,11 +45,30 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
         addImportIfNotFound(imports, "import org.eclipse.microprofile.config.inject.ConfigProperty;");
         addImportIfNotFound(imports, "import java.io.File;");
     }
+
+    @Override
+    public void enterVariableStatement(CfscriptParser.VariableStatementContext ctx) {
+        //out.println(ctx.getText());
+    }
+
+    @Override
+    public void enterNonVarVariableStatement(CfscriptParser.NonVarVariableStatementContext ctx) {
+        if (!ctx.variableName().getText().startsWith("this.") &&
+                symbolTable.get(ctx.variableName().getText()) != null &&
+                symbolTable.get(ctx.variableName().getText()).getUseVar()) {
+            rewriter.insertBefore(ctx.start, "var ");
+        } else if (!ctx.variableName().getText().startsWith("this.") &&
+                symbolTable.get(ctx.variableName().getText()) == null) {
+            rewriter.insertBefore(ctx.start, "var ");
+        }
+
+    }
+
     @Override
     public void enterComponentDefinition(CfscriptParser.ComponentDefinitionContext ctx) {
         this.context = "component";
 
-        // Iterate the attributes and find the component. TODO: default to the filename
+        // Iterate the attributes and find the component.
         findComponentName(ctx);
         String extendClass = findExtends(ctx);
         var newComponentText = "public class " + this.componentName + " ";
@@ -186,6 +202,15 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
             }
             else if (symbol.getInferredType().equalsIgnoreCase("string")) {
                 property = new StringBuilder("String " + propertyName + (propertyValue != null ? "=\"" + propertyValue + "\";" : ";"));
+            }
+            else if (symbol.getInferredType().equalsIgnoreCase("array")) {
+                property = new StringBuilder("ArrayList<Object> " + propertyName + ";");
+            }
+            else if (symbol.getInferredType().equalsIgnoreCase("struct")) {
+                property = new StringBuilder("HashMap<String, Object> " + propertyName + ";");
+            }
+            else if (symbol.getInferredType().equalsIgnoreCase("uuid")) {
+                property = new StringBuilder("UUID " + propertyName + ";");
             }
         }
 

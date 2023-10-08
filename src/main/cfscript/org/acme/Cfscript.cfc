@@ -7,16 +7,26 @@ component displayname="MyComponent" accessors=true {
 
     property name="first" value="test" type="String";
     property name="last" value="name";
+    property name="mathResult";
+    property name="anotherMathResult";
+    property name="stringResult";
+    property name="str";
+    property name="arr";
+    property name="uid";
 
     public any function init() {
         writedump("This is a component");
         text = "This is some text";
-        math = 1+5*2;
+        this.mathResult = 1+5*2;
+        anotherMathResult = this.mathResult++;
+        this.stringResult = "test" & text;
+        conditional = (true && true);
         innerObject = {obj: "innerobject"};
-        str = { test= innerObject, test2: 2 };
         var val = str["test"]["obj"];
         arr = [1,2,3,4,5,"test"];
+        str = { test= innerObject, test2: 2 };
         var arrVal = arr[0];
+        uid = "fef8dd96-65ca-11ee-8c99-0242ac120002"; 
 
     }
 

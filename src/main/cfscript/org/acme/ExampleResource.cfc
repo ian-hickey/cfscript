@@ -13,7 +13,7 @@ component {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public Response function greet() {
-        var name="-ian";
+        name="-ian";
         mailer.send(new Mail().addTo("me" & name & "@ionatomics.org"));
         return Response.ok("Greeting from Dark Matter!").build();
     }

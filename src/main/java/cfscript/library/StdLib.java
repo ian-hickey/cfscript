@@ -1,5 +1,12 @@
 package cfscript.library;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.owasp.encoder.Encode;
+
+import java.io.*;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,6 +19,7 @@ import java.util.*;
  * This static library is imported where ever these built-in functions are needed.
  */
 public class StdLib {
+    private static final ObjectMapper objectMapper = new ObjectMapper();
     /**
      ******************
      * ARRAY FUNCTIONS
@@ -205,22 +213,22 @@ public class StdLib {
         return now.format(formatter);
     }
 
-    public static long dateDiff(String unit, LocalDate date1, LocalDate date2) throws IllegalArgumentException {
-        ChronoUnit chronoUnit;
-        switch (unit.toLowerCase()) {
-            case "yyyy":
-                chronoUnit = ChronoUnit.YEARS;
-                break;
-            case "m":
-                chronoUnit = ChronoUnit.MONTHS;
-                break;
-            case "d":
-                chronoUnit = ChronoUnit.DAYS;
-                break;
-            default:
-                throw new IllegalArgumentException("Unsupported unit: " + unit);
-        }
-        return chronoUnit.between(date1, date2);
+    public static long dateDiff(String interval, LocalDateTime date1, LocalDateTime date2) {
+        return switch (interval.toLowerCase()) {
+            case "yyyy" -> // Years
+                    ChronoUnit.YEARS.between(date1, date2);
+            case "m" -> // Months
+                    ChronoUnit.MONTHS.between(date1, date2);
+            case "d" -> // Days
+                    ChronoUnit.DAYS.between(date1, date2);
+            case "h" -> // Hours
+                    ChronoUnit.HOURS.between(date1, date2);
+            case "n" -> // Minutes
+                    ChronoUnit.MINUTES.between(date1, date2);
+            case "s" -> // Seconds
+                    ChronoUnit.SECONDS.between(date1, date2);
+            default -> throw new IllegalArgumentException("Invalid interval: " + interval);
+        };
     }
 
     // DateAdd function
@@ -237,6 +245,39 @@ public class StdLib {
             case "s" -> date.plus(number, ChronoUnit.SECONDS);
             default -> throw new IllegalArgumentException("Unsupported unit: " + unit);
         };
+    }
+
+    public static int dateCompare(LocalDateTime date1, LocalDateTime date2, String part) {
+        switch (part.toLowerCase()) {
+            case "s": // Second
+                date1 = date1.withNano(0);
+                date2 = date2.withNano(0);
+                break;
+            case "n": // Minute
+                date1 = date1.withSecond(0).withNano(0);
+                date2 = date2.withSecond(0).withNano(0);
+                break;
+            case "h": // Hour
+                date1 = date1.withMinute(0).withSecond(0).withNano(0);
+                date2 = date2.withMinute(0).withSecond(0).withNano(0);
+                break;
+            case "d": // Day
+                date1 = date1.toLocalDate().atStartOfDay();
+                date2 = date2.toLocalDate().atStartOfDay();
+                break;
+            case "m": // Month
+                date1 = date1.withDayOfMonth(1).toLocalDate().atStartOfDay();
+                date2 = date2.withDayOfMonth(1).toLocalDate().atStartOfDay();
+                break;
+            case "yyyy": // Year
+                date1 = date1.withDayOfYear(1).toLocalDate().atStartOfDay();
+                date2 = date2.withDayOfYear(1).toLocalDate().atStartOfDay();
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid date part: " + part);
+        }
+
+        return date1.compareTo(date2);
     }
 
     /**
@@ -338,5 +379,166 @@ public class StdLib {
         return hashMap.isEmpty();
     }
 
+    // 1. ExpandPath
+    public static String expandPath(String basePath, String relativePath) {
+        Path path = Paths.get(basePath, relativePath);
+        return path.toAbsolutePath().toString();
+    }
+
+    // 2. FileAppend
+    public static void fileAppend(String filePath, String content) throws IOException {
+        Files.writeString(Paths.get(filePath), content, StandardOpenOption.APPEND);
+    }
+
+    // 3. FileClose
+    public static void fileClose(Closeable closeable) throws IOException {
+        if (closeable != null) {
+            closeable.close();
+        }
+    }
+
+    // 4. FileCopy
+    public static void fileCopy(String source, String destination) throws IOException {
+        Files.copy(Paths.get(source), Paths.get(destination), StandardCopyOption.REPLACE_EXISTING);
+    }
+
+    // 5. FileDelete
+    public static void fileDelete(String filePath) throws IOException {
+        Files.deleteIfExists(Paths.get(filePath));
+    }
+
+    // 6. FileExists
+    public static boolean fileExists(String filePath) {
+        return Files.exists(Paths.get(filePath));
+    }
+
+
+    // 8. FileInfo
+    public static BasicFileAttributes fileInfo(String filePath) throws IOException {
+        return Files.readAttributes(Paths.get(filePath), BasicFileAttributes.class);
+    }
+
+    // 9. FileIsEOF
+    public static boolean fileIsEOF(BufferedReader reader) throws IOException {
+        return !reader.ready();
+    }
+
+    // 10. FileMove
+    public static void fileMove(String source, String destination) throws IOException {
+        Files.move(Paths.get(source), Paths.get(destination), StandardCopyOption.REPLACE_EXISTING);
+    }
+
+    // 11. FileOpen
+    public static BufferedReader fileOpen(String filePath, String mode) throws FileNotFoundException {
+        if (mode.equals("read")) {
+            return new BufferedReader(new FileReader(filePath));
+        }
+        throw new IllegalArgumentException("Unsupported mode: " + mode);
+    }
+
+    // 12. FileRead
+    public static String fileRead(String filePath) throws IOException {
+        return Files.readString(Paths.get(filePath));
+    }
+
+    // 13. FileReadBinary
+    public static byte[] fileReadBinary(String filePath) throws IOException {
+        return Files.readAllBytes(Paths.get(filePath));
+    }
+
+    // 14. FileReadLine
+    public static String fileReadLine(BufferedReader reader) throws IOException {
+        return reader.readLine();
+    }
+
+    // 15. FileTouch
+    public static void fileTouch(String filePath) throws IOException {
+        Path path = Paths.get(filePath);
+        if (!fileExists(filePath)) {
+            Files.createFile(path);
+        }
+        Files.setLastModifiedTime(path, FileTime.fromMillis(System.currentTimeMillis()));
+    }
+
+    // 16. FileWrite
+    public static void fileWrite(String filePath, String content) throws IOException {
+        Files.writeString(Paths.get(filePath), content);
+    }
+
+    // 17. FileWriteLine
+    public static void fileWriteLine(String filePath, String line) throws IOException {
+        fileAppend(filePath, line + System.lineSeparator());
+    }
+
+    public static long getTickCount() {
+        return System.currentTimeMillis();
+    }
+
+    public static String serializeJson(Object obj) throws Exception {
+        return objectMapper.writeValueAsString(obj);
+    }
+
+    public static Object deserialize(String json) throws Exception {
+        // Check if the JSON string represents an array
+        if (json.trim().startsWith("[")) {
+            return objectMapper.readValue(json, ArrayList.class);
+        }
+        // Otherwise, assume it's an object
+        return objectMapper.readValue(json, HashMap.class);
+    }
+
+    public static String encodeForCSS(String input) {
+        return Encode.forCssString(input);
+    }
+
+    public static String encodeForDN(String input) {
+        // OWASP Java Encoder does not provide DN encoding out-of-the-box.
+        // This is a basic example, and for more complex DN structures, we may need a specialized approach.
+        return input.replace(",", "\\,")
+                .replace("=", "\\=")
+                .replace("+", "\\+")
+                .replace("<", "\\<")
+                .replace(">", "\\>")
+                .replace("#", "\\#")
+                .replace(";", "\\;");
+    }
+
+    public static String encodeForHTML(String input) {
+        return Encode.forHtml(input);
+    }
+
+    public static String encodeForHTMLAttribute(String input) {
+        return Encode.forHtmlAttribute(input);
+    }
+
+    public static String encodeForJavaScript(String input) {
+        return Encode.forJavaScript(input);
+    }
+
+    public static String encodeForLDAP(String input) {
+        // OWASP Java Encoder does not provide LDAP encoding out-of-the-box.
+        // This is a basic example, and for more complex LDAP structures, we may need a specialized approach.
+        return input.replace("\\", "\\5c").replace("*", "\\2a")
+                .replace("(", "\\28").replace(")", "\\29")
+                .replace("\u0000", "\\00");
+    }
+
+    public static String encodeForURL(String input) throws Exception {
+        return Encode.forUriComponent(input);
+    }
+
+    public static String encodeForXML(String input) {
+        return Encode.forXml(input);
+    }
+
+    public static String encodeForXMLAttribute(String input) {
+        return Encode.forXmlAttribute(input);
+    }
+
+    public static String encodeForXPath(String input) {
+        // OWASP Java Encoder does not provide XPath encoding out-of-the-box.
+        // This is a basic example, and for more complex XPath queries, we may need a specialized approach.
+        return input.replace("'", "&apos;").replace("\"", "&quot;");
+    }
 
 }

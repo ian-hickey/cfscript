@@ -21,6 +21,10 @@ public class SymbolTable {
         }
         return null;  // or throw an exception
     }
+
+    public Symbol get(String name) {
+        return getSymbol(name);
+    }
     public void asString() {
         for (int i = symbols.size() - 1; i >= 0; i--) {
             Symbol s = symbols.get(i);
