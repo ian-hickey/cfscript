@@ -2,7 +2,7 @@
 @Table(name = "known_fruits")
 @NamedQuery(name = "Fruits.findAll", query = "SELECT f FROM Fruit f ORDER BY f.name", hints = @QueryHint(name = "org.hibernate.cacheable", value = "true"))
 @Cacheable
-component name="Fruit" {
+component name="Fruit" extends="PanacheEntity" {
 
     @Id
     @SequenceGenerator(name = "fruitsSequence", sequenceName = "known_fruits_id_seq", allocationSize = 1, initialValue = 10)
@@ -12,7 +12,7 @@ component name="Fruit" {
     @test(name = "1")
     property name="name" value="";
 
-    public void function init(String name) {
+    function init(String name) {
         this.name = name;
     }
 
@@ -20,15 +20,15 @@ component name="Fruit" {
         return id;
     }
 
-    public void function setId(Integer id) {
+    public function setId(Integer id) {
         this.id = id;
     }
 
-    public String function getName() {
+    String function getName() {
         return name;
     }
 
-    public void function setName(String name) {
+    function setName(String name) {
         this.name = name;
     }
 
