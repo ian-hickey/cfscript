@@ -7,11 +7,10 @@ import cfscript.typewriter.SymbolTable;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-
-import static java.lang.System.out;
 
 public class CfscriptSourceListener extends CfscriptBaseListener {
 
@@ -226,6 +225,8 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
                 addImportIfNotFound(imports, "import jakarta.inject.Inject;");
             }else if (annotation.startsWith("@Produces") || annotation.startsWith("@Consumes")) {
                 addImportIfNotFound(imports, "import jakarta.ws.rs.core.*;");
+                //addImportIfNotFound(imports,
+                //        "import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;");
             }
         }
         rewriter.replace(ctx.start, ctx.stop, property.toString());
@@ -257,7 +258,7 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
         this.context = "function";
         // TODO: Check if this is a constructor and handle
         var functionName = ctx.functionName().getText();
-        var functionScope="private";
+        var functionScope=(symbolTable.get(functionName).getScope().name().equals("Public") ? "public" : "");
         var functionReturn="void";
         var isConstructor = false;
 
@@ -266,7 +267,8 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
                     id.toString().equalsIgnoreCase("private") ||
                     id.toString().equalsIgnoreCase("remote")) {
                 functionScope = ""; // Make everything package scope for Quarkus except resource methods.
-                if (symbolTable.getSymbol(this.componentName).getRestComponent()){
+                if (symbolTable.getSymbol(this.componentName).getRestComponent() ||
+                        symbolTable.getSymbol(this.componentName).getEntityComponent()){
                     functionScope = "public";
                 }
             }else {
@@ -291,7 +293,9 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
             functionName = this.componentName; // Use the defined name or the filename depending
             functionScope = "public";
         }
-        var newFunction = functionScope + " " + (!isConstructor ? functionReturn+" " : "") + functionName;
+
+        var newFunction = ((!functionScope.isEmpty()) ? functionScope + " " : "") +
+                (!isConstructor ? functionReturn + " " : "") + functionName;
         rewriter.replace(ctx.start, ctx.stop, newFunction);
     }
 

@@ -7,10 +7,6 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -165,6 +161,18 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
             }
         }
         functionSymbol.setReturnType(functionReturnType);
+
+        // If there is no return statement in the function, the function is void.
+        var foundReturnStatement = false;
+        for(var statement : ctx.functionBody().statement()) {
+            if (statement.returnStatement() != null) {
+                foundReturnStatement = true;
+            }
+        }
+        if (!foundReturnStatement) {
+            functionSymbol.setReturnType("void");
+        }
+
         functionSymbol.setScope((functionScope.equals("public") ? SymbolScope.Public : SymbolScope.Private));
         this.symbolTable.addSymbol(functionName, functionSymbol);
     }
