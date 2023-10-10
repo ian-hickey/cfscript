@@ -85,6 +85,8 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
             }else if (annotation.startsWith("@Entity")) {
                 addImportIfNotFound(imports, "import jakarta.persistence.*;");
                 addImportIfNotFound(imports, "import io.quarkus.hibernate.reactive.panache.*;");
+                addImportIfNotFound(imports, "import io.quarkus.hibernate.reactive.panache.common.*;");
+
             }
             newComponentText = annotation + "\n" + newComponentText;
         }
