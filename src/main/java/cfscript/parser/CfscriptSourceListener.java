@@ -82,10 +82,11 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
                 addImportIfNotFound(imports, "import jakarta.ws.rs.core.*;");
                 addImportIfNotFound(imports, "import jakarta.transaction.Transactional;");
                 addImportIfNotFound(imports, "import java.net.URI;");
+                addImportIfNotFound(imports, "import io.quarkus.panache.common.*;");
             }else if (annotation.startsWith("@Entity")) {
                 addImportIfNotFound(imports, "import jakarta.persistence.*;");
-                addImportIfNotFound(imports, "import io.quarkus.hibernate.reactive.panache.*;");
-                addImportIfNotFound(imports, "import io.quarkus.hibernate.reactive.panache.common.*;");
+                addImportIfNotFound(imports, "import io.quarkus.hibernate.orm.panache.*;");
+                addImportIfNotFound(imports, "import io.quarkus.hibernate.orm.panache.common.*;");
 
             }
             newComponentText = annotation + "\n" + newComponentText;
@@ -215,6 +216,10 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
             }
         }
 
+        // Add the scope.
+        if (symbolTable.getSymbol(this.componentName).getEntityComponent()) {
+            property = new StringBuilder("public " + property);
+        }
 
         // Check property annotations
         var annotation = "";
