@@ -310,8 +310,8 @@ FloatingPointLiteral
     ;
 
 Identifier
-	: Letter (Letter|Digit|K_Underscore)*
-	;
+    : Letter ( (Letter | Digit | K_Underscore)* ('.' (Letter | Digit | K_Underscore)+)* )?
+    ;
 
 fragment
 EscapeSequence
