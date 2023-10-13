@@ -5,6 +5,8 @@
 @Path(name="/testname")
 component displayname="MyComponent" accessors=true {
 
+    @Inject
+    property type="org.acme.model.ProductService" name="ps";
     property name="first" value="test" type="String";
     property name="last" value="name";
     property name="mathResult";

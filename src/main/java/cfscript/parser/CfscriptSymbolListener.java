@@ -110,12 +110,12 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
         // If the propertyType is not a primitive type assume it's a component / class
         if (propertyValue == null && propertyType != null && !this.primativeTypes.contains(propertyType.toLowerCase())) {
             propertySymbol.setInferredType("class");
-        }
-
-        if (propertyValue != null) {
+            propertySymbol.setDeclaredType(propertyType);
+        }else if (propertyValue != null) {
             propertySymbol.setInferredType(inferType(propertyValue));
         }
         propertySymbol.setProperty(true);
+
         this.symbolTable.addSymbol(propertyName, propertySymbol);
     }
 

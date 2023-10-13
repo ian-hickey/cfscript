@@ -83,11 +83,17 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
                 addImportIfNotFound(imports, "import jakarta.transaction.Transactional;");
                 addImportIfNotFound(imports, "import java.net.URI;");
                 addImportIfNotFound(imports, "import io.quarkus.panache.common.*;");
+                addImportIfNotFound(imports, "import jakarta.validation.Valid;");
+                addImportIfNotFound(imports, "import java.net.URI;");
             }else if (annotation.startsWith("@Entity")) {
                 addImportIfNotFound(imports, "import jakarta.persistence.*;");
+                addImportIfNotFound(imports, "import jakarta.validation.constraints.*;");
                 addImportIfNotFound(imports, "import io.quarkus.hibernate.orm.panache.*;");
                 addImportIfNotFound(imports, "import io.quarkus.hibernate.orm.panache.common.*;");
-
+            }else if (annotation.startsWith("@RunOnVirtualThread")) {
+                addImportIfNotFound(imports, "import io.smallrye.common.annotation.RunOnVirtualThread;");
+            }else if (annotation.startsWith("@NonBlocking")) {
+                addImportIfNotFound(imports, "import io.smallrye.common.annotation.NonBlocking;");
             }
             newComponentText = annotation + "\n" + newComponentText;
         }
@@ -194,6 +200,9 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
             }
             else if (symbol.getDeclaredType().equalsIgnoreCase("string")) {
                 property = new StringBuilder("String %s%s".formatted(propertyName, propertyValue != null ? "=\"" + propertyValue + "\";" : ";"));
+            }else{
+                // use the declared type directly.
+                property = new StringBuilder(symbol.getDeclaredType() + " " + propertyName + ";");
             }
         }else if (symbol.getInferredType() != null) {
             if (symbol.getInferredType().equalsIgnoreCase("integer") || symbol.getInferredType().equalsIgnoreCase("double")) {
@@ -259,6 +268,23 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
             rewriter.replace(token, "+");
         }
     }
+
+    @Override
+    public void enterFunctionDeclaration(CfscriptParser.FunctionDeclarationContext ctx) {
+        var annotation = "";
+        // Translate CFScript component to Java class
+        for (var id : ctx.annotation()) {
+            // if the return value
+            annotation = id.getText();
+            // handle imports.
+            if (annotation.startsWith("@RunOnVirtualThread")) {
+                addImportIfNotFound(imports, "import io.smallrye.common.annotation.RunOnVirtualThread;");
+            }else if (annotation.startsWith("@NonBlocking")) {
+                addImportIfNotFound(imports, "import io.smallrye.common.annotation.NonBlocking;");
+            }
+        }
+    }
+
     @Override
     public void enterFunctionDefinition(CfscriptParser.FunctionDefinitionContext ctx) {
         //println("Entered FunctionDeclaration");
