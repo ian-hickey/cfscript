@@ -16,6 +16,16 @@ component displayname="MyComponent" accessors=true {
     property name="arr";
     property name="uid";
 
+    @Inject
+    property type="EntityManager" name="em" hint="The datasource";
+
+    public void function createProduct(String name, String description, Integer price) {
+        product = new org.acme.model.Product();
+        product.name = name;
+        product.description = description;
+        em.persist(product);
+    }
+
     public any function init() {
         writedump("This is a component");
         text = "This is some text";

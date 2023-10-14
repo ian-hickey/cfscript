@@ -43,7 +43,7 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
         addImportIfNotFound(imports, "import jakarta.enterprise.context.*;"); // Handle Application, Singleton and Request Scopes
         addImportIfNotFound(imports, "import org.eclipse.microprofile.config.inject.ConfigProperty;");
         addImportIfNotFound(imports, "import java.io.File;");
-        addImportIfNotFound(imports, " import jakarta.persistence.*;");
+        addImportIfNotFound(imports, "import jakarta.persistence.*;");
     }
 
     @Override
@@ -53,11 +53,11 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
 
     @Override
     public void enterNonVarVariableStatement(CfscriptParser.NonVarVariableStatementContext ctx) {
-        if (!ctx.variableName().getText().startsWith("this.") &&
+        if (!ctx.variableName().getText().startsWith("this.") && !ctx.variableName().getText().contains(".") &&
                 symbolTable.get(ctx.variableName().getText()) != null &&
                 symbolTable.get(ctx.variableName().getText()).getUseVar()) {
             rewriter.insertBefore(ctx.start, "var ");
-        } else if (!ctx.variableName().getText().startsWith("this.") &&
+        } else if (!ctx.variableName().getText().startsWith("this.") && !ctx.variableName().getText().contains(".") &&
                 symbolTable.get(ctx.variableName().getText()) == null) {
             rewriter.insertBefore(ctx.start, "var ");
         }
