@@ -10,7 +10,7 @@ component name="Fruit" extends="PanacheEntity" {
     property name="id" type="int";
 
     @test(name = "1")
-    property name="name" value="";
+    property name="name" default="";
 
     function init(String name) {
         this.name = name;

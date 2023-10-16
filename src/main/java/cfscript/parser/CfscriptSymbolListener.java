@@ -90,7 +90,7 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
                 .findFirst()
                 .orElse(null);
         String propertyValue = ctx.keyValue().stream()
-                .filter(kv -> kv.Identifier().getText().equals("value"))
+                .filter(kv -> kv.Identifier().getText().equals("default"))
                 .map(kv -> kv.StringLiteral().getText())
                 .findFirst()
                 .orElse(null);

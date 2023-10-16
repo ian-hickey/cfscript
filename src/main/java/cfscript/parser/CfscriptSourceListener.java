@@ -155,6 +155,43 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
     }
 
     @Override
+    public void enterArgumentDefinition(CfscriptParser.ArgumentDefinitionContext ctx) {
+        String arg = "";
+        var typeIdentifier = ctx.Identifier(0);
+        System.out.println(typeIdentifier.getText());
+        
+        if (typeIdentifier.getText().equalsIgnoreCase("array")) {
+            arg = " ArrayList<Object> ";
+        }
+        else if (typeIdentifier.getText().equalsIgnoreCase("struct")) {
+            arg = " HashMap<String, Object> ";
+        }
+        else if (typeIdentifier.getText().equalsIgnoreCase("integer")) {
+            arg = " Integer ";
+        }
+        else if (typeIdentifier.getText().equalsIgnoreCase("double")) {
+            arg = " Double ";
+        }
+        else if (typeIdentifier.getText().equalsIgnoreCase("long")) {
+            arg = " Long ";
+        }
+        else if (typeIdentifier.getText().equalsIgnoreCase("boolean")) {
+            arg = " Boolean ";
+        }
+        else if (typeIdentifier.getText().equalsIgnoreCase("string")) {
+            arg = " String ";
+        }
+        else if (typeIdentifier.getText().equalsIgnoreCase("numeric")) {
+            arg = " Double ";
+        }
+        else if (typeIdentifier.getText().equalsIgnoreCase("any")) {
+            arg = " Object ";
+        }
+        var newArg = ctx.getText().replace(typeIdentifier.getText(), arg);
+        rewriter.replace(ctx.start, ctx.stop, newArg);
+    }
+
+    @Override
     public void enterPropertyDeclaration(CfscriptParser.PropertyDeclarationContext ctx) {
         //println("Enter Property");
         this.context = "property";
@@ -165,7 +202,7 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
                 .findFirst()
                 .orElse("defaultName");
         String propertyValue = ctx.keyValue().stream()
-                .filter(kv -> kv.Identifier().getText().equals("value"))
+                .filter(kv -> kv.Identifier().getText().equals("default"))
                 .map(kv -> kv.StringLiteral().getText())
                 .findFirst()
                 .orElse(null);
@@ -196,12 +233,22 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
                     symbol.getInferredType() != null) {
                 property = new StringBuilder(symbol.getInferredType() + " " + propertyName + (propertyValue != null ? "=" + propertyValue + ";" : ";"));
             }
+            else if (symbol.getDeclaredType().equalsIgnoreCase("integer")) {
+                property = new StringBuilder("Integer %s%s".formatted(propertyName, propertyValue != null ? "=" + propertyValue + ";" : ";"));
+            }
+            else if (symbol.getDeclaredType().equalsIgnoreCase("double")) {
+                property = new StringBuilder("Double %s%s".formatted(propertyName, propertyValue != null ? "=" + propertyValue + ";" : ";"));
+            }
+            else if (symbol.getDeclaredType().equalsIgnoreCase("float")) {
+                property = new StringBuilder("Float %s%s".formatted(propertyName, propertyValue != null ? "=" + propertyValue + ";" : ";"));
+            }
             else if (symbol.getDeclaredType().equalsIgnoreCase("boolean")) {
                 property = new StringBuilder("Boolean %s%s".formatted(propertyName, propertyValue != null ? "=" + propertyValue + ";" : ";"));
             }
             else if (symbol.getDeclaredType().equalsIgnoreCase("string")) {
                 property = new StringBuilder("String %s%s".formatted(propertyName, propertyValue != null ? "=\"" + propertyValue + "\";" : ";"));
-            }else{
+            }
+            else{
                 // use the declared type directly.
                 property = new StringBuilder(symbol.getDeclaredType() + " " + propertyName + ";");
             }

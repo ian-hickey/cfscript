@@ -19,11 +19,13 @@ component displayname="MyComponent" accessors=true {
     @Inject
     property type="EntityManager" name="em" hint="The datasource";
 
-    public void function createProduct(String name, String description, Integer price) {
+    public void function createProduct(@PathParam("name") string name, string description, integer price, any fruit,
+        boolean flag) {
         product = new org.acme.model.Product();
         product.name = name;
         product.description = description;
         em.persist(product);
+
     }
 
     public any function init() {
