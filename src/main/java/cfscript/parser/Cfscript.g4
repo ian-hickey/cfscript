@@ -237,7 +237,8 @@ staticVariableAccess
     ;
 
 annotationArgument
-	: Identifier '=' (keyValue|NumberLiteral)
+    : Identifier
+	| Identifier '=' (keyValue|NumberLiteral)
 	;
 
 keyValue
