@@ -9,7 +9,7 @@ component {
     property name="aStruct" type="Struct";
     property name="aString" default="This is a string type.";
     property name="aMailer" type="Mailer" hint="This is a Mailer component type.";
-    property name="pi" type="numeric" value="3.1459" hint="This ends up being a double";
+    property name="pi" type="numeric" default="3.1459" hint="This ends up being a double";
     property name="aInt" default="227" hint="This ends up being an int";
     property name="aBool" default="true" hint="This ends up being boolean";
     property name="aBoolStr" type="string" default="true" hint="String because the type overrides the inferred type";
@@ -25,7 +25,7 @@ component {
     }
 
     @POST
-    Response function add(any fruit) {
+    Response function add(org.acme.model.Fruit fruit) {
         arrayAppend(fruits, fruit);
         return Response.ok(fruits).build();
     }

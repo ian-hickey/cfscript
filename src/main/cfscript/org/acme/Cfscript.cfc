@@ -40,7 +40,9 @@ component displayname="MyComponent" accessors=true {
         arr = [1,2,3,4,5,"test"];
         str = { test= innerObject, test2: 2 };
         var arrVal = arr[0];
-        uid = "fef8dd96-65ca-11ee-8c99-0242ac120002"; 
+        uid = "fef8dd96-65ca-11ee-8c99-0242ac120002";
+        //var nestedArr = [1,2,3,4,5,"test", [1,2,3,4,5], {test:1, testarr: [1,2,3,4,5]}];
+        //var nestedStr = {str1: "test", str2: {test:1, test2: 2}};
 
     }
 

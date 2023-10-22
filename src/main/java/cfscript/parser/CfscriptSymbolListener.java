@@ -12,8 +12,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
-import static java.lang.System.out;
-
 public class CfscriptSymbolListener extends CfscriptBaseListener {
 
     private String componentName;
@@ -23,7 +21,7 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
     }
     private final String filePath;
     private final SymbolTable symbolTable;
-    private final HashSet<String> primativeTypes = new HashSet<>(){{
+    private final HashSet<String> primitiveTypes = new HashSet<>(){{
         add("string");
         add("numeric");
         add("boolean");
@@ -108,7 +106,7 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
         }
 
         // If the propertyType is not a primitive type assume it's a component / class
-        if (propertyValue == null && propertyType != null && !this.primativeTypes.contains(propertyType.toLowerCase())) {
+        if (propertyValue == null && propertyType != null && !this.primitiveTypes.contains(propertyType.toLowerCase())) {
             propertySymbol.setInferredType("class");
             propertySymbol.setDeclaredType(propertyType);
         }else if (propertyValue != null) {
@@ -180,16 +178,14 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
     @Override
     public void enterNonVarVariableStatement(CfscriptParser.NonVarVariableStatementContext ctx) {
         Symbol symbol = symbolTable.get(ctx.variableName().getText().replace("this.", ""));
-        if (symbol == null) {
-            out.println("Couldn't find symbol with name: " + ctx.variableName().getText());
-        }
+
         if (symbol != null && (symbol.getDeclaredType() == null || symbol.getDeclaredType().equals("any")) &&
                 symbol.getInferredType() == null) {
             if (symbol.getProperty()) {
                 symbol.setUseVar(false);
             }
             // let's try to infer it this way.
-            out.println("Infer Type as its missing type declaration");
+            //out.println("Infer Type as its missing type declaration");
             inferTypeBasedOnUsage(ctx, ctx.variableName().getText().replace("this.", ""),
                     ctx.expression().getText());
         }
@@ -286,12 +282,12 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
         if (foundPrimitiveCandidate.equals("String") && isStringType(type)) {
             var s = symbolTable.get(name);
             s.setInferredType("string");
-            out.println("Found String");
+            //out.println("Found String");
             return;
         }else if(!foundPrimitiveCandidate.equals("String")) {
             var s = symbolTable.get(name);
             s.setInferredType(foundPrimitiveCandidate);
-            out.println("Found " + foundPrimitiveCandidate);
+            //out.println("Found " + foundPrimitiveCandidate);
             return;
         }
 
@@ -301,24 +297,24 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
 
         // Handle found struct
         if (ctx.getChildCount() > 2) {
-            out.println("[=>" + ctx.getChild(2).getText().startsWith("["));
-            out.println("]=>" + ctx.getChild(2).getText().endsWith("]"));
+           //out.println("[=>" + ctx.getChild(2).getText().startsWith("["));
+           // out.println("]=>" + ctx.getChild(2).getText().endsWith("]"));
             if (ctx.getChild(2).getText().startsWith("[") && (ctx.getChild(2).getText().endsWith("]"))) {
                 var s = symbolTable.get(name);
                 s.setInferredType("array");
-                out.println("Found Array");
+                //out.println("Found Array");
                 return;
             }
         }
 
         // Handle found struct
         if (ctx.getChildCount() > 2) {
-            out.println("{=>" + ctx.getChild(2).getText().startsWith("}"));
-            out.println("}=>" + ctx.getChild(2).getText().endsWith("}"));
+            //out.println("{=>" + ctx.getChild(2).getText().startsWith("}"));
+            //out.println("}=>" + ctx.getChild(2).getText().endsWith("}"));
             if (ctx.getChild(2).getText().startsWith("{") && (ctx.getChild(2).getText().endsWith("}"))) {
                 var s = symbolTable.get(name);
                 s.setInferredType("struct");
-                out.println("Found Struct");
+                //out.println("Found Struct");
                 return;
             }
         }
@@ -327,7 +323,7 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
         var containsOperator = false;
         for (String op : arithmeticOperators) {
             if (op.equals("++")) {
-                out.println("Checking " + op + " " + type);
+                //out.println("Checking " + op + " " + type);
             }
             if (type.contains(op)) {
                 containsOperator = true;
@@ -336,7 +332,7 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
         }
 
         if (containsOperator) {
-            out.println("contains arithmetic operations");
+            //out.println("contains arithmetic operations");
             var s = symbolTable.get(name);
             //TODO: bad, fix this and handle better number types.
             if (type.replace("this.", "").contains(".")) {
@@ -356,7 +352,7 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
         }
 
         if (containsOperator) {
-            out.println("contains relational operations");
+            //out.println("contains relational operations");
             var s = symbolTable.get(name);
             //TODO: bad, fix this and handle better number types.
             if (type.contains(".")) {
@@ -369,7 +365,7 @@ public class CfscriptSymbolListener extends CfscriptBaseListener {
 
         // For string concatenation (assuming STRING_CONCAT_CHAR represents concatenation)
         if (type.contains("&")) {
-            out.println("contains concat");
+            //out.println("contains concat");
             var s = symbolTable.get(name);
             s.setInferredType("String");
         }

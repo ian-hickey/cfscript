@@ -324,8 +324,12 @@ public class StdLib {
         return map.size();
     }
 
-    public static void doThrow(String msg) throws Exception {
-        throw new Exception(msg);
+    public static void doThrow(String msg) {
+        throw new RuntimeException(msg);
+    }
+
+    public static void abort() {
+        throw new RuntimeException("Abort");
     }
 
     public static boolean isNumeric(Object obj) {

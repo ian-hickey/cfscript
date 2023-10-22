@@ -82,15 +82,19 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
                 addImportIfNotFound(imports, "import jakarta.ws.rs.*;");
                 addImportIfNotFound(imports, "import jakarta.ws.rs.core.*;");
                 addImportIfNotFound(imports, "import jakarta.transaction.Transactional;");
+                addImportIfNotFound(imports, "import jakarta.validation.Valid;");
+                addImportIfNotFound(imports, "import jakarta.annotation.security.*;");
+                addImportIfNotFound(imports, "import java.net.URI;");
                 addImportIfNotFound(imports, "import java.net.URI;");
                 addImportIfNotFound(imports, "import io.quarkus.panache.common.*;");
-                addImportIfNotFound(imports, "import jakarta.validation.Valid;");
-                addImportIfNotFound(imports, "import java.net.URI;");
+
             }else if (annotation.startsWith("@Entity")) {
                 addImportIfNotFound(imports, "import jakarta.persistence.*;");
                 addImportIfNotFound(imports, "import jakarta.validation.constraints.*;");
                 addImportIfNotFound(imports, "import io.quarkus.hibernate.orm.panache.*;");
                 addImportIfNotFound(imports, "import io.quarkus.hibernate.orm.panache.common.*;");
+                addImportIfNotFound(imports, "import io.quarkus.security.jpa.*;");
+
             }else if (annotation.startsWith("@RunOnVirtualThread")) {
                 addImportIfNotFound(imports, "import io.smallrye.common.annotation.RunOnVirtualThread;");
             }else if (annotation.startsWith("@NonBlocking")) {
@@ -158,7 +162,7 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
     public void enterArgumentDefinition(CfscriptParser.ArgumentDefinitionContext ctx) {
         String arg = "";
         var typeIdentifier = ctx.Identifier(0);
-        System.out.println(typeIdentifier.getText());
+        //System.out.println(typeIdentifier.getText());
         
         if (typeIdentifier.getText().equalsIgnoreCase("array")) {
             arg = " ArrayList<Object> ";
@@ -186,6 +190,8 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
         }
         else if (typeIdentifier.getText().equalsIgnoreCase("any")) {
             arg = " Object ";
+        }else{
+            arg = " %s ".formatted(typeIdentifier.getText()); // default to whatever type they passed in
         }
         var newArg = ctx.getText().replace(typeIdentifier.getText(), arg);
         rewriter.replace(ctx.start, ctx.stop, newArg);

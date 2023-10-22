@@ -206,7 +206,7 @@ variableNameFirst
 	;
 
 arrayLiteral
-	: '[' (expression (',' expression)*)? ']'
+	: '[' ((expression|objectLiteral|arrayLiteral) (',' (expression|objectLiteral|arrayLiteral))*)? ']'
 	| '[]'
 	;
 
