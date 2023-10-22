@@ -44,6 +44,8 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
         addImportIfNotFound(imports, "import org.eclipse.microprofile.config.inject.ConfigProperty;");
         addImportIfNotFound(imports, "import java.io.File;");
         addImportIfNotFound(imports, "import jakarta.persistence.*;");
+        addImportIfNotFound(imports, "import io.quarkus.elytron.security.common.BcryptUtil;");
+
     }
 
     @Override
