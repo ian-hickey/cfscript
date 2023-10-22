@@ -226,9 +226,10 @@ parameterList
 annotation
 	: '@' Identifier '()'
 	| '@' Identifier '(' keyValue? (',' keyValue)* ')'
-	| '@' Identifier '(' staticVariableAccess')'
+	| '@' Identifier '(' staticVariableAccess ')'
 	| '@' Identifier '(' (StringLiteral|CharacterLiteral|NumberLiteral) ')'
 	| '@' Identifier '(' annotationArgument (',' annotationArgument)* ')'
+	| '@' Identifier '(' '{' StringLiteral (',' StringLiteral)* '}' ')'
 	| '@' Identifier
 	;
 
