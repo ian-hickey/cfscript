@@ -44,6 +44,9 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
         addImportIfNotFound(imports, "import org.eclipse.microprofile.config.inject.ConfigProperty;");
         addImportIfNotFound(imports, "import java.io.File;");
         addImportIfNotFound(imports, "import jakarta.persistence.*;");
+        addImportIfNotFound(imports, "import jakarta.enterprise.event.Observes;");
+        addImportIfNotFound(imports, "import jakarta.inject.Singleton;");
+        addImportIfNotFound(imports, "import jakarta.transaction.Transactional;");
         addImportIfNotFound(imports, "import io.quarkus.elytron.security.common.BcryptUtil;");
 
     }
@@ -83,7 +86,6 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
             if (annotation.startsWith("@Path")) {
                 addImportIfNotFound(imports, "import jakarta.ws.rs.*;");
                 addImportIfNotFound(imports, "import jakarta.ws.rs.core.*;");
-                addImportIfNotFound(imports, "import jakarta.transaction.Transactional;");
                 addImportIfNotFound(imports, "import jakarta.validation.Valid;");
                 addImportIfNotFound(imports, "import jakarta.annotation.security.*;");
                 addImportIfNotFound(imports, "import java.net.URI;");
@@ -97,6 +99,7 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
                 addImportIfNotFound(imports, "import io.quarkus.hibernate.orm.panache.*;");
                 addImportIfNotFound(imports, "import io.quarkus.hibernate.orm.panache.common.*;");
                 addImportIfNotFound(imports, "import io.quarkus.security.jpa.*;");
+                addImportIfNotFound(imports, "import com.fasterxml.jackson.annotation.*;");
 
             }else if (annotation.startsWith("@RunOnVirtualThread")) {
                 addImportIfNotFound(imports, "import io.smallrye.common.annotation.RunOnVirtualThread;");
