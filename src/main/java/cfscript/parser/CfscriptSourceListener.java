@@ -89,6 +89,7 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
                 addImportIfNotFound(imports, "import java.net.URI;");
                 addImportIfNotFound(imports, "import java.net.URI;");
                 addImportIfNotFound(imports, "import io.quarkus.panache.common.*;");
+                addImportIfNotFound(imports, "import org.eclipse.microprofile.jwt.JsonWebToken;");
 
             }else if (annotation.startsWith("@Entity")) {
                 addImportIfNotFound(imports, "import jakarta.persistence.*;");

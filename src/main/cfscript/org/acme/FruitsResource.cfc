@@ -20,6 +20,7 @@ component {
     }
 
     @GET
+    @RolesAllowed({"user", "admin"})
     public Response function list() {
         Response.ok(fruits).build();
     }
