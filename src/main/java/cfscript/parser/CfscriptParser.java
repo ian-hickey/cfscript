@@ -3320,26 +3320,22 @@ public class CfscriptParser extends Parser {
 			{
 			setState(576);
 			match(Identifier);
-			setState(577);
-			match(T__12);
-			setState(578);
-			match(Identifier);
-			setState(583);
+			setState(579); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__12) {
+			do {
 				{
 				{
-				setState(579);
+				setState(577);
 				match(T__12);
-				setState(580);
+				setState(578);
 				match(Identifier);
 				}
 				}
-				setState(585);
+				setState(581); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			}
+			} while ( _la==T__12 );
 			}
 		}
 		catch (RecognitionException re) {
@@ -3359,6 +3355,9 @@ public class CfscriptParser extends Parser {
 			return getRuleContext(KeyValueContext.class,0);
 		}
 		public TerminalNode NumberLiteral() { return getToken(CfscriptParser.NumberLiteral, 0); }
+		public AnnotationArgumentContext annotationArgument() {
+			return getRuleContext(AnnotationArgumentContext.class,0);
+		}
 		public AnnotationArgumentContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -3377,40 +3376,44 @@ public class CfscriptParser extends Parser {
 		AnnotationArgumentContext _localctx = new AnnotationArgumentContext(_ctx, getState());
 		enterRule(_localctx, 72, RULE_annotationArgument);
 		try {
-			setState(593);
+			setState(591);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,58,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(586);
+				setState(583);
 				match(Identifier);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(587);
+				setState(584);
 				match(Identifier);
-				setState(588);
+				setState(585);
 				match(T__7);
-				setState(591);
+				setState(589);
 				_errHandler.sync(this);
-				switch (_input.LA(1)) {
-				case Identifier:
+				switch ( getInterpreter().adaptivePredict(_input,57,_ctx) ) {
+				case 1:
 					{
-					setState(589);
+					setState(586);
 					keyValue();
 					}
 					break;
-				case NumberLiteral:
+				case 2:
 					{
-					setState(590);
+					setState(587);
 					match(NumberLiteral);
 					}
 					break;
-				default:
-					throw new NoViableAltException(this);
+				case 3:
+					{
+					setState(588);
+					annotationArgument();
+					}
+					break;
 				}
 				}
 				break;
@@ -3435,6 +3438,9 @@ public class CfscriptParser extends Parser {
 		public BooleanLiteralContext booleanLiteral() {
 			return getRuleContext(BooleanLiteralContext.class,0);
 		}
+		public StaticVariableAccessContext staticVariableAccess() {
+			return getRuleContext(StaticVariableAccessContext.class,0);
+		}
 		public AnnotationContext annotation() {
 			return getRuleContext(AnnotationContext.class,0);
 		}
@@ -3458,41 +3464,47 @@ public class CfscriptParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(595);
+			setState(593);
 			match(Identifier);
-			setState(596);
+			setState(594);
 			match(T__7);
-			setState(602);
+			setState(601);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case StringLiteral:
 				{
-				setState(597);
+				setState(595);
 				match(StringLiteral);
 				}
 				break;
 			case CharacterLiteral:
 				{
-				setState(598);
+				setState(596);
 				match(CharacterLiteral);
 				}
 				break;
 			case NumberLiteral:
 				{
-				setState(599);
+				setState(597);
 				match(NumberLiteral);
 				}
 				break;
 			case K_True:
 			case K_False:
 				{
-				setState(600);
+				setState(598);
 				booleanLiteral();
+				}
+				break;
+			case Identifier:
+				{
+				setState(599);
+				staticVariableAccess();
 				}
 				break;
 			case T__32:
 				{
-				setState(601);
+				setState(600);
 				annotation();
 				}
 				break;
@@ -3536,7 +3548,7 @@ public class CfscriptParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(604);
+			setState(603);
 			_la = _input.LA(1);
 			if ( !(_la==K_True || _la==K_False) ) {
 			_errHandler.recoverInline(this);
@@ -3581,7 +3593,7 @@ public class CfscriptParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(606);
+			setState(605);
 			_la = _input.LA(1);
 			if ( !(_la==T__7 || _la==T__27) ) {
 			_errHandler.recoverInline(this);
@@ -3663,7 +3675,7 @@ public class CfscriptParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3H\u0263\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3H\u0262\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
@@ -3705,12 +3717,12 @@ public class CfscriptParser extends Parser {
 		"\n#\f#\16#\u0206\13#\3$\3$\3$\3$\3$\3$\3$\5$\u020f\n$\3$\3$\7$\u0213\n"+
 		"$\f$\16$\u0216\13$\3$\3$\3$\3$\3$\3$\3$\3$\3$\3$\3$\3$\3$\3$\3$\3$\3$"+
 		"\3$\7$\u022a\n$\f$\16$\u022d\13$\3$\3$\3$\3$\3$\3$\3$\3$\3$\7$\u0238\n"+
-		"$\f$\16$\u023b\13$\3$\3$\3$\3$\5$\u0241\n$\3%\3%\3%\3%\3%\7%\u0248\n%"+
-		"\f%\16%\u024b\13%\3&\3&\3&\3&\3&\5&\u0252\n&\5&\u0254\n&\3\'\3\'\3\'\3"+
-		"\'\3\'\3\'\3\'\5\'\u025d\n\'\3(\3(\3)\3)\3)\2\4.:*\2\4\6\b\n\f\16\20\22"+
+		"$\f$\16$\u023b\13$\3$\3$\3$\3$\5$\u0241\n$\3%\3%\3%\6%\u0246\n%\r%\16"+
+		"%\u0247\3&\3&\3&\3&\3&\3&\5&\u0250\n&\5&\u0252\n&\3\'\3\'\3\'\3\'\3\'"+
+		"\3\'\3\'\3\'\5\'\u025c\n\'\3(\3(\3)\3)\3)\2\4.:*\2\4\6\b\n\f\16\20\22"+
 		"\24\26\30\32\34\36 \"$&(*,.\60\62\64\668:<>@BDFHJLNP\2\r\5\2*-//DD\4\2"+
 		"\13\f>>\4\2?@BB\3\2\13\f\3\2\22\23\3\2\24\26\3\2\20\21\5\2%\64\66<DD\3"+
-		"\2?@\3\2:;\4\2\n\n\36\36\2\u02a4\2R\3\2\2\2\4[\3\2\2\2\6h\3\2\2\2\bn\3"+
+		"\2?@\3\2:;\4\2\n\n\36\36\2\u02a5\2R\3\2\2\2\4[\3\2\2\2\6h\3\2\2\2\bn\3"+
 		"\2\2\2\n\u0087\3\2\2\2\f\u008c\3\2\2\2\16\u0094\3\2\2\2\20\u009c\3\2\2"+
 		"\2\22\u00aa\3\2\2\2\24\u00af\3\2\2\2\26\u00bd\3\2\2\2\30\u00bf\3\2\2\2"+
 		"\32\u00d0\3\2\2\2\34\u00d2\3\2\2\2\36\u00d8\3\2\2\2 \u00e1\3\2\2\2\"\u00e9"+
@@ -3718,7 +3730,7 @@ public class CfscriptParser extends Parser {
 		"\u0127\3\2\2\2.\u0134\3\2\2\2\60\u0188\3\2\2\2\62\u018a\3\2\2\2\64\u01a9"+
 		"\3\2\2\2\66\u01b2\3\2\2\28\u01b4\3\2\2\2:\u01b6\3\2\2\2<\u01c6\3\2\2\2"+
 		">\u01dd\3\2\2\2@\u01f1\3\2\2\2B\u01fd\3\2\2\2D\u01ff\3\2\2\2F\u0240\3"+
-		"\2\2\2H\u0242\3\2\2\2J\u0253\3\2\2\2L\u0255\3\2\2\2N\u025e\3\2\2\2P\u0260"+
+		"\2\2\2H\u0242\3\2\2\2J\u0251\3\2\2\2L\u0253\3\2\2\2N\u025d\3\2\2\2P\u025f"+
 		"\3\2\2\2RS\5\4\3\2ST\7\3\2\2TU\5\6\4\2UV\7\4\2\2VW\7\2\2\3W\3\3\2\2\2"+
 		"XZ\5F$\2YX\3\2\2\2Z]\3\2\2\2[Y\3\2\2\2[\\\3\2\2\2\\^\3\2\2\2][\3\2\2\2"+
 		"^b\7-\2\2_a\5L\'\2`_\3\2\2\2ad\3\2\2\2b`\3\2\2\2bc\3\2\2\2c\5\3\2\2\2"+
@@ -3877,22 +3889,22 @@ public class CfscriptParser extends Parser {
 		"\3\2\2\2\u023b\u0239\3\2\2\2\u023c\u023d\7\4\2\2\u023d\u0241\7\b\2\2\u023e"+
 		"\u023f\7#\2\2\u023f\u0241\7D\2\2\u0240\u0207\3\2\2\2\u0240\u020a\3\2\2"+
 		"\2\u0240\u0218\3\2\2\2\u0240\u021e\3\2\2\2\u0240\u0223\3\2\2\2\u0240\u0230"+
-		"\3\2\2\2\u0240\u023e\3\2\2\2\u0241G\3\2\2\2\u0242\u0243\7D\2\2\u0243\u0244"+
-		"\7\17\2\2\u0244\u0249\7D\2\2\u0245\u0246\7\17\2\2\u0246\u0248\7D\2\2\u0247"+
-		"\u0245\3\2\2\2\u0248\u024b\3\2\2\2\u0249\u0247\3\2\2\2\u0249\u024a\3\2"+
-		"\2\2\u024aI\3\2\2\2\u024b\u0249\3\2\2\2\u024c\u0254\7D\2\2\u024d\u024e"+
-		"\7D\2\2\u024e\u0251\7\n\2\2\u024f\u0252\5L\'\2\u0250\u0252\7B\2\2\u0251"+
-		"\u024f\3\2\2\2\u0251\u0250\3\2\2\2\u0252\u0254\3\2\2\2\u0253\u024c\3\2"+
-		"\2\2\u0253\u024d\3\2\2\2\u0254K\3\2\2\2\u0255\u0256\7D\2\2\u0256\u025c"+
-		"\7\n\2\2\u0257\u025d\7@\2\2\u0258\u025d\7?\2\2\u0259\u025d\7B\2\2\u025a"+
-		"\u025d\5N(\2\u025b\u025d\5F$\2\u025c\u0257\3\2\2\2\u025c\u0258\3\2\2\2"+
-		"\u025c\u0259\3\2\2\2\u025c\u025a\3\2\2\2\u025c\u025b\3\2\2\2\u025dM\3"+
-		"\2\2\2\u025e\u025f\t\13\2\2\u025fO\3\2\2\2\u0260\u0261\t\f\2\2\u0261Q"+
-		"\3\2\2\2>[bhns|\u0083\u0087\u008c\u0094\u0097\u00a4\u00aa\u00af\u00b3"+
+		"\3\2\2\2\u0240\u023e\3\2\2\2\u0241G\3\2\2\2\u0242\u0245\7D\2\2\u0243\u0244"+
+		"\7\17\2\2\u0244\u0246\7D\2\2\u0245\u0243\3\2\2\2\u0246\u0247\3\2\2\2\u0247"+
+		"\u0245\3\2\2\2\u0247\u0248\3\2\2\2\u0248I\3\2\2\2\u0249\u0252\7D\2\2\u024a"+
+		"\u024b\7D\2\2\u024b\u024f\7\n\2\2\u024c\u0250\5L\'\2\u024d\u0250\7B\2"+
+		"\2\u024e\u0250\5J&\2\u024f\u024c\3\2\2\2\u024f\u024d\3\2\2\2\u024f\u024e"+
+		"\3\2\2\2\u0250\u0252\3\2\2\2\u0251\u0249\3\2\2\2\u0251\u024a\3\2\2\2\u0252"+
+		"K\3\2\2\2\u0253\u0254\7D\2\2\u0254\u025b\7\n\2\2\u0255\u025c\7@\2\2\u0256"+
+		"\u025c\7?\2\2\u0257\u025c\7B\2\2\u0258\u025c\5N(\2\u0259\u025c\5H%\2\u025a"+
+		"\u025c\5F$\2\u025b\u0255\3\2\2\2\u025b\u0256\3\2\2\2\u025b\u0257\3\2\2"+
+		"\2\u025b\u0258\3\2\2\2\u025b\u0259\3\2\2\2\u025b\u025a\3\2\2\2\u025cM"+
+		"\3\2\2\2\u025d\u025e\t\13\2\2\u025eO\3\2\2\2\u025f\u0260\t\f\2\2\u0260"+
+		"Q\3\2\2\2>[bhns|\u0083\u0087\u008c\u0094\u0097\u00a4\u00aa\u00af\u00b3"+
 		"\u00b6\u00bb\u00c3\u00d0\u00db\u00e3\u00eb\u00f8\u00fd\u0103\u011c\u0134"+
 		"\u0141\u014b\u0153\u017c\u017e\u0188\u018f\u0195\u01a4\u01a9\u01b2\u01c1"+
 		"\u01c3\u01cc\u01d2\u01d6\u01d9\u01dd\u01ea\u01ed\u01f1\u01f5\u01fd\u0204"+
-		"\u020e\u0214\u022b\u0239\u0240\u0249\u0251\u0253\u025c";
+		"\u020e\u0214\u022b\u0239\u0240\u0247\u024f\u0251\u025b";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

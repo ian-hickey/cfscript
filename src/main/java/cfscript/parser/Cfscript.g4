@@ -234,16 +234,16 @@ annotation
 	;
 
 staticVariableAccess
-    : Identifier '.' Identifier ('.' Identifier)*
+    : Identifier ('.' Identifier)+  // Adjusted to ensure there's at least one '.' and Identifier
     ;
 
 annotationArgument
     : Identifier
-	| Identifier '=' (keyValue|NumberLiteral)
-	;
+    | Identifier '=' (keyValue|NumberLiteral|annotationArgument)
+    ;
 
 keyValue
-	: Identifier '=' (StringLiteral|CharacterLiteral|NumberLiteral|booleanLiteral|annotation)
+	: Identifier '=' (StringLiteral|CharacterLiteral|NumberLiteral|booleanLiteral|staticVariableAccess|annotation)
 	;
 
 booleanLiteral
