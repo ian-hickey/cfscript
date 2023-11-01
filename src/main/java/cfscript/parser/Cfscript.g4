@@ -15,7 +15,15 @@ component
 	;
 
 componentDefinition
-    : (annotation)* K_Component keyValue*
+    : (imports)* (annotation)* K_Component keyValue*
+    ;
+
+imports
+    : K_Import packagePath ('.' '*')? ';'
+    ;
+
+packagePath
+    : Identifier ('.' Identifier)*
     ;
 
 componentBody
@@ -282,6 +290,8 @@ K_True : ('t'|'T')('r'|'R')('u'|'U')('e'|'E');
 K_False : ('f'|'F')('a'|'A')('l'|'L')('s'|'S')('e'|'E');
 K_New : ('n'|'N')('e'|'E')('w'|'W');
 K_In : ('i'|'I')('n'|'N');
+K_Import : ('i'|'I')('m'|'M')('p'|'P')('o'|'O')('r'|'R')('t'|'T');
+
 STRING_CONCAT_CHAR : '&';
 
 CharacterLiteral
@@ -348,3 +358,4 @@ JAVADOC
 ML_COMMENT
     :   '/*' (.)*? '*/' -> channel(HIDDEN)
     ;
+
