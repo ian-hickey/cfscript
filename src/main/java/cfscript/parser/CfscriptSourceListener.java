@@ -74,8 +74,14 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
         findComponentName(ctx);
         String extendClass = findExtends(ctx);
         var newComponentText = "public class " + this.componentName + " ";
-        var annotation = "";
+
         // Translate CFScript component to Java class
+        for (var importStm : ctx.imports()) {
+           System.out.println("Import Stm: " + importStm.getText());
+           addImportIfNotFound(imports, importStm.getText().replaceFirst("import", "import "));
+        }
+
+        var annotation = "";
         for (var id : ctx.annotation()) {
             annotation = id.getText();
             // handle imports.

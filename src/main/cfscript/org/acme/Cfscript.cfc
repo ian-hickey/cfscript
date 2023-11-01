@@ -1,3 +1,12 @@
+
+/**
+ * Handle imports
+ */
+import org.acme.model.Product;
+import org.acme.model.User;
+import org.acme.service.*;
+
+
 /*
   This test component represents a basic cfscript component.
   Others, will represent entities and REST controllers.
