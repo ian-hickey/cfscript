@@ -37,16 +37,13 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
         addImportIfNotFound(imports, "import java.util.*;");
         addImportIfNotFound(imports, "import java.lang.*;");
         addImportIfNotFound(imports, "import io.quarkus.qute.*;"); // Qute Template Library
-        addImportIfNotFound(imports, "import io.quarkus.mailer.Mailer;");
+        addImportIfNotFound(imports, "import io.quarkus.mailer.*;");
         addImportIfNotFound(imports, "import io.quarkus.logging.Log;"); // Simplified Logging
+        addImportIfNotFound(imports, "import io.quarkus.runtime.*;"); // startup event
         addImportIfNotFound(imports, "import static cfscript.library.StdLib.*;"); // Cfscript STD functions like len and isNull.
-        addImportIfNotFound(imports, "import jakarta.enterprise.context.*;"); // Handle Application, Singleton and Request Scopes
-        addImportIfNotFound(imports, "import org.eclipse.microprofile.config.inject.ConfigProperty;");
         addImportIfNotFound(imports, "import java.io.File;");
         addImportIfNotFound(imports, "import jakarta.persistence.*;");
         addImportIfNotFound(imports, "import jakarta.enterprise.event.Observes;");
-        addImportIfNotFound(imports, "import jakarta.inject.Singleton;");
-        addImportIfNotFound(imports, "import jakarta.transaction.Transactional;");
         addImportIfNotFound(imports, "import io.quarkus.elytron.security.common.BcryptUtil;");
 
     }
@@ -80,7 +77,6 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
         var annotation = "";
         // Translate CFScript component to Java class
         for (var id : ctx.annotation()) {
-            // if the return value
             annotation = id.getText();
             // handle imports.
             if (annotation.startsWith("@Path")) {
@@ -100,12 +96,21 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
                 addImportIfNotFound(imports, "import io.quarkus.hibernate.orm.panache.common.*;");
                 addImportIfNotFound(imports, "import io.quarkus.security.jpa.*;");
                 addImportIfNotFound(imports, "import com.fasterxml.jackson.annotation.*;");
-
+                addImportIfNotFound(imports,
+                        "import org.hibernate.search.mapper.pojo.mapping.definition.annotation.*;");
+                addImportIfNotFound(imports, "import org.hibernate.search.engine.backend.types.Sortable;");
             }else if (annotation.startsWith("@RunOnVirtualThread")) {
                 addImportIfNotFound(imports, "import io.smallrye.common.annotation.RunOnVirtualThread;");
             }else if (annotation.startsWith("@NonBlocking")) {
                 addImportIfNotFound(imports, "import io.smallrye.common.annotation.NonBlocking;");
+            }else if (annotation.startsWith("@Transactional")) {
+                addImportIfNotFound(imports, "import jakarta.transaction.Transactional;");
+            }else if (annotation.startsWith("@Singleton")) {
+                addImportIfNotFound(imports, "import jakarta.inject.Singleton;");
+            }else if (annotation.startsWith("@ApplicationScoped") || annotation.startsWith("@RequestScoped")) {
+                addImportIfNotFound(imports, "import jakarta.enterprise.context.*;");
             }
+
             newComponentText = annotation + "\n" + newComponentText;
         }
 
@@ -222,7 +227,6 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
         StringBuilder property = new StringBuilder();
         var symbol = symbolTable.getSymbol(propertyName);
 
-        //System.out.println("Found symbol for property " + symbol.getDeclaredType());
         // Handle declared first.
         // Strip the quotes around the value. Add them back in for field string type.
         if (propertyValue != null) {
@@ -239,7 +243,13 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
                 property = new StringBuilder("HashMap<String, Object> " + propertyName + " = new HashMap<>();");
             }
             else if (symbol.getDeclaredType().equalsIgnoreCase("mailer")) {
-                property = new StringBuilder("Mailer " + propertyName + (propertyValue != null ? "=" + propertyValue + ";" : ";"));
+                property = new StringBuilder("Mailer " + propertyName + ";");
+            }
+            else if (symbol.getDeclaredType().equalsIgnoreCase("entitymanager")) {
+                property = new StringBuilder("EntityManager " + propertyName + ";");
+            }
+            else if (symbol.getDeclaredType().equalsIgnoreCase("jsonwebtoken")) {
+                property = new StringBuilder("JsonWebToken " + propertyName + ";");
             }
             else if (symbol.getDeclaredType().equalsIgnoreCase("numeric") &&
                     symbol.getInferredType() != null) {
@@ -259,6 +269,9 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
             }
             else if (symbol.getDeclaredType().equalsIgnoreCase("string")) {
                 property = new StringBuilder("String %s%s".formatted(propertyName, propertyValue != null ? "=\"" + propertyValue + "\";" : ";"));
+            }
+            else if (symbol.getDeclaredType().equalsIgnoreCase("uuid")) {
+                property = new StringBuilder("UUID %s%s".formatted(propertyName, propertyValue != null ? "=\"" + propertyValue + "\";" : ";"));
             }
             else{
                 // use the declared type directly.
@@ -299,10 +312,8 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
             // Add imports
             if (annotation.startsWith("@Inject")) {
                 addImportIfNotFound(imports, "import jakarta.inject.Inject;");
-            }else if (annotation.startsWith("@Produces") || annotation.startsWith("@Consumes")) {
-                addImportIfNotFound(imports, "import jakarta.ws.rs.core.*;");
-                //addImportIfNotFound(imports,
-                //        "import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;");
+            }else if(annotation.startsWith("@ConfigProperty")) {
+                addImportIfNotFound(imports, "import org.eclipse.microprofile.config.inject.ConfigProperty;");
             }
         }
         rewriter.replace(ctx.start, ctx.stop, property.toString());
@@ -341,6 +352,8 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
                 addImportIfNotFound(imports, "import io.smallrye.common.annotation.RunOnVirtualThread;");
             }else if (annotation.startsWith("@NonBlocking")) {
                 addImportIfNotFound(imports, "import io.smallrye.common.annotation.NonBlocking;");
+            }else if (annotation.startsWith("@Transactional")) {
+                addImportIfNotFound(imports, "import jakarta.transaction.Transactional;");
             }
         }
     }
@@ -351,6 +364,7 @@ public class CfscriptSourceListener extends CfscriptBaseListener {
         this.context = "function";
         // TODO: Check if this is a constructor and handle
         var functionName = ctx.functionName().getText();
+        System.out.println("Entered FunctionDeclaration: " + functionName);
         var functionScope=(symbolTable.get(functionName).getScope().name().equals("Public") ? "public" : "");
         var functionReturn="void";
         var isConstructor = false;
