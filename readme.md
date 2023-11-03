@@ -1,118 +1,49 @@
 
-# Dark Matter
-_The glue that binds the universe_
-
-There are a number of moving parts in this framework:
+# Dark Matter Script Parser
 
 Parser for DMscript, a language based on (a subset of) cfscript that generates Java from CFscript.
 The language is based on cfscript but does not
 implement the entire (or even most of) the api.
-The add native annotations to the components
-methods, and properties. We don't use cfscript scopes (arguments, variables)
-and instead favor Java scoping rules (this keyword).
-We do implement most String (len), List (listLen), and Array (arrayAppend) methods.
 
-Most of your favorite APIs are missing and replaced with something else.
-However. If you do try it out was you get is a powerful, fast, and feature rich
-modern development experience. How fast? Try, fraction of a second startup, built in
-server, no configuration dev profiles, built in application metrics. And it will
-feel like second nature to anyone who already knows cfscript.
+## How to use this project
 
-There are a few key differences:
-We favor annotations over attributes for most things.
-Arrays are 0 based
-Struct access uses str["key"] notation, and not str.key notation.  * future release
-For struct you can use the default methods available on the struct (getKey(), isEmpty() etc)
-There is no ## based string interpolation. * future release
-String concat happens using + not &
-The component name defaults to the file, but you can overwrite that using name="ComponentName"
+To build this project, execute `mvn install` which compiles and bundles this project to a jar file located
+in the ./target directory.
 
-## Logging
-You can log from anywhere using Log class.
+### org.ionatomics.Main
 
-` Log.info("Simple!"); `
+You run this class to test the parsers using the dmscript/cfscript code located in the cfscript directory.
+Note that once Main has compiled a file to java, it stores a checksum in checksums.txt and will only regenerate that
+file once it has changed. Delete the checksums text to regenerate all of them.
 
-#### Log Levels
-* OFF
-A special level to use in configuration in order to turn off logging.
+### cfscript.object.parser
 
-* FATAL
-A critical service failure or complete inability to service requests of any kind.
+This directory handles the struct and array parser. Because these objects are complex, I've simplified the 
+logic for the main parser by keeping this separate. At some point, it should be folded back into the main parser.
 
-* ERROR
-A significant disruption in a request or the inability to service a request.
-
-* WARN
-A non-critical service error or problem that may not require immediate correction.
-
-* INFO
-Service lifecycle events or important related very low-frequency information.
-
-* DEBUG
-Messages that convey extra information regarding lifecycle or non-request-bound events, useful for debugging.
-
-* TRACE
-Messages that convey extra per-request debugging information that may be very high frequency.
-
-* ALL
-A special level to use in configuration to turn on logging for all messages, including custom levels.
+Files of note: 
+* Object.g4 This is the grammar for the struct and array 'language'. This grammar is used by Antlr4 to generate the parser.
+* ObjectCustomListener contains out custom listener methods.
 
 
-There are main decisions made during this process:
-We use JSON-B and quarkus-resteasy-jsonb extension
+### cfscript.parser
 
-We import:
-jakarta.ws.rs.* (in anything annotated with Path)
-java.util.* 
-java.lang.*
-cfscript.library.StdLib which contains (case-sensitive Cfscript library methods such as arrayLen and trim.)
+This directory handles the language parser. The language is a subset of Cfscript with Java annotations added to the
+language. In does not handle hash mark interpolation (IE "#1+1#") and does not handle any sort of coldfusion tags.
 
-ORM:
-We use application.properties to configure it.
+Files of note:
+* Object.g4 This is the grammar for the struct and array 'language'. This grammar is used by Antlr4 to generate the parser.
+* ObjectSourceListener contains out custom listener methods (enterComponentDefinition, enterArgumentDefinition, etc).
 
+### Antlr4
 
-Annotate entities with @Entity
-io.quarkus:quarkus-hibernate-orm is the extension
+You will need an antlr4 plugin if you want code coloring and syntax highlights on the .g4 grammar file. We use
+Intellij Idea with the Antlr4 IDE plugin which allows you to view the parse tree for the grammar on some actual code.
+This is super helpful when adding new features to the grammar.
+![Alternative Text](antlr4-preview.png)
 
-Use a DB option:
-quarkus-jdbc-db2 for IBM DB2
-quarkus-jdbc-derby for Apache Derby
-quarkus-jdbc-h2 for H2
-quarkus-jdbc-mariadb for MariaDB
-quarkus-jdbc-mssql for Microsoft SQL Server
-quarkus-jdbc-mysql for MySQL
-quarkus-jdbc-oracle for Oracle Database
-quarkus-jdbc-postgresql for PostgreSQL
-
-application.properties example:
-## datasource configuration
-quarkus.datasource.db-kind = postgresql
-quarkus.datasource.username = hibernate
-quarkus.datasource.password = hibernate
-quarkus.datasource.jdbc.url = jdbc:postgresql://localhost:5432/hibernate_db
-
-### drop and create the database at startup (use `update` to only update the schema)
-quarkus.hibernate-orm.database.generation=drop-and-create
-
-POM:
-<!-- Hibernate ORM specific dependencies -->
-<dependency>
-    <groupId>io.quarkus</groupId>
-    <artifactId>quarkus-hibernate-orm</artifactId>
-</dependency>
-
-<!-- JDBC driver dependencies -->
-<dependency>
-    <groupId>io.quarkus</groupId>
-    <artifactId>quarkus-jdbc-postgresql</artifactId>
-</dependency>
-
-
-Services should be annotated with @ApplicationScope.
-@ApplicationScoped
-public class SomeService { }
-
-## Annotation List
-
+When a syntax error occurs, you can see where in the parse tree it breaking down. I'll add examples of implementing
+features in this grammar and generating the parser. The new parser files are generated anytime a change is made to
+the grammar and `mvn compile` or `mvn install` is run. Compile, builds the grammar files and install generates the jar.
 
 
