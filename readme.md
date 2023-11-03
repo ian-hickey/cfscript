@@ -1,4 +1,7 @@
 
+<img src="darkmatter-logo2.png" width="400" height="400">
+
+
 # Dark Matter Script Parser
 
 Parser for DMscript, a language based on (a subset of) cfscript that generates Java from CFscript.
@@ -40,7 +43,7 @@ Files of note:
 You will need an antlr4 plugin if you want code coloring and syntax highlights on the .g4 grammar file. We use
 Intellij Idea with the Antlr4 IDE plugin which allows you to view the parse tree for the grammar on some actual code.
 This is super helpful when adding new features to the grammar.
-![Alternative Text](antlr4-preview.png)
+![Antlr4 parse tree preview](antlr4-preview.png)
 
 When a syntax error occurs, you can see where in the parse tree it breaking down. I'll add examples of implementing
 features in this grammar and generating the parser. The new parser files are generated anytime a change is made to
